@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixie Gallery | تابلوهای طرح‌دار قاب‌شده</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700&family=Lalezar&display=swap" rel="stylesheet">
+<style>
+:root {
+  --wall: #dde3e6;
+  --ink: #1b2530;
+  --wood: #111418;
+  --wood2: #000;
+  --teal: #2f6f6a;
+  --brass: #b8893b;
+  --paper: #f7f8f8;
+  --line: #c3ccd1
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%
+}
+
+body {
+  font-family: 'Baloo Bhaijaan 2', Lalezar, Tahoma, sans-serif;
+  background: var(--wall);
+  color: var(--ink);
+  line-height: 1.9;
+  font-size: 16px;
+  overflow-x: hidden
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Baloo Bhaijaan 2', Lalezar, Tahoma, sans-serif;
+  font-weight: 700;
+  line-height: 1.5
+}
+
+a {
+  color: inherit
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px 16px;
+  flex-wrap: wrap;
+  padding: 18px 0
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 26px;
+  text-decoration: none;
+  direction: ltr;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px
+}
+
+.logo .mark {
+  width: 28px;
+  height: 40px;
+  flex-shrink: 0
+}
+
+.hnav {
+  display: flex;
+  align-items: center;
+  gap: 6px 20px;
+  flex-wrap: wrap
+}
+
+.hnav a {
+  text-decoration: none;
+  font-size: 15px
+}
+
+.hnav a:hover,
+.btn:hover {
+  text-decoration: underline
+}
+
+.cartbtn {
+  background: none;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+  border-radius: 4px;
+  padding: 2px 14px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px
+}
+
+.cartbtn b {
+  display: inline-block;
+  min-width: 22px;
+  margin-inline-start: 6px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 11px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 22px
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+  padding: 30px 0 60px
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 56px)
+}
+
+.hero p {
+  margin: 14px 0 24px;
+  max-width: 46ch
+}
+
+.hero-btns {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap
+}
+
+.btn {
+  display: inline-block;
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer
+}
+
+.btn.alt {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  margin-inline-start: 10px
+}
+
+:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px
+}
+
+.wall {
+  position: relative;
+  height: 380px
+}
+
+.frame {
+  position: absolute;
+  background: var(--wood);
+  border: 9px solid var(--wood);
+  box-shadow: inset 0 0 0 2px var(--wood2), 6px 10px 18px rgba(27, 37, 48, .28)
+}
+
+.frame > .mat {
+  width: 100%;
+  height: 100%;
+  background: var(--paper);
+  padding: 12%
+}
+
+.art {
+  width: 100%;
+  height: 100%;
+  overflow: hidden
+}
+
+.art svg {
+  display: block;
+  width: 100%;
+  height: 100%
+}
+
+.art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+
+.f1 {
+  width: 46%;
+  height: 70%;
+  top: 6%;
+  right: 4%
+}
+
+.f2 {
+  width: 30%;
+  height: 42%;
+  top: 0;
+  left: 8%
+}
+
+.f3 {
+  width: 34%;
+  height: 30%;
+  bottom: 2%;
+  left: 2%
+}
+
+section {
+  padding: 50px 0
+}
+
+section h2 {
+  font-size: 32px;
+  margin-bottom: 6px
+}
+
+#products h2 {
+  margin-bottom: 26px
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 34px 26px
+}
+
+.item {
+  min-width: 0;
+  display: flex;
+  flex-direction: column
+}
+
+.item .box {
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, .35)
+}
+
+.item .frame {
+  position: relative;
+  width: 62%;
+  height: 74%;
+  border-width: 8px
+}
+
+.item h3 {
+  font-size: 20px;
+  margin-top: 12px
+}
+
+.meta {
+  font-size: 14px;
+  color: #4b5963
+}
+
+.price {
+  font-weight: 600;
+  margin: 4px 0 10px
+}
+
+.item .btn {
+  padding: 7px 16px;
+  font-size: 14px;
+  margin-top: auto;
+  align-self: flex-start
+}
+
+.item .btn.added {
+  background: var(--teal)
+}
+
+.contact {
+  background: var(--ink);
+  color: #fff
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 24px
+}
+
+.card {
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 6px;
+  padding: 20px;
+  display: grid;
+  gap: 4px;
+  text-decoration: none;
+  min-width: 0
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, .08)
+}
+
+.card b {
+  font-size: 18px
+}
+
+.card a {
+  text-decoration: none;
+  display: block
+}
+
+.card a:hover span {
+  text-decoration: underline
+}
+
+.card span {
+  direction: ltr;
+  text-align: right;
+  font-size: 15px;
+  opacity: .9;
+  overflow-wrap: anywhere
+}
+
+.trust {
+  text-align: center
+}
+
+.trust .slot {
+  margin: 18px auto 0;
+  width: 150px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--line);
+  border-radius: 6px;
+  font-size: 14px;
+  color: #4b5963;
+  padding: 10px
+}
+
+footer {
+  padding: 24px 0;
+  font-size: 14px;
+  text-align: center;
+  border-top: 1px solid var(--line)
+}
+
+/* سبد خرید */
+
+.shade {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s;
+  z-index: 50
+}
+
+.cart {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(380px, 100%);
+  background: #fff;
+  z-index: 60;
+  transform: translateX(-100%);
+  transition: transform .25s;
+  display: flex;
+  flex-direction: column;
+  padding: 18px
+}
+
+body.cart-open .shade {
+  opacity: 1;
+  pointer-events: auto
+}
+
+body.cart-open .cart {
+  transform: none
+}
+
+.cart h2 {
+  font-size: 22px;
+  margin-bottom: 10px
+}
+
+.lines {
+  flex: 1;
+  overflow: auto
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px
+}
+
+.line small {
+  display: block;
+  color: #4b5963
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0
+}
+
+.qty button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--ink);
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px
+}
+
+.empty {
+  padding: 24px 0;
+  color: #4b5963
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  padding: 14px 0
+}
+
+.cart .btn {
+  text-align: center;
+  width: 100%;
+  margin-top: 8px
+}
+
+.cart .btn.alt {
+  margin-inline-start: 0
+}
+
+/* انیمیشن دکمه‌ها */
+
+.btn,
+.cartbtn,
+.qty button {
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), box-shadow .2s, background-color .2s, color .2s
+}
+
+.btn:hover,
+.cartbtn:hover,
+.qty button:hover,
+.btn:active,
+.cartbtn:active,
+.qty button:active {
+  transform: scale(1.08);
+  box-shadow: 0 8px 18px rgba(27, 37, 48, .28)
+}
+
+.btn:active,
+.cartbtn:active,
+.qty button:active {
+  transform: scale(1.14)
+}
+
+.btn:not(.alt):hover {
+  background: var(--teal)
+}
+
+.btn.alt:hover,
+.cartbtn:hover {
+  background: var(--ink);
+  color: #fff
+}
+
+.cartbtn:hover b {
+  background: #fff;
+  color: var(--ink)
+}
+
+.card {
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), background-color .3s, box-shadow .35s, border-color .3s
+}
+
+.card:hover,
+.card:active {
+  transform: translateY(-8px) scale(1.05);
+  background: rgba(255, 255, 255, .12);
+  border-color: #e8b86a;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, .4)
+}
+
+.card:active {
+  transform: translateY(-4px) scale(1.09)
+}
+
+.card b {
+  transition: color .25s
+}
+
+.card:hover b {
+  color: #e8b86a
+}
+
+.card a span,
+a.card span {
+  display: inline-block;
+  transform-origin: right center;
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), color .2s
+}
+
+.card a:hover span,
+.card a:active span,
+a.card:hover span {
+  transform: scale(1.1);
+  color: #e8b86a;
+  text-decoration: none
+}
+
+.contact h2,
+.contact p {
+  transition: color .25s
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1)
+  }
+
+  40% {
+    transform: scale(1.18)
+  }
+
+  100% {
+    transform: scale(1)
+  }
+}
+
+.pop {
+  animation: pop .35s ease
+}
+
+/* افکت ظاهر شدن هنگام اسکرول */
+
+.rv {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1)
+}
+
+.rv.in {
+  opacity: 1;
+  transform: none
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv {
+    opacity: 1;
+    transform: none;
+    transition: none
+  }
+
+  .btn,
+  .cartbtn,
+  .qty button,
+  .card,
+  .card b,
+  .card a span,
+  a.card span {
+    transition: none
+  }
+
+  .pop {
+    animation: none
+  }
+}
+
+/* انیمیشن لینک‌های منو */
+
+.hnav a {
+  position: relative;
+  padding: 2px 2px;
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), color .2s
+}
+
+.hnav a::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--teal);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .25s
+}
+
+.hnav a:hover,
+.hnav a:active {
+  transform: scale(1.12);
+  color: var(--teal);
+  text-decoration: none
+}
+
+.hnav a:hover::after,
+.hnav a:active::after {
+  transform: scaleX(1)
+}
+
+/* افکت روی محصول */
+
+.item .box,
+.item .frame,
+.item .art svg,
+.item h3 {
+  transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s, background-color .35s, color .25s
+}
+
+.item:hover .box,
+.item:active .box {
+  background: rgba(255, 255, 255, .7)
+}
+
+.item:hover .frame,
+.item:active .frame {
+  transform: translateY(-8px) scale(1.06);
+  box-shadow: inset 0 0 0 2px var(--wood2), 10px 20px 30px rgba(27, 37, 48, .38)
+}
+
+.item:active .frame {
+  transform: translateY(-4px) scale(1.1)
+}
+
+.item:hover .art svg,
+.item:hover .art img {
+  transform: scale(1.08)
+}
+
+.item:hover h3 {
+  color: var(--teal)
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hnav a,
+  .hnav a::after,
+  .item .box,
+  .item .frame,
+  .item .art svg,
+  .item h3 {
+    transition: none
+  }
+}
+
+/* ریسپانسیو */
+
+@media (max-width: 800px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-bottom: 30px
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px 14px
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr
+  }
+
+  .wall {
+    height: 300px
+  }
+
+  section {
+    padding: 36px 0
+  }
+
+  section h2 {
+    font-size: 26px
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 0 16px
+  }
+
+  header {
+    justify-content: center;
+    text-align: center
+  }
+
+  .hnav {
+    justify-content: center
+  }
+
+  .hero {
+    text-align: center
+  }
+
+  .hero p {
+    margin-inline: auto
+  }
+
+  .hero-btns {
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+    width: 100%
+  }
+
+  .hero-btns .btn {
+    flex: 1;
+    min-width: 140px;
+    text-align: center
+  }
+
+  .btn.alt {
+    margin-inline-start: 0
+  }
+
+  .grid {
+    gap: 22px 10px
+  }
+
+  .item h3 {
+    font-size: 17px
+  }
+
+  .meta {
+    font-size: 13px
+  }
+
+  .item .btn {
+    width: 100%;
+    text-align: center
+  }
+
+  .wall {
+    height: 260px
+  }
+
+  .frame {
+    border-width: 6px
+  }
+}
+
+@media (max-width: 340px) {
+  .grid {
+    grid-template-columns: 1fr
+  }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="#"><span>Pixie Gallery</span><svg class="mark" viewBox="0 0 34 48" aria-hidden="true">
+      <rect x="1" y="1" width="32" height="46" rx="2" fill="currentColor"/>
+      <rect x="7" y="7" width="20" height="34" fill="var(--wall)"/>
+      <rect x="7" y="7" width="20" height="34" fill="none" stroke="#000" stroke-width="1" opacity=".35"/>
+    </svg></a>
+  <div class="hnav">
+    <a href="#products">محصولات</a>
+    <a href="#contact">ارتباط با ما</a>
+    <a href="#contact">پروفایل کاربری</a>
+    <button class="cartbtn" id="openCart" type="button">سبد خرید<b id="count">۰</b></button>
+  </div>
+</header>
+
+<div class="hero">
+  <div>
+    <h1>طرح دلخواهت - با سلیقه قابت - مخصوص دیوارت</h1>
+    <p>فروش تابلوهای آماده و کاستوم با طرح و قاب انتخابی خودتون</p>
+    <div class="hero-btns">
+      <a class="btn" href="#products">دیدن تابلوها</a>
+      <a class="btn alt" href="#contact">ارتباط با ما</a>
+    </div>
+  </div>
+  <div class="wall" aria-hidden="true">
+    <div class="frame f1"><div class="mat"><div class="art" data-art="r1"></div></div></div>
+    <div class="frame f2"><div class="mat"><div class="art" data-art="t2"></div></div></div>
+    <div class="frame f3"><div class="mat"><div class="art" data-art="r2"></div></div></div>
+  </div>
+</div>
+</div>
+
+<section id="products"><div class="wrap">
+  <h2>تابلوهای آماده</h2>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  <h2>ارتباط با ما</h2>
+  <p>برای سفارش تابلو، سفارش طرح دلخواه و هر سؤالی از این راه‌ها پیام بده.</p>
+  <div class="contact-grid">
+    <div class="card"><b>تلگرام</b>
+      <a id="tgCard" target="_blank" rel="noopener"><span id="tgText"></span></a>
+      <a id="tg2Card" target="_blank" rel="noopener"><span id="tg2Text"></span></a>
+    </div>
+    <a class="card" id="chCard" target="_blank" rel="noopener"><b>کانال تلگرام</b><span id="chText"></span></a>
+    <a class="card" id="pgCard" target="_blank" rel="noopener"><b>پیج اینستاگرام</b><span id="pgText"></span></a>
+  </div>
+</div></section>
+
+<section id="trust" class="trust"><div class="wrap">
+  <h2>نماد اعتماد الکترونیکی</h2>
+  <div class="slot">جای نماد اعتماد الکترونیکی (اینماد)</div>
+</div></section>
+
+<footer><div class="wrap">Pixie Gallery</div></footer>
+
+<div class="shade" id="shade"></div>
+<aside class="cart" id="cart" aria-label="سبد خرید">
+  <h2>سبد خرید</h2>
+  <div class="lines" id="lines"></div>
+  <div class="total"><span>جمع کل</span><span id="total">۰ تومان</span></div>
+  <a class="btn" id="order" target="_blank" rel="noopener">ادامه خرید</a>
+  <button class="btn alt" id="closeCart" type="button">بستن</button>
+</aside>
+
+<script>
+const TELEGRAM = "sskenzo0_0";
+const TELEGRAM2 = "LerZimboY";
+const CHANNEL = "PixieFrameGallery";
+const PAGE = "pixieframegallery";
+
+const V = 'viewBox="0 0 100 125" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"';
+const ART = {
+  r1: `<svg ${V}><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2a3e"/><stop offset=".45" stop-color="#d1583a"/><stop offset="1" stop-color="#f2b45a"/></linearGradient></defs><rect width="100" height="125" fill="url(#g1)"/><circle cx="50" cy="72" r="20" fill="#ffd98a"/><path d="M0 88 L18 70 L34 70 L44 84 L58 78 L74 66 L92 66 L100 80 V125 H0Z" fill="#3a1d24"/><path d="M0 104 Q50 92 100 106 V125 H0Z" fill="#1d0f14"/><path d="M26 104 v-18 M26 96 h-6 v-6 M26 94 h6 v-8" stroke="#0e0709" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M62 104 q8-14 18 0 M56 104 h30" stroke="#0e0709" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
+  r2: `<svg ${V}><rect width="100" height="125" fill="#1a2433"/><circle cx="68" cy="34" r="16" fill="#e9e2cf"/><circle cx="62" cy="30" r="3" fill="#cfc7b0"/><path d="M0 84 L24 56 L44 78 L66 52 L100 86 V125 H0Z" fill="#101826"/><path d="M8 125 L18 78 L28 125Z M24 125 L36 86 L48 125Z M60 125 L72 82 L84 125Z M78 125 L90 90 L100 125Z" fill="#070b12"/><circle cx="50" cy="100" r="13" fill="none" stroke="#c0392b" stroke-width="1.6"/><path d="M50 82 v36 M32 100 h36" stroke="#c0392b" stroke-width="1.6"/></svg>`,
+  r3: `<svg ${V}><rect width="100" height="125" fill="#d8bd8a"/><rect x="6" y="6" width="88" height="113" fill="none" stroke="#5a3a1d" stroke-width="2"/><text x="50" y="34" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="14" textLength="66" lengthAdjust="spacingAndGlyphs" fill="#3b2412">WANTED</text><path d="M26 82 q24-30 48 0 z M18 84 h64" fill="#3b2412" stroke="#3b2412" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="94" r="10" fill="#8a2f22"/><text x="50" y="112" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="#3b2412">DEAD OR ALIVE</text></svg>`,
+  t1: `<svg ${V}><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9c9b0"/><stop offset="1" stop-color="#6f8f72"/></linearGradient></defs><rect width="100" height="125" fill="url(#g2)"/><circle cx="72" cy="36" r="14" fill="#f1ead0" opacity=".8"/><path d="M4 125 V62 h14 v-10 h10 v26 h8 V44 h16 v22 h8 V58 h12 v20 h10 V50 h14 v75Z" fill="#26372e"/><path d="M0 125 V104 q12-14 24-4 t24-2 t26-6 t26 4 V125Z" fill="#2f6f4a"/><circle cx="14" cy="100" r="7" fill="#3f8a5a"/><circle cx="54" cy="98" r="9" fill="#3f8a5a"/><circle cx="88" cy="100" r="7" fill="#3f8a5a"/></svg>`,
+  t2: `<svg ${V}><rect width="100" height="125" fill="#0d1612"/><path d="M0 125 V84 L14 54 L24 84 L36 48 L48 86 L62 52 L74 86 L88 58 L100 86 V125Z" fill="#050a08"/><g fill="#f4d35e"><circle cx="22" cy="40" r="2.4"/><circle cx="46" cy="28" r="1.8"/><circle cx="70" cy="46" r="2.8"/><circle cx="82" cy="24" r="1.6"/><circle cx="34" cy="64" r="1.6"/><circle cx="58" cy="70" r="2.2"/><circle cx="14" cy="80" r="1.4"/><circle cx="88" cy="74" r="1.8"/></g><g fill="#f4d35e" opacity=".25"><circle cx="22" cy="40" r="7"/><circle cx="70" cy="46" r="8"/><circle cx="58" cy="70" r="6"/></g></svg>`,
+  t3: `<svg ${V}><rect width="100" height="125" fill="#c7d4bd"/><path d="M0 70 H100 V125 H0Z" fill="#56734f"/><path d="M42 70 H58 L92 125 H8Z" fill="#3a3f45"/><path d="M50 78 V122" stroke="#d9d3b0" stroke-width="1.6" stroke-dasharray="5 5"/><path d="M0 70 L12 40 L22 70 L32 36 L42 70Z M58 70 L68 34 L80 70 L90 44 L100 70Z" fill="#2c4a33"/><path d="M0 125 L10 96 L22 125Z M78 125 L90 92 L100 125Z" fill="#2c4a33"/></svg>`
+};
+
+const items = [
+  { n: "Red Dead Redemption 2 | غروب غرب وحشی", s: "۳۰×۴۰", p: 1200000, a: "r1" },
+  { n: "Red Dead Redemption 2 | شب و ماه", s: "۳۰×۴۰", p: 1100000, a: "r2" },
+  { n: "Red Dead Redemption 2 | تابلوی تحت تعقیب", s: "۴۰×۶۰", p: 1600000, a: "r3" },
+  { n: "The Last of Us | شهر رهاشده", s: "۲۰×۳۰", p: 750000, a: "t1" },
+  { n: "The Last of Us | شب و کرم‌های شب‌تاب", s: "۴۰×۶۰", p: 1500000, a: "t2" },
+  { n: "The Last of Us | جاده‌ی سبز", s: "۳۰×۴۰", p: 1150000, a: "t3" }
+];
+
+const fa = n => Number(n).toLocaleString("fa-IR");
+const artHTML = i => i.img ? `<img src="${i.img}" alt="${i.n}" loading="lazy">` : ART[i.a];
+document.querySelectorAll("[data-art]").forEach(e => e.innerHTML = ART[e.dataset.art]);
+document.getElementById("grid").innerHTML = items.map((i, k) => `
+  <article class="item">
+    <div class="box"><div class="frame"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div></div>
+    <h3>${i.n}</h3>
+    <div class="meta">اندازه ${i.s} سانتی‌متر، همراه با قاب</div>
+    <div class="price">${fa(i.p)} تومان</div>
+    <button class="btn" type="button" data-add="${k}">افزودن به سبد خرید</button>
+  </article>`).join("");
+
+/* سبد خرید */
+const cart = {};
+const $ = id => document.getElementById(id);
+
+function render() {
+  const ids = Object.keys(cart);
+  let total = 0, count = 0, msg = "سلام، می‌خوام این تابلوها رو سفارش بدم:\n";
+  $("lines").innerHTML = ids.length
+    ? ids.map(k => {
+        const i = items[k], q = cart[k];
+        total += i.p * q;
+        count += q;
+        msg += `- ${i.n} (${i.s}) × ${q}\n`;
+        return `<div class="line"><div>${i.n}<small>${fa(i.p*q)} تومان</small></div><div class="qty"><button type="button" data-q="${k}:1" aria-label="افزایش">+</button><span>${fa(q)}</span><button type="button" data-q="${k}:-1" aria-label="کاهش">−</button></div></div>`
+      }).join("")
+    : '<div class="empty">سبد خرید خالی است.</div>';
+  $("count").textContent = fa(count);
+  $("total").textContent = fa(total) + " تومان";
+  msg += `جمع کل: ${fa(total)} تومان`;
+  $("order").href = ids.length ? "https://t.me/" + TELEGRAM + "?text=" + encodeURIComponent(msg) : "#";
+  $("order").style.opacity = ids.length ? 1 : .5;
+}
+
+const toggle = o => document.body.classList.toggle("cart-open", o);
+
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-add]");
+  if (a) {
+    const k = a.dataset.add;
+    cart[k] = (cart[k] || 0) + 1;
+    render();
+    a.textContent = "اضافه شد ✓";
+    a.classList.add("added");
+    setTimeout(() => {
+      a.textContent = "افزودن به سبد خرید";
+      a.classList.remove("added")
+    }, 1200);
+    return
+  }
+  const q = e.target.closest("[data-q]");
+  if (q) {
+    const [k, d] = q.dataset.q.split(":");
+    cart[k] += +d;
+    if (cart[k] <= 0) delete cart[k];
+    render()
+  }
+});
+
+$("openCart").onclick = () => toggle(true);
+$("closeCart").onclick = $("shade").onclick = () => toggle(false);
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") toggle(false)
+});
+render();
+
+const set = (c, t, h, x) => {
+  $(c).href = h;
+  $(t).textContent = x
+};
+set("tgCard", "tgText", "https://t.me/" + TELEGRAM, "@" + TELEGRAM);
+set("tg2Card", "tg2Text", "https://t.me/" + TELEGRAM2, "@" + TELEGRAM2);
+set("chCard", "chText", "https://t.me/" + CHANNEL, "@" + CHANNEL);
+set("pgCard", "pgText", "https://instagram.com/" + PAGE, "@" + PAGE);
+
+/* افکت‌ها */
+document.addEventListener("click", e => {
+  const b = e.target.closest(".btn,.cartbtn,.qty button");
+  if (b) {
+    b.classList.remove("pop");
+    void b.offsetWidth;
+    b.classList.add("pop")
+  }
+});
+
+const rv = [...document.querySelectorAll(".hero>div,section h2,.contact p,.item,.card,.slot")];
+rv.forEach(el => {
+  el.classList.add("rv");
+  if (el.classList.contains("item") || el.classList.contains("card"))
+    el.style.transitionDelay = (rv.filter(x => x.className.split(" ")[0] === el.className.split(" ")[0]).indexOf(el) % 3) * 90 + "ms"
+});
+
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver(es => es.forEach(x => {
+    if (x.isIntersecting) {
+      x.target.classList.add("in");
+      io.unobserve(x.target);
+      setTimeout(() => {
+        x.target.style.transitionDelay = ""
+      }, 1300)
+    }
+  }), { threshold: .15 });
+  rv.forEach(el => io.observe(el))
+} else rv.forEach(el => el.classList.add("in"));
+</script>
+</body>
+</html>
