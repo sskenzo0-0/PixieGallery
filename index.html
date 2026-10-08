@@ -1,6 +1,3 @@
-
-
-Pixie gallery · HTML
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -20,17 +17,17 @@ Pixie gallery · HTML
   --paper: #f7f8f8;
   --line: #c3ccd1
 }
- 
+
 * {
   box-sizing: border-box;
   margin: 0
 }
- 
+
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%
 }
- 
+
 body {
   font-family: 'Baloo Bhaijaan 2', Lalezar, Tahoma, sans-serif;
   background: var(--wall);
@@ -39,7 +36,7 @@ body {
   font-size: 16px;
   overflow-x: hidden
 }
- 
+
 h1,
 h2,
 h3 {
@@ -47,17 +44,17 @@ h3 {
   font-weight: 700;
   line-height: 1.5
 }
- 
+
 a {
   color: inherit
 }
- 
+
 .wrap {
   max-width: 1080px;
   margin: 0 auto;
   padding: 0 20px
 }
- 
+
 header {
   display: flex;
   justify-content: space-between;
@@ -66,7 +63,7 @@ header {
   flex-wrap: wrap;
   padding: 18px 0
 }
- 
+
 .logo {
   font-weight: 700;
   font-size: 26px;
@@ -76,30 +73,30 @@ header {
   align-items: center;
   gap: 10px
 }
- 
+
 .logo .mark {
   width: 28px;
   height: 40px;
   flex-shrink: 0
 }
- 
+
 .hnav {
   display: flex;
   align-items: center;
   gap: 6px 20px;
   flex-wrap: wrap
 }
- 
+
 .hnav a {
   text-decoration: none;
   font-size: 15px
 }
- 
+
 .hnav a:hover,
 .btn:hover {
   text-decoration: underline
 }
- 
+
 .cartbtn {
   background: none;
   border: 1.5px solid var(--ink);
@@ -110,7 +107,7 @@ header {
   font: inherit;
   font-size: 15px
 }
- 
+
 .cartbtn b {
   display: inline-block;
   min-width: 22px;
@@ -122,7 +119,7 @@ header {
   font-size: 13px;
   line-height: 22px
 }
- 
+
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -130,23 +127,23 @@ header {
   align-items: center;
   padding: 30px 0 60px
 }
- 
+
 .hero h1 {
   font-size: clamp(28px, 5vw, 56px)
 }
- 
+
 .hero p {
   margin: 14px 0 24px;
   max-width: 46ch
 }
- 
+
 .hero-btns {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap
 }
- 
+
 .btn {
   display: inline-block;
   background: var(--ink);
@@ -158,103 +155,103 @@ header {
   font: inherit;
   cursor: pointer
 }
- 
+
 .btn.alt {
   background: transparent;
   color: var(--ink);
   border: 1.5px solid var(--ink);
   margin-inline-start: 10px
 }
- 
+
 :focus-visible {
   outline: 3px solid var(--teal);
   outline-offset: 3px
 }
- 
+
 .wall {
   position: relative;
   height: 380px
 }
- 
+
 .frame {
   position: absolute;
   background: var(--wood);
   border: 9px solid var(--wood);
   box-shadow: inset 0 0 0 2px var(--wood2), 6px 10px 18px rgba(27, 37, 48, .28)
 }
- 
+
 .frame > .mat {
   width: 100%;
   height: 100%;
   background: var(--paper);
   padding: 12%
 }
- 
+
 .art {
   width: 100%;
   height: 100%;
   overflow: hidden
 }
- 
+
 .art svg {
   display: block;
   width: 100%;
   height: 100%
 }
- 
+
 .art img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover
 }
- 
+
 .f1 {
   width: 46%;
   height: 70%;
   top: 6%;
   right: 4%
 }
- 
+
 .f2 {
   width: 30%;
   height: 42%;
   top: 0;
   left: 8%
 }
- 
+
 .f3 {
   width: 34%;
   height: 30%;
   bottom: 2%;
   left: 2%
 }
- 
+
 section {
   padding: 50px 0
 }
- 
+
 section h2 {
   font-size: 32px;
   margin-bottom: 6px
 }
- 
+
 #products h2 {
   margin-bottom: 26px
 }
- 
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 34px 26px
 }
- 
+
 .item {
   min-width: 0;
   display: flex;
   flex-direction: column
 }
- 
+
 .item .box {
   aspect-ratio: 4/5;
   display: flex;
@@ -262,52 +259,52 @@ section h2 {
   justify-content: center;
   background: rgba(255, 255, 255, .35)
 }
- 
+
 .item .frame {
   position: relative;
   width: 62%;
   height: 74%;
   border-width: 8px
 }
- 
+
 .item h3 {
   font-size: 20px;
   margin-top: 12px
 }
- 
+
 .meta {
   font-size: 14px;
   color: #4b5963
 }
- 
+
 .price {
   font-weight: 600;
   margin: 4px 0 10px
 }
- 
+
 .item .btn {
   padding: 7px 16px;
   font-size: 14px;
   margin-top: auto;
   align-self: flex-start
 }
- 
+
 .item .btn.added {
   background: var(--teal)
 }
- 
+
 .contact {
   background: var(--ink);
   color: #fff
 }
- 
+
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
   margin-top: 24px
 }
- 
+
 .card {
   border: 1px solid rgba(255, 255, 255, .28);
   border-radius: 6px;
@@ -317,24 +314,24 @@ section h2 {
   text-decoration: none;
   min-width: 0
 }
- 
+
 .card:hover {
   background: rgba(255, 255, 255, .08)
 }
- 
+
 .card b {
   font-size: 18px
 }
- 
+
 .card a {
   text-decoration: none;
   display: block
 }
- 
+
 .card a:hover span {
   text-decoration: underline
 }
- 
+
 .card span {
   direction: ltr;
   text-align: right;
@@ -342,11 +339,11 @@ section h2 {
   opacity: .9;
   overflow-wrap: anywhere
 }
- 
+
 .trust {
   text-align: center
 }
- 
+
 .trust .slot {
   margin: 18px auto 0;
   width: 150px;
@@ -360,16 +357,16 @@ section h2 {
   color: #4b5963;
   padding: 10px
 }
- 
+
 footer {
   padding: 24px 0;
   font-size: 14px;
   text-align: center;
   border-top: 1px solid var(--line)
 }
- 
+
 /* سبد خرید */
- 
+
 .shade {
   position: fixed;
   inset: 0;
@@ -379,7 +376,7 @@ footer {
   transition: opacity .2s;
   z-index: 50
 }
- 
+
 .cart {
   position: fixed;
   top: 0;
@@ -394,26 +391,26 @@ footer {
   flex-direction: column;
   padding: 18px
 }
- 
+
 body.cart-open .shade {
   opacity: 1;
   pointer-events: auto
 }
- 
+
 body.cart-open .cart {
   transform: none
 }
- 
+
 .cart h2 {
   font-size: 22px;
   margin-bottom: 10px
 }
- 
+
 .lines {
   flex: 1;
   overflow: auto
 }
- 
+
 .line {
   display: flex;
   justify-content: space-between;
@@ -423,19 +420,19 @@ body.cart-open .cart {
   border-bottom: 1px solid var(--line);
   font-size: 15px
 }
- 
+
 .line small {
   display: block;
   color: #4b5963
 }
- 
+
 .qty {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-shrink: 0
 }
- 
+
 .qty button {
   width: 28px;
   height: 28px;
@@ -445,38 +442,38 @@ body.cart-open .cart {
   cursor: pointer;
   font-size: 16px
 }
- 
+
 .empty {
   padding: 24px 0;
   color: #4b5963
 }
- 
+
 .total {
   display: flex;
   justify-content: space-between;
   font-weight: 700;
   padding: 14px 0
 }
- 
+
 .cart .btn {
   text-align: center;
   width: 100%;
   margin-top: 8px
 }
- 
+
 .cart .btn.alt {
   margin-inline-start: 0
 }
- 
+
 /* انیمیشن دکمه‌ها */
- 
+
 .btn,
 .cartbtn,
 .qty button {
   -webkit-tap-highlight-color: transparent;
   transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), box-shadow .2s, background-color .2s, color .2s
 }
- 
+
 .btn:hover,
 .cartbtn:hover,
 .qty button:hover,
@@ -486,32 +483,32 @@ body.cart-open .cart {
   transform: scale(1.08);
   box-shadow: 0 8px 18px rgba(27, 37, 48, .28)
 }
- 
+
 .btn:active,
 .cartbtn:active,
 .qty button:active {
   transform: scale(1.14)
 }
- 
+
 .btn:not(.alt):hover {
   background: var(--teal)
 }
- 
+
 .btn.alt:hover,
 .cartbtn:hover {
   background: var(--ink);
   color: #fff
 }
- 
+
 .cartbtn:hover b {
   background: #fff;
   color: var(--ink)
 }
- 
+
 .card {
   transition: transform .35s cubic-bezier(.2, .8, .2, 1), background-color .3s, box-shadow .35s, border-color .3s
 }
- 
+
 .card:hover,
 .card:active {
   transform: translateY(-8px) scale(1.05);
@@ -519,26 +516,26 @@ body.cart-open .cart {
   border-color: #e8b86a;
   box-shadow: 0 18px 30px rgba(0, 0, 0, .4)
 }
- 
+
 .card:active {
   transform: translateY(-4px) scale(1.09)
 }
- 
+
 .card b {
   transition: color .25s
 }
- 
+
 .card:hover b {
   color: #e8b86a
 }
- 
+
 .card a span,
 a.card span {
   display: inline-block;
   transform-origin: right center;
   transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), color .2s
 }
- 
+
 .card a:hover span,
 .card a:active span,
 a.card:hover span {
@@ -546,50 +543,50 @@ a.card:hover span {
   color: #e8b86a;
   text-decoration: none
 }
- 
+
 .contact h2,
 .contact p {
   transition: color .25s
 }
- 
+
 @keyframes pop {
   0% {
     transform: scale(1)
   }
- 
+
   40% {
     transform: scale(1.18)
   }
- 
+
   100% {
     transform: scale(1)
   }
 }
- 
+
 .pop {
   animation: pop .35s ease
 }
- 
+
 /* افکت ظاهر شدن هنگام اسکرول */
- 
+
 .rv {
   opacity: 0;
   transform: translateY(32px);
   transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1)
 }
- 
+
 .rv.in {
   opacity: 1;
   transform: none
 }
- 
+
 @media (prefers-reduced-motion: reduce) {
   .rv {
     opacity: 1;
     transform: none;
     transition: none
   }
- 
+
   .btn,
   .cartbtn,
   .qty button,
@@ -599,20 +596,20 @@ a.card:hover span {
   a.card span {
     transition: none
   }
- 
+
   .pop {
     animation: none
   }
 }
- 
+
 /* انیمیشن لینک‌های منو */
- 
+
 .hnav a {
   position: relative;
   padding: 2px 2px;
   transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), color .2s
 }
- 
+
 .hnav a::after {
   content: "";
   position: absolute;
@@ -624,52 +621,52 @@ a.card:hover span {
   transform-origin: right;
   transition: transform .25s
 }
- 
+
 .hnav a:hover,
 .hnav a:active {
   transform: scale(1.12);
   color: var(--teal);
   text-decoration: none
 }
- 
+
 .hnav a:hover::after,
 .hnav a:active::after {
   transform: scaleX(1)
 }
- 
+
 /* افکت روی محصول */
- 
+
 .item .box,
 .item .frame,
 .item .art svg,
 .item h3 {
   transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s, background-color .35s, color .25s
 }
- 
+
 .item:hover .box,
 .item:active .box {
   background: rgba(255, 255, 255, .7)
 }
- 
+
 .item:hover .frame,
 .item:active .frame {
   transform: translateY(-8px) scale(1.06);
   box-shadow: inset 0 0 0 2px var(--wood2), 10px 20px 30px rgba(27, 37, 48, .38)
 }
- 
+
 .item:active .frame {
   transform: translateY(-4px) scale(1.1)
 }
- 
+
 .item:hover .art svg,
 .item:hover .art img {
   transform: scale(1.08)
 }
- 
+
 .item:hover h3 {
   color: var(--teal)
 }
- 
+
 @media (prefers-reduced-motion: reduce) {
   .hnav a,
   .hnav a::after,
@@ -680,108 +677,108 @@ a.card:hover span {
     transition: none
   }
 }
- 
+
 /* ریسپانسیو */
- 
+
 @media (max-width: 800px) {
   .hero {
     grid-template-columns: 1fr;
     padding-bottom: 30px
   }
- 
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 26px 14px
   }
- 
+
   .contact-grid {
     grid-template-columns: 1fr
   }
- 
+
   .wall {
     height: 300px
   }
- 
+
   section {
     padding: 36px 0
   }
- 
+
   section h2 {
     font-size: 26px
   }
 }
- 
+
 @media (max-width: 480px) {
   .wrap {
     padding: 0 16px
   }
- 
+
   header {
     justify-content: center;
     text-align: center
   }
- 
+
   .hnav {
     justify-content: center
   }
- 
+
   .hero {
     text-align: center
   }
- 
+
   .hero p {
     margin-inline: auto
   }
- 
+
   .hero-btns {
     justify-content: center;
     gap: 12px;
     margin-top: 10px;
     width: 100%
   }
- 
+
   .hero-btns .btn {
     flex: 1;
     min-width: 140px;
     text-align: center
   }
- 
+
   .btn.alt {
     margin-inline-start: 0
   }
- 
+
   .grid {
     gap: 22px 10px
   }
- 
+
   .item h3 {
     font-size: 17px
   }
- 
+
   .meta {
     font-size: 13px
   }
- 
+
   .item .btn {
     width: 100%;
     text-align: center
   }
- 
+
   .wall {
     height: 260px
   }
- 
+
   .frame {
     border-width: 6px
   }
 }
- 
+
 @media (max-width: 340px) {
   .grid {
     grid-template-columns: 1fr
   }
 }
- 
+
 /* بابِ نقاشِ پیکسلی */
 .painter {
   position: absolute;
@@ -791,150 +788,285 @@ a.card:hover span {
   max-width: 84px;
   height: auto
 }
- 
+
 .painter .arm {
   animation: painterStroke 1.2s steps(1, end) infinite
 }
- 
+
 .painter .tree {
   animation-duration: 9s;
   animation-timing-function: steps(1, end);
   animation-iteration-count: infinite
 }
- 
+
 .painter .t1 {
   animation-name: painterTree1
 }
- 
+
 .painter .t2 {
   animation-name: painterTree2
 }
- 
+
 @keyframes painterStroke {
   0%, 100% {
     transform: translate(0, 0)
   }
- 
+
   25% {
     transform: translate(-1px, 0)
   }
- 
+
   50% {
     transform: translate(-1px, 1px)
   }
- 
+
   75% {
     transform: translate(0, 1px)
   }
 }
- 
+
 @keyframes painterTree1 {
   0%, 19% {
     opacity: 0
   }
- 
+
   20%, 100% {
     opacity: 1
   }
 }
- 
+
 @keyframes painterTree2 {
   0%, 44% {
     opacity: 0
   }
- 
+
   45%, 100% {
     opacity: 1
   }
 }
- 
+
 @media (prefers-reduced-motion: reduce) {
   .painter .arm,
   .painter .tree {
     animation: none
   }
 }
- 
+
 /* دوستان کوچولوی گالری */
 .mini {
   position: absolute;
   height: auto
 }
- 
+
 .mini.cat {
   left: 25%;
   bottom: 32%;
   width: 6%
 }
- 
+
 .mini.cowboy {
   left: 7%;
   bottom: 32%;
   width: 6.5%
 }
- 
+
 .mini.hiker {
   left: 38%;
   bottom: 0;
   width: 10.5%
 }
- 
+
 .mini .tail {
   animation: miniTail 1.6s steps(1, end) infinite
 }
- 
+
 .mini .head {
   animation: miniNod 2.4s steps(1, end) infinite
 }
- 
+
 .mini .beam {
   opacity: .75;
   animation: miniBeam 2.4s steps(1, end) infinite
 }
- 
+
 @keyframes miniTail {
   0%, 100% {
     transform: translate(0, 0)
   }
- 
+
   25% {
     transform: translate(1px, 0)
   }
- 
+
   50% {
     transform: translate(1px, -1px)
   }
- 
+
   75% {
     transform: translate(0, -1px)
   }
 }
- 
+
 @keyframes miniNod {
   0%, 60%, 100% {
     transform: translate(0, 0)
   }
- 
+
   70%, 90% {
     transform: translate(0, 1px)
   }
 }
- 
+
 @keyframes miniBeam {
   0%, 100% {
     opacity: .75
   }
- 
+
   50% {
     opacity: .35
   }
 }
- 
+
 @media (prefers-reduced-motion: reduce) {
   .mini .tail,
   .mini .head,
   .mini .beam {
     animation: none
+  }
+}
+
+/* لینک کارت محصول */
+.plink {
+  display: block;
+  color: inherit;
+  text-decoration: none
+}
+
+.more {
+  font-size: 13px;
+  color: var(--teal)
+}
+
+/* صفحه‌ی مشخصات محصول (داخل همین فایل) */
+body.in-product .hero,
+body.in-product #products,
+body.in-product #contact,
+body.in-product #trust {
+  display: none
+}
+
+.crumbs {
+  font-size: 14px;
+  color: #4b5963;
+  padding: 6px 0 18px
+}
+
+.crumbs a {
+  text-decoration: none
+}
+
+.crumbs a:hover {
+  text-decoration: underline
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  align-items: start;
+  padding-bottom: 50px
+}
+
+.pbox {
+  background: rgba(255, 255, 255, .35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7%
+}
+
+.pbox .frame {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  border-width: 10px
+}
+
+.badge {
+  display: inline-block;
+  font-size: 13px;
+  color: #fff;
+  background: var(--teal);
+  border-radius: 4px;
+  padding: 0 10px
+}
+
+.info h1 {
+  font-size: clamp(24px, 4vw, 34px);
+  margin: 8px 0 4px
+}
+
+.pprice {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 6px 0 16px
+}
+
+.specs {
+  border-top: 1px solid var(--line);
+  margin: 0 0 20px
+}
+
+.specs div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line)
+}
+
+.specs dt {
+  color: #4b5963
+}
+
+.specs dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: end
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px
+}
+
+.actions .btn.alt {
+  margin-inline-start: 0
+}
+
+.btn.added {
+  background: var(--teal)
+}
+
+.dh {
+  font-size: 18px;
+  margin: 18px 0 4px
+}
+
+.desc {
+  margin: 0 0 6px
+}
+
+.nf {
+  padding: 60px 0;
+  text-align: center
+}
+
+@media (max-width: 800px) {
+  .detail {
+    grid-template-columns: 1fr;
+    gap: 22px
   }
 }
 </style>
@@ -954,7 +1086,7 @@ a.card:hover span {
     <button class="cartbtn" id="openCart" type="button">سبد خرید<b id="count">۰</b></button>
   </div>
 </header>
- 
+
 <div class="hero">
   <div>
     <h1>طرح دلخواهت - با سلیقه قابت - مخصوص دیوارت</h1>
@@ -996,12 +1128,14 @@ a.card:hover span {
   </div>
 </div>
 </div>
- 
+
+<div class="wrap" id="view" hidden></div>
+
 <section id="products"><div class="wrap">
   <h2>تابلوهای آماده</h2>
   <div class="grid" id="grid"></div>
 </div></section>
- 
+
 <section id="contact" class="contact"><div class="wrap">
   <h2>ارتباط با ما</h2>
   <p>برای سفارش تابلو، سفارش طرح دلخواه و هر سؤالی از این راه‌ها پیام بده.</p>
@@ -1014,14 +1148,14 @@ a.card:hover span {
     <a class="card" id="pgCard" target="_blank" rel="noopener"><b>پیج اینستاگرام</b><span id="pgText"></span></a>
   </div>
 </div></section>
- 
+
 <section id="trust" class="trust"><div class="wrap">
   <h2>نماد اعتماد الکترونیکی</h2>
   <div class="slot">جای نماد اعتماد الکترونیکی (اینماد)</div>
 </div></section>
- 
+
 <footer><div class="wrap">Pixie Gallery</div></footer>
- 
+
 <div class="shade" id="shade"></div>
 <aside class="cart" id="cart" aria-label="سبد خرید">
   <h2>سبد خرید</h2>
@@ -1030,13 +1164,13 @@ a.card:hover span {
   <a class="btn" id="order" target="_blank" rel="noopener">ادامه خرید</a>
   <button class="btn alt" id="closeCart" type="button">بستن</button>
 </aside>
- 
+
 <script>
 const TELEGRAM = "sskenzo0_0";
 const TELEGRAM2 = "LerZimboY";
 const CHANNEL = "PixieFrameGallery";
 const PAGE = "pixieframegallery";
- 
+
 const V = 'viewBox="0 0 100 125" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"';
 const ART = {
   r1: `<svg ${V}><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2a3e"/><stop offset=".45" stop-color="#d1583a"/><stop offset="1" stop-color="#f2b45a"/></linearGradient></defs><rect width="100" height="125" fill="url(#g1)"/><circle cx="50" cy="72" r="20" fill="#ffd98a"/><path d="M0 88 L18 70 L34 70 L44 84 L58 78 L74 66 L92 66 L100 80 V125 H0Z" fill="#3a1d24"/><path d="M0 104 Q50 92 100 106 V125 H0Z" fill="#1d0f14"/><path d="M26 104 v-18 M26 96 h-6 v-6 M26 94 h6 v-8" stroke="#0e0709" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M62 104 q8-14 18 0 M56 104 h30" stroke="#0e0709" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
@@ -1046,7 +1180,7 @@ const ART = {
   t2: `<svg ${V}><rect width="100" height="125" fill="#0d1612"/><path d="M0 125 V84 L14 54 L24 84 L36 48 L48 86 L62 52 L74 86 L88 58 L100 86 V125Z" fill="#050a08"/><g fill="#f4d35e"><circle cx="22" cy="40" r="2.4"/><circle cx="46" cy="28" r="1.8"/><circle cx="70" cy="46" r="2.8"/><circle cx="82" cy="24" r="1.6"/><circle cx="34" cy="64" r="1.6"/><circle cx="58" cy="70" r="2.2"/><circle cx="14" cy="80" r="1.4"/><circle cx="88" cy="74" r="1.8"/></g><g fill="#f4d35e" opacity=".25"><circle cx="22" cy="40" r="7"/><circle cx="70" cy="46" r="8"/><circle cx="58" cy="70" r="6"/></g></svg>`,
   t3: `<svg ${V}><rect width="100" height="125" fill="#c7d4bd"/><path d="M0 70 H100 V125 H0Z" fill="#56734f"/><path d="M42 70 H58 L92 125 H8Z" fill="#3a3f45"/><path d="M50 78 V122" stroke="#d9d3b0" stroke-width="1.6" stroke-dasharray="5 5"/><path d="M0 70 L12 40 L22 70 L32 36 L42 70Z M58 70 L68 34 L80 70 L90 44 L100 70Z" fill="#2c4a33"/><path d="M0 125 L10 96 L22 125Z M78 125 L90 92 L100 125Z" fill="#2c4a33"/></svg>`
 };
- 
+
 const items = [
   { n: "Red Dead Redemption 2 | غروب غرب وحشی", s: "۳۰×۴۰", p: 1200000, a: "r1" },
   { n: "Red Dead Redemption 2 | شب و ماه", s: "۳۰×۴۰", p: 1100000, a: "r2" },
@@ -1055,23 +1189,26 @@ const items = [
   { n: "The Last of Us | شب و کرم‌های شب‌تاب", s: "۴۰×۶۰", p: 1500000, a: "t2" },
   { n: "The Last of Us | جاده‌ی سبز", s: "۳۰×۴۰", p: 1150000, a: "t3" }
 ];
- 
+
 const fa = n => Number(n).toLocaleString("fa-IR");
 const artHTML = i => i.img ? `<img src="${i.img}" alt="${i.n}" loading="lazy">` : ART[i.a];
 document.querySelectorAll("[data-art]").forEach(e => e.innerHTML = ART[e.dataset.art]);
 document.getElementById("grid").innerHTML = items.map((i, k) => `
   <article class="item">
-    <div class="box"><div class="frame"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div></div>
-    <h3>${i.n}</h3>
-    <div class="meta">اندازه ${i.s} سانتی‌متر، همراه با قاب</div>
+    <a class="plink" href="#product-${k}">
+      <div class="box"><div class="frame"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div></div>
+      <h3>${i.n}</h3>
+      <div class="meta">اندازه ${i.s} سانتی‌متر، همراه با قاب</div>
+      <div class="more">مشاهده مشخصات ←</div>
+    </a>
     <div class="price">${fa(i.p)} تومان</div>
     <button class="btn" type="button" data-add="${k}">افزودن به سبد خرید</button>
   </article>`).join("");
- 
+
 /* سبد خرید */
 const cart = {};
 const $ = id => document.getElementById(id);
- 
+
 function render() {
   const ids = Object.keys(cart);
   let total = 0, count = 0, msg = "سلام، می‌خوام این تابلوها رو سفارش بدم:\n";
@@ -1090,9 +1227,9 @@ function render() {
   $("order").href = ids.length ? "https://t.me/" + TELEGRAM + "?text=" + encodeURIComponent(msg) : "#";
   $("order").style.opacity = ids.length ? 1 : .5;
 }
- 
+
 const toggle = o => document.body.classList.toggle("cart-open", o);
- 
+
 document.addEventListener("click", e => {
   const a = e.target.closest("[data-add]");
   if (a) {
@@ -1115,14 +1252,14 @@ document.addEventListener("click", e => {
     render()
   }
 });
- 
+
 $("openCart").onclick = () => toggle(true);
 $("closeCart").onclick = $("shade").onclick = () => toggle(false);
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") toggle(false)
 });
 render();
- 
+
 const set = (c, t, h, x) => {
   $(c).href = h;
   $(t).textContent = x
@@ -1131,7 +1268,7 @@ set("tgCard", "tgText", "https://t.me/" + TELEGRAM, "@" + TELEGRAM);
 set("tg2Card", "tg2Text", "https://t.me/" + TELEGRAM2, "@" + TELEGRAM2);
 set("chCard", "chText", "https://t.me/" + CHANNEL, "@" + CHANNEL);
 set("pgCard", "pgText", "https://instagram.com/" + PAGE, "@" + PAGE);
- 
+
 /* افکت‌ها */
 document.addEventListener("click", e => {
   const b = e.target.closest(".btn,.cartbtn,.qty button");
@@ -1141,14 +1278,14 @@ document.addEventListener("click", e => {
     b.classList.add("pop")
   }
 });
- 
+
 const rv = [...document.querySelectorAll(".hero>div,section h2,.contact p,.item,.card,.slot")];
 rv.forEach(el => {
   el.classList.add("rv");
   if (el.classList.contains("item") || el.classList.contains("card"))
     el.style.transitionDelay = (rv.filter(x => x.className.split(" ")[0] === el.className.split(" ")[0]).indexOf(el) % 3) * 90 + "ms"
 });
- 
+
 if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(es => es.forEach(x => {
     if (x.isIntersecting) {
@@ -1161,9 +1298,98 @@ if ("IntersectionObserver" in window) {
   }), { threshold: .15 });
   rv.forEach(el => io.observe(el))
 } else rv.forEach(el => el.classList.add("in"));
+
+/* صفحه‌ی مشخصات محصول */
+/* مشخصات اضافه برای هر تابلو (به ترتیب items). هر ردیف رو به شکل ["عنوان", "مقدار"] اضافه کن */
+const extra = [
+  [], [], [], [], [], []
+];
+
+/* توضیحات هر تابلو (به ترتیب items). هر متنی خواستی بنویس */
+const desc = [
+  "طرح پیکسلی از غروب آسمون غرب وحشی، با الهام از فضای بازی Red Dead Redemption 2.",
+  "طرح پیکسلی از شب و ماه توی دشت‌های غرب وحشی، با الهام از فضای بازی Red Dead Redemption 2.",
+  "طرحی با حال‌وهوای تحت تعقیب بودن توی دنیای غرب وحشی، با الهام از فضای بازی Red Dead Redemption 2.",
+  "طرح پیکسلی از یه شهر رهاشده، با الهام از فضای بازی The Last of Us.",
+  "طرح پیکسلی از شب و کرم‌های شب‌تاب، با الهام از فضای بازی The Last of Us.",
+  "طرح پیکسلی از یه جاده‌ی سبز و آروم، با الهام از فضای بازی The Last of Us."
+];
+
+const en = s => s.replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+const view = $("view");
+const homeTitle = document.title;
+let lastY = 0;
+
+function showProduct(k) {
+  const i = items[k];
+  const [game, title] = i.n.split(" | ");
+  const [w, h] = en(i.s).split("×").map(Number);
+  const rows = [
+    ["بازی", game],
+    ["نام تابلو", title || i.n],
+    ["اندازه", i.s + " سانتی‌متر"],
+    ["قاب", "همراه با قاب"],
+    ["قیمت", fa(i.p) + " تومان"],
+    ...(extra[k] || [])
+  ];
+  const msg = "سلام، می‌خوام این تابلو رو سفارش بدم:\n- " + i.n + " (" + i.s + ")\nقیمت: " + fa(i.p) + " تومان";
+  document.title = i.n + " | Pixie Gallery";
+  view.innerHTML = `
+    <nav class="crumbs"><a href="#products">← بازگشت به تابلوها</a></nav>
+    <div class="detail">
+      <div class="pbox">
+        <div class="frame" style="aspect-ratio:${w}/${h}"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div>
+      </div>
+      <div class="info">
+        <span class="badge">${game}</span>
+        <h1>${title || i.n}</h1>
+        <div class="pprice">${fa(i.p)} تومان</div>
+        <h2 class="dh">توضیحات</h2>
+        <p class="desc">${desc[k] || ""}</p>
+        <p class="desc">اگه قاب یا اندازه‌ی دلخواه می‌خوای، توی تلگرام بهمون پیام بده.</p>
+        <h2 class="dh">مشخصات</h2>
+        <dl class="specs">
+          ${rows.map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join("")}
+        </dl>
+        <div class="actions">
+          <button class="btn" id="addOne" type="button">افزودن به سبد خرید</button>
+          <a class="btn alt" target="_blank" rel="noopener" href="https://t.me/${TELEGRAM}?text=${encodeURIComponent(msg)}">سفارش در تلگرام</a>
+        </div>
+      </div>
+    </div>`;
+  $("addOne").onclick = e => {
+    cart[k] = (cart[k] || 0) + 1;
+    render();
+    e.target.textContent = "اضافه شد ✓";
+    e.target.classList.add("added");
+    setTimeout(() => {
+      e.target.textContent = "افزودن به سبد خرید";
+      e.target.classList.remove("added")
+    }, 1200);
+  };
+  view.hidden = false;
+  document.body.classList.add("in-product");
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+}
+
+function route() {
+  const m = /^#product-(\d+)$/.exec(location.hash);
+  const was = document.body.classList.contains("in-product");
+  if (m && items[+m[1]]) {
+    if (!was) lastY = window.scrollY;
+    showProduct(+m[1]);
+    return;
+  }
+  document.body.classList.remove("in-product");
+  view.hidden = true;
+  document.title = homeTitle;
+  if (was) {
+    const t = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    window.scrollTo({ top: t ? t.getBoundingClientRect().top + window.scrollY : lastY, left: 0, behavior: "instant" });
+  }
+}
+window.addEventListener("hashchange", route);
+route();
 </script>
 </body>
 </html>
-
-
-
