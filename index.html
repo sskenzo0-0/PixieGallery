@@ -1091,6 +1091,70 @@ body.in-product #trust {
   margin: 0 0 6px
 }
 
+.mline {
+  padding-bottom: 40px
+}
+
+.mline h2 {
+  font-size: 22px;
+  margin-bottom: 10px
+}
+
+.mrow {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 12px
+}
+
+.mi {
+  flex: 0 0 168px;
+  scroll-snap-align: start;
+  color: inherit;
+  text-decoration: none
+}
+
+.mi .box {
+  aspect-ratio: 4/5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, .35);
+  transition: transform .2s
+}
+
+.mi:hover .box {
+  transform: translateY(-4px)
+}
+
+.mi .frame {
+  position: relative;
+  width: 62%;
+  border-width: 6px
+}
+
+.mi h3 {
+  font-size: 14px;
+  margin-top: 8px;
+  line-height: 1.6
+}
+
+.mi:hover h3 {
+  text-decoration: underline
+}
+
+.mi .p {
+  font-size: 13px;
+  font-weight: 600
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mi .box {
+    transition: none
+  }
+}
+
 .nf {
   padding: 60px 0;
   text-align: center
@@ -1349,6 +1413,7 @@ const desc = [
 ];
 
 const en = s => s.replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+const ratio = s => en(s).split("×").join("/");
 const view = $("view");
 const homeTitle = document.title;
 let lastY = 0;
@@ -1389,6 +1454,17 @@ function showProduct(k) {
           <button class="btn" id="addOne" type="button">افزودن به سبد خرید</button>
           <a class="btn alt" target="_blank" rel="noopener" href="https://t.me/${TELEGRAM}?text=${encodeURIComponent(msg)}">سفارش در تلگرام</a>
         </div>
+      </div>
+    </div>
+    <div class="mline">
+      <h2>تابلوهای دیگه</h2>
+      <div class="mrow">
+        ${items.map((o, j) => j === k ? "" : `
+        <a class="mi" href="#product-${j}">
+          <div class="box"><div class="frame" style="aspect-ratio:${ratio(o.s)}"><div class="mat"><div class="art" role="img" aria-label="${o.n}">${artHTML(o)}</div></div></div></div>
+          <h3>${o.n}</h3>
+          <div class="p">${fa(o.p)} تومان</div>
+        </a>`).join("")}
       </div>
     </div>`;
   document.querySelectorAll(".wall .painter, .wall .mini").forEach(n => $("pstrip").append(n.cloneNode(true)));
