@@ -935,6 +935,96 @@ a.card:hover span {
   }
 }
 
+/* حساب کاربری */
+.amodal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .5)
+}
+
+.amodal[hidden] {
+  display: none
+}
+
+.abox {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  padding: 28px 24px 22px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .35)
+}
+
+.aclose {
+  position: absolute;
+  top: 6px;
+  inset-inline-start: 10px;
+  background: none;
+  border: 0;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink)
+}
+
+.aview[hidden] {
+  display: none
+}
+
+.aview h2 {
+  font-size: 22px;
+  margin-bottom: 12px
+}
+
+.aview label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 10px
+}
+
+.aview input {
+  display: block;
+  width: 100%;
+  margin-top: 2px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 4px
+}
+
+.aview .btn {
+  width: 100%;
+  text-align: center
+}
+
+.aerr {
+  min-height: 24px;
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #b3261e
+}
+
+.aalt {
+  margin-top: 14px;
+  font-size: 14px;
+  text-align: center
+}
+
+.aview .btn.alt {
+  width: auto;
+  margin-inline-start: 0;
+  padding: 3px 14px
+}
+
 /* لینک کارت محصول */
 .plink {
   display: block;
@@ -1074,10 +1164,6 @@ body.in-product #trust {
   gap: 10px
 }
 
-.actions .btn.alt {
-  margin-inline-start: 0
-}
-
 .btn.added {
   background: var(--teal)
 }
@@ -1179,7 +1265,7 @@ body.in-product #trust {
   <div class="hnav">
     <a href="#products">محصولات</a>
     <a href="#contact">ارتباط با ما</a>
-    <a href="#contact">پروفایل کاربری</a>
+    <a href="#" id="accountBtn">پروفایل کاربری</a>
     <button class="cartbtn" id="openCart" type="button">سبد خرید<b id="count">۰</b></button>
   </div>
 </header>
@@ -1252,6 +1338,37 @@ body.in-product #trust {
 </div></section>
 
 <footer><div class="wrap">Pixie Gallery</div></footer>
+
+<div class="amodal" id="amodal" hidden>
+  <div class="abox" role="dialog" aria-modal="true" aria-label="حساب کاربری">
+    <button class="aclose" id="aclose" type="button" aria-label="بستن">×</button>
+
+    <form class="aview" id="loginView" novalidate>
+      <h2>ورود به حساب</h2>
+      <label>نام کاربری<input id="lUser" autocomplete="username"></label>
+      <label>رمز عبور<input id="lPass" type="password" autocomplete="current-password"></label>
+      <p class="aerr" id="lErr" role="alert"></p>
+      <button class="btn" type="submit">ورود</button>
+      <p class="aalt">حساب نداری؟ <button class="btn alt" id="toSignup" type="button">ثبت‌نام</button></p>
+    </form>
+
+    <form class="aview" id="signupView" novalidate hidden>
+      <h2>ساخت حساب جدید</h2>
+      <label>نام کاربری<input id="sUser" autocomplete="username"></label>
+      <label>رمز عبور<input id="sPass" type="password" autocomplete="new-password"></label>
+      <label>تکرار رمز عبور<input id="sPass2" type="password" autocomplete="new-password"></label>
+      <p class="aerr" id="sErr" role="alert"></p>
+      <button class="btn" type="submit">ساخت حساب</button>
+      <p class="aalt">حساب داری؟ <button class="btn alt" id="toLogin" type="button">ورود</button></p>
+    </form>
+
+    <div class="aview" id="profileView" hidden>
+      <h2>سلام <span id="whoName"></span></h2>
+      <p>با این حساب وارد شدی.</p>
+      <button class="btn" id="logout" type="button">خروج از حساب</button>
+    </div>
+  </div>
+</div>
 
 <div class="shade" id="shade"></div>
 <aside class="cart" id="cart" aria-label="سبد خرید">
@@ -1430,7 +1547,6 @@ function showProduct(k) {
     ["قیمت", fa(i.p) + " تومان"],
     ...(extra[k] || [])
   ];
-  const msg = "سلام، می‌خوام این تابلو رو سفارش بدم:\n- " + i.n + " (" + i.s + ")\nقیمت: " + fa(i.p) + " تومان";
   document.title = i.n + " | Pixie Gallery";
   view.innerHTML = `
     <nav class="crumbs"><a href="#products">← بازگشت به تابلوها</a></nav>
@@ -1452,7 +1568,6 @@ function showProduct(k) {
         </dl>
         <div class="actions">
           <button class="btn" id="addOne" type="button">افزودن به سبد خرید</button>
-          <a class="btn alt" target="_blank" rel="noopener" href="https://t.me/${TELEGRAM}?text=${encodeURIComponent(msg)}">سفارش در تلگرام</a>
         </div>
       </div>
     </div>
@@ -1501,6 +1616,100 @@ function route() {
 }
 window.addEventListener("hashchange", route);
 route();
+
+/* حساب کاربری — فقط داخل همین مرورگر ذخیره می‌شه (سرور نداره) */
+const enc = new TextEncoder();
+const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const fromB64 = t => Uint8Array.from(atob(t), c => c.charCodeAt(0));
+const norm = t => t.trim().toLowerCase();
+const users = () => {
+  try { return JSON.parse(localStorage.getItem("pixieUsers")) || {} } catch (e) { return {} }
+};
+let meKey = (() => {
+  try { return localStorage.getItem("pixieSession") || "" } catch (e) { return "" }
+})();
+
+async function hashPw(pw, salt) {
+  const key = await crypto.subtle.importKey("raw", enc.encode(pw), "PBKDF2", false, ["deriveBits"]);
+  return toB64(await crypto.subtle.deriveBits({ name: "PBKDF2", salt, iterations: 120000, hash: "SHA-256" }, key, 256));
+}
+
+const accountBtn = $("accountBtn");
+const setErr = (id, t) => $(id).textContent = t;
+
+function paintAccount() {
+  const u = users()[meKey];
+  if (!u) meKey = "";
+  accountBtn.textContent = u ? u.name : "پروفایل کاربری";
+}
+
+function aView(name) {
+  ["loginView", "signupView", "profileView"].forEach(v => $(v).hidden = v !== name);
+  setErr("lErr", "");
+  setErr("sErr", "");
+}
+
+function openAccount() {
+  paintAccount();
+  $("amodal").hidden = false;
+  if (meKey) {
+    $("whoName").textContent = users()[meKey].name;
+    aView("profileView");
+    $("logout").focus();
+  } else {
+    aView("loginView");
+    $("lUser").focus();
+  }
+}
+
+const closeAccount = () => $("amodal").hidden = true;
+
+function setSession(k) {
+  meKey = k;
+  try { k ? localStorage.setItem("pixieSession", k) : localStorage.removeItem("pixieSession") } catch (e) {}
+  paintAccount();
+}
+
+accountBtn.addEventListener("click", e => { e.preventDefault(); openAccount() });
+$("aclose").onclick = closeAccount;
+$("amodal").addEventListener("click", e => { if (e.target === $("amodal")) closeAccount() });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeAccount() });
+$("toSignup").onclick = () => { aView("signupView"); $("sUser").focus() };
+$("toLogin").onclick = () => { aView("loginView"); $("lUser").focus() };
+$("logout").onclick = () => { setSession(""); closeAccount() };
+
+const canHash = () => window.crypto && crypto.subtle;
+
+$("loginView").addEventListener("submit", async e => {
+  e.preventDefault();
+  const k = norm($("lUser").value), pw = $("lPass").value;
+  if (!k || !pw) return setErr("lErr", "نام کاربری و رمز عبور رو وارد کن.");
+  if (!canHash()) return setErr("lErr", "این مرورگر از ورود امن پشتیبانی نمی‌کنه.");
+  const u = users()[k];
+  if (!u || await hashPw(pw, fromB64(u.salt)) !== u.hash) return setErr("lErr", "نام کاربری یا رمز عبور اشتباهه.");
+  setSession(k);
+  $("lPass").value = "";
+  closeAccount();
+});
+
+$("signupView").addEventListener("submit", async e => {
+  e.preventDefault();
+  const name = $("sUser").value.trim(), k = norm(name), pw = $("sPass").value;
+  if (!/^[\w.\u0600-\u06FF-]{3,20}$/.test(name)) return setErr("sErr", "نام کاربری ۳ تا ۲۰ حرف باشه و فاصله نداشته باشه.");
+  if (pw.length < 6) return setErr("sErr", "رمز عبور حداقل ۶ کاراکتر باشه.");
+  if (pw !== $("sPass2").value) return setErr("sErr", "تکرار رمز عبور با رمز یکی نیست.");
+  if (!canHash()) return setErr("sErr", "این مرورگر از ساخت حساب امن پشتیبانی نمی‌کنه.");
+  const all = users();
+  if (all[k]) return setErr("sErr", "این نام کاربری قبلاً گرفته شده.");
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  all[k] = { name, salt: toB64(salt), hash: await hashPw(pw, salt) };
+  try { localStorage.setItem("pixieUsers", JSON.stringify(all)) } catch (err) { return setErr("sErr", "ذخیره‌سازی مرورگر در دسترس نیست.") }
+  setSession(k);
+  $("sPass").value = $("sPass2").value = "";
+  closeAccount();
+});
+
+paintAccount();
 </script>
 </body>
 </html>
