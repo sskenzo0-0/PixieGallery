@@ -959,7 +959,23 @@ a.card:hover span {
   border: 2px solid var(--ink);
   border-radius: 6px;
   padding: 28px 24px 22px;
+  max-height: 92vh;
+  overflow-y: auto;
   box-shadow: 0 18px 40px rgba(0, 0, 0, .35)
+}
+
+.arow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px
+}
+
+.aview .specs {
+  margin-bottom: 16px
+}
+
+.aview .specs dd {
+  overflow-wrap: anywhere
 }
 
 .aclose {
@@ -1345,7 +1361,7 @@ body.in-product #trust {
 
     <form class="aview" id="loginView" novalidate>
       <h2>ورود به حساب</h2>
-      <label>نام کاربری<input id="lUser" autocomplete="username"></label>
+      <label>نام کاربری / ایمیل<input id="lUser" autocomplete="username"></label>
       <label>رمز عبور<input id="lPass" type="password" autocomplete="current-password"></label>
       <p class="aerr" id="lErr" role="alert"></p>
       <button class="btn" type="submit">ورود</button>
@@ -1354,6 +1370,12 @@ body.in-product #trust {
 
     <form class="aview" id="signupView" novalidate hidden>
       <h2>ساخت حساب جدید</h2>
+      <div class="arow">
+        <label>نام<input id="sFirst" autocomplete="given-name"></label>
+        <label>نام خانوادگی<input id="sLast" autocomplete="family-name"></label>
+      </div>
+      <label>شماره تماس<input id="sPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr"></label>
+      <label>ایمیل<input id="sEmail" type="email" autocomplete="email" dir="ltr"></label>
       <label>نام کاربری<input id="sUser" autocomplete="username"></label>
       <label>رمز عبور<input id="sPass" type="password" autocomplete="new-password"></label>
       <label>تکرار رمز عبور<input id="sPass2" type="password" autocomplete="new-password"></label>
@@ -1364,7 +1386,7 @@ body.in-product #trust {
 
     <div class="aview" id="profileView" hidden>
       <h2>سلام <span id="whoName"></span></h2>
-      <p>با این حساب وارد شدی.</p>
+      <dl class="specs" id="whoInfo"></dl>
       <button class="btn" id="logout" type="button">خروج از حساب</button>
     </div>
   </div>
@@ -1643,6 +1665,19 @@ function paintAccount() {
   accountBtn.textContent = u ? u.name : "پروفایل کاربری";
 }
 
+function fillProfile(u) {
+  $("whoName").textContent = u.first || u.name;
+  const rows = [["نام و نام خانوادگی", [u.first, u.last].filter(Boolean).join(" ")], ["شماره تماس", u.phone], ["ایمیل", u.email], ["نام کاربری", u.name]].filter(r => r[1]);
+  $("whoInfo").replaceChildren(...rows.map(([t, v]) => {
+    const d = document.createElement("div"), a = document.createElement("dt"), b = document.createElement("dd");
+    a.textContent = t;
+    b.textContent = v;
+    b.dir = "auto";
+    d.append(a, b);
+    return d;
+  }));
+}
+
 function aView(name) {
   ["loginView", "signupView", "profileView"].forEach(v => $(v).hidden = v !== name);
   setErr("lErr", "");
@@ -1653,7 +1688,7 @@ function openAccount() {
   paintAccount();
   $("amodal").hidden = false;
   if (meKey) {
-    $("whoName").textContent = users()[meKey].name;
+    fillProfile(users()[meKey]);
     aView("profileView");
     $("logout").focus();
   } else {
@@ -1682,27 +1717,38 @@ const canHash = () => window.crypto && crypto.subtle;
 
 $("loginView").addEventListener("submit", async e => {
   e.preventDefault();
-  const k = norm($("lUser").value), pw = $("lPass").value;
-  if (!k || !pw) return setErr("lErr", "نام کاربری و رمز عبور رو وارد کن.");
+  const id = norm($("lUser").value), pw = $("lPass").value;
+  if (!id || !pw) return setErr("lErr", "نام کاربری یا ایمیل و رمز عبور رو وارد کن.");
   if (!canHash()) return setErr("lErr", "این مرورگر از ورود امن پشتیبانی نمی‌کنه.");
-  const u = users()[k];
-  if (!u || await hashPw(pw, fromB64(u.salt)) !== u.hash) return setErr("lErr", "نام کاربری یا رمز عبور اشتباهه.");
+  const all = users();
+  const k = id.includes("@") ? Object.keys(all).find(x => (all[x].email || "") === id) : id;
+  const u = all[k];
+  if (!u || await hashPw(pw, fromB64(u.salt)) !== u.hash) return setErr("lErr", "نام کاربری / ایمیل یا رمز عبور اشتباهه.");
   setSession(k);
   $("lPass").value = "";
   closeAccount();
 });
 
+const digits = t => t.replace(/[۰-۹٠-٩]/g, d => "۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩".indexOf(d) % 10);
+
 $("signupView").addEventListener("submit", async e => {
   e.preventDefault();
+  const first = $("sFirst").value.trim(), last = $("sLast").value.trim();
+  const phone = digits($("sPhone").value).replace(/[\s-]/g, "");
+  const email = norm($("sEmail").value);
   const name = $("sUser").value.trim(), k = norm(name), pw = $("sPass").value;
+  if (!first || !last) return setErr("sErr", "نام و نام خانوادگی رو وارد کن.");
+  if (!/^\+?\d{10,15}$/.test(phone)) return setErr("sErr", "شماره تماس معتبر وارد کن.");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return setErr("sErr", "ایمیل معتبر وارد کن.");
   if (!/^[\w.\u0600-\u06FF-]{3,20}$/.test(name)) return setErr("sErr", "نام کاربری ۳ تا ۲۰ حرف باشه و فاصله نداشته باشه.");
   if (pw.length < 6) return setErr("sErr", "رمز عبور حداقل ۶ کاراکتر باشه.");
   if (pw !== $("sPass2").value) return setErr("sErr", "تکرار رمز عبور با رمز یکی نیست.");
   if (!canHash()) return setErr("sErr", "این مرورگر از ساخت حساب امن پشتیبانی نمی‌کنه.");
   const all = users();
   if (all[k]) return setErr("sErr", "این نام کاربری قبلاً گرفته شده.");
+  if (Object.values(all).some(u => u.email === email)) return setErr("sErr", "با این ایمیل قبلاً حساب ساخته شده.");
   const salt = crypto.getRandomValues(new Uint8Array(16));
-  all[k] = { name, salt: toB64(salt), hash: await hashPw(pw, salt) };
+  all[k] = { name, first, last, phone, email, salt: toB64(salt), hash: await hashPw(pw, salt) };
   try { localStorage.setItem("pixieUsers", JSON.stringify(all)) } catch (err) { return setErr("sErr", "ذخیره‌سازی مرورگر در دسترس نیست.") }
   setSession(k);
   $("sPass").value = $("sPass2").value = "";
