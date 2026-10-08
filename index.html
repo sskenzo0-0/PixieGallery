@@ -950,7 +950,6 @@ a.card:hover span {
 /* صفحه‌ی مشخصات محصول (داخل همین فایل) */
 body.in-product .hero,
 body.in-product #products,
-body.in-product #contact,
 body.in-product #trust {
   display: none
 }
@@ -980,9 +979,43 @@ body.in-product #trust {
 .pbox {
   background: rgba(255, 255, 255, .35);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 22px;
   padding: 7%
+}
+
+.pstrip {
+  direction: ltr;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 100%
+}
+
+.pstrip .mini,
+.pstrip .painter {
+  position: static;
+  flex: none;
+  height: auto
+}
+
+.pstrip .painter {
+  width: 84px;
+  max-width: none
+}
+
+.pstrip .mini.cat {
+  width: 30px
+}
+
+.pstrip .mini.cowboy {
+  width: 34px
+}
+
+.pstrip .mini.hiker {
+  width: 54px
 }
 
 .pbox .frame {
@@ -1339,6 +1372,7 @@ function showProduct(k) {
     <div class="detail">
       <div class="pbox">
         <div class="frame" style="aspect-ratio:${w}/${h}"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div>
+        <div class="pstrip" id="pstrip" aria-hidden="true"></div>
       </div>
       <div class="info">
         <span class="badge">${game}</span>
@@ -1357,6 +1391,7 @@ function showProduct(k) {
         </div>
       </div>
     </div>`;
+  document.querySelectorAll(".wall .painter, .wall .mini").forEach(n => $("pstrip").append(n.cloneNode(true)));
   $("addOne").onclick = e => {
     cart[k] = (cart[k] || 0) + 1;
     render();
