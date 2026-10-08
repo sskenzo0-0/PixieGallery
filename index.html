@@ -1,3 +1,6 @@
+
+
+Pixie gallery · HTML
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -17,17 +20,17 @@
   --paper: #f7f8f8;
   --line: #c3ccd1
 }
-
+ 
 * {
   box-sizing: border-box;
   margin: 0
 }
-
+ 
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%
 }
-
+ 
 body {
   font-family: 'Baloo Bhaijaan 2', Lalezar, Tahoma, sans-serif;
   background: var(--wall);
@@ -36,7 +39,7 @@ body {
   font-size: 16px;
   overflow-x: hidden
 }
-
+ 
 h1,
 h2,
 h3 {
@@ -44,17 +47,17 @@ h3 {
   font-weight: 700;
   line-height: 1.5
 }
-
+ 
 a {
   color: inherit
 }
-
+ 
 .wrap {
   max-width: 1080px;
   margin: 0 auto;
   padding: 0 20px
 }
-
+ 
 header {
   display: flex;
   justify-content: space-between;
@@ -63,7 +66,7 @@ header {
   flex-wrap: wrap;
   padding: 18px 0
 }
-
+ 
 .logo {
   font-weight: 700;
   font-size: 26px;
@@ -73,30 +76,30 @@ header {
   align-items: center;
   gap: 10px
 }
-
+ 
 .logo .mark {
   width: 28px;
   height: 40px;
   flex-shrink: 0
 }
-
+ 
 .hnav {
   display: flex;
   align-items: center;
   gap: 6px 20px;
   flex-wrap: wrap
 }
-
+ 
 .hnav a {
   text-decoration: none;
   font-size: 15px
 }
-
+ 
 .hnav a:hover,
 .btn:hover {
   text-decoration: underline
 }
-
+ 
 .cartbtn {
   background: none;
   border: 1.5px solid var(--ink);
@@ -107,7 +110,7 @@ header {
   font: inherit;
   font-size: 15px
 }
-
+ 
 .cartbtn b {
   display: inline-block;
   min-width: 22px;
@@ -119,7 +122,7 @@ header {
   font-size: 13px;
   line-height: 22px
 }
-
+ 
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -127,23 +130,23 @@ header {
   align-items: center;
   padding: 30px 0 60px
 }
-
+ 
 .hero h1 {
   font-size: clamp(28px, 5vw, 56px)
 }
-
+ 
 .hero p {
   margin: 14px 0 24px;
   max-width: 46ch
 }
-
+ 
 .hero-btns {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap
 }
-
+ 
 .btn {
   display: inline-block;
   background: var(--ink);
@@ -155,103 +158,103 @@ header {
   font: inherit;
   cursor: pointer
 }
-
+ 
 .btn.alt {
   background: transparent;
   color: var(--ink);
   border: 1.5px solid var(--ink);
   margin-inline-start: 10px
 }
-
+ 
 :focus-visible {
   outline: 3px solid var(--teal);
   outline-offset: 3px
 }
-
+ 
 .wall {
   position: relative;
   height: 380px
 }
-
+ 
 .frame {
   position: absolute;
   background: var(--wood);
   border: 9px solid var(--wood);
   box-shadow: inset 0 0 0 2px var(--wood2), 6px 10px 18px rgba(27, 37, 48, .28)
 }
-
+ 
 .frame > .mat {
   width: 100%;
   height: 100%;
   background: var(--paper);
   padding: 12%
 }
-
+ 
 .art {
   width: 100%;
   height: 100%;
   overflow: hidden
 }
-
+ 
 .art svg {
   display: block;
   width: 100%;
   height: 100%
 }
-
+ 
 .art img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover
 }
-
+ 
 .f1 {
   width: 46%;
   height: 70%;
   top: 6%;
   right: 4%
 }
-
+ 
 .f2 {
   width: 30%;
   height: 42%;
   top: 0;
   left: 8%
 }
-
+ 
 .f3 {
   width: 34%;
   height: 30%;
   bottom: 2%;
   left: 2%
 }
-
+ 
 section {
   padding: 50px 0
 }
-
+ 
 section h2 {
   font-size: 32px;
   margin-bottom: 6px
 }
-
+ 
 #products h2 {
   margin-bottom: 26px
 }
-
+ 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 34px 26px
 }
-
+ 
 .item {
   min-width: 0;
   display: flex;
   flex-direction: column
 }
-
+ 
 .item .box {
   aspect-ratio: 4/5;
   display: flex;
@@ -259,52 +262,52 @@ section h2 {
   justify-content: center;
   background: rgba(255, 255, 255, .35)
 }
-
+ 
 .item .frame {
   position: relative;
   width: 62%;
   height: 74%;
   border-width: 8px
 }
-
+ 
 .item h3 {
   font-size: 20px;
   margin-top: 12px
 }
-
+ 
 .meta {
   font-size: 14px;
   color: #4b5963
 }
-
+ 
 .price {
   font-weight: 600;
   margin: 4px 0 10px
 }
-
+ 
 .item .btn {
   padding: 7px 16px;
   font-size: 14px;
   margin-top: auto;
   align-self: flex-start
 }
-
+ 
 .item .btn.added {
   background: var(--teal)
 }
-
+ 
 .contact {
   background: var(--ink);
   color: #fff
 }
-
+ 
 .contact-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
   margin-top: 24px
 }
-
+ 
 .card {
   border: 1px solid rgba(255, 255, 255, .28);
   border-radius: 6px;
@@ -314,24 +317,24 @@ section h2 {
   text-decoration: none;
   min-width: 0
 }
-
+ 
 .card:hover {
   background: rgba(255, 255, 255, .08)
 }
-
+ 
 .card b {
   font-size: 18px
 }
-
+ 
 .card a {
   text-decoration: none;
   display: block
 }
-
+ 
 .card a:hover span {
   text-decoration: underline
 }
-
+ 
 .card span {
   direction: ltr;
   text-align: right;
@@ -339,11 +342,11 @@ section h2 {
   opacity: .9;
   overflow-wrap: anywhere
 }
-
+ 
 .trust {
   text-align: center
 }
-
+ 
 .trust .slot {
   margin: 18px auto 0;
   width: 150px;
@@ -357,16 +360,16 @@ section h2 {
   color: #4b5963;
   padding: 10px
 }
-
+ 
 footer {
   padding: 24px 0;
   font-size: 14px;
   text-align: center;
   border-top: 1px solid var(--line)
 }
-
+ 
 /* سبد خرید */
-
+ 
 .shade {
   position: fixed;
   inset: 0;
@@ -376,7 +379,7 @@ footer {
   transition: opacity .2s;
   z-index: 50
 }
-
+ 
 .cart {
   position: fixed;
   top: 0;
@@ -391,26 +394,26 @@ footer {
   flex-direction: column;
   padding: 18px
 }
-
+ 
 body.cart-open .shade {
   opacity: 1;
   pointer-events: auto
 }
-
+ 
 body.cart-open .cart {
   transform: none
 }
-
+ 
 .cart h2 {
   font-size: 22px;
   margin-bottom: 10px
 }
-
+ 
 .lines {
   flex: 1;
   overflow: auto
 }
-
+ 
 .line {
   display: flex;
   justify-content: space-between;
@@ -420,19 +423,19 @@ body.cart-open .cart {
   border-bottom: 1px solid var(--line);
   font-size: 15px
 }
-
+ 
 .line small {
   display: block;
   color: #4b5963
 }
-
+ 
 .qty {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-shrink: 0
 }
-
+ 
 .qty button {
   width: 28px;
   height: 28px;
@@ -442,38 +445,38 @@ body.cart-open .cart {
   cursor: pointer;
   font-size: 16px
 }
-
+ 
 .empty {
   padding: 24px 0;
   color: #4b5963
 }
-
+ 
 .total {
   display: flex;
   justify-content: space-between;
   font-weight: 700;
   padding: 14px 0
 }
-
+ 
 .cart .btn {
   text-align: center;
   width: 100%;
   margin-top: 8px
 }
-
+ 
 .cart .btn.alt {
   margin-inline-start: 0
 }
-
+ 
 /* انیمیشن دکمه‌ها */
-
+ 
 .btn,
 .cartbtn,
 .qty button {
   -webkit-tap-highlight-color: transparent;
   transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), box-shadow .2s, background-color .2s, color .2s
 }
-
+ 
 .btn:hover,
 .cartbtn:hover,
 .qty button:hover,
@@ -483,32 +486,32 @@ body.cart-open .cart {
   transform: scale(1.08);
   box-shadow: 0 8px 18px rgba(27, 37, 48, .28)
 }
-
+ 
 .btn:active,
 .cartbtn:active,
 .qty button:active {
   transform: scale(1.14)
 }
-
+ 
 .btn:not(.alt):hover {
   background: var(--teal)
 }
-
+ 
 .btn.alt:hover,
 .cartbtn:hover {
   background: var(--ink);
   color: #fff
 }
-
+ 
 .cartbtn:hover b {
   background: #fff;
   color: var(--ink)
 }
-
+ 
 .card {
   transition: transform .35s cubic-bezier(.2, .8, .2, 1), background-color .3s, box-shadow .35s, border-color .3s
 }
-
+ 
 .card:hover,
 .card:active {
   transform: translateY(-8px) scale(1.05);
@@ -516,26 +519,26 @@ body.cart-open .cart {
   border-color: #e8b86a;
   box-shadow: 0 18px 30px rgba(0, 0, 0, .4)
 }
-
+ 
 .card:active {
   transform: translateY(-4px) scale(1.09)
 }
-
+ 
 .card b {
   transition: color .25s
 }
-
+ 
 .card:hover b {
   color: #e8b86a
 }
-
+ 
 .card a span,
 a.card span {
   display: inline-block;
   transform-origin: right center;
   transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), color .2s
 }
-
+ 
 .card a:hover span,
 .card a:active span,
 a.card:hover span {
@@ -543,50 +546,50 @@ a.card:hover span {
   color: #e8b86a;
   text-decoration: none
 }
-
+ 
 .contact h2,
 .contact p {
   transition: color .25s
 }
-
+ 
 @keyframes pop {
   0% {
     transform: scale(1)
   }
-
+ 
   40% {
     transform: scale(1.18)
   }
-
+ 
   100% {
     transform: scale(1)
   }
 }
-
+ 
 .pop {
   animation: pop .35s ease
 }
-
+ 
 /* افکت ظاهر شدن هنگام اسکرول */
-
+ 
 .rv {
   opacity: 0;
   transform: translateY(32px);
   transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1)
 }
-
+ 
 .rv.in {
   opacity: 1;
   transform: none
 }
-
+ 
 @media (prefers-reduced-motion: reduce) {
   .rv {
     opacity: 1;
     transform: none;
     transition: none
   }
-
+ 
   .btn,
   .cartbtn,
   .qty button,
@@ -596,20 +599,20 @@ a.card:hover span {
   a.card span {
     transition: none
   }
-
+ 
   .pop {
     animation: none
   }
 }
-
+ 
 /* انیمیشن لینک‌های منو */
-
+ 
 .hnav a {
   position: relative;
   padding: 2px 2px;
   transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), color .2s
 }
-
+ 
 .hnav a::after {
   content: "";
   position: absolute;
@@ -621,52 +624,52 @@ a.card:hover span {
   transform-origin: right;
   transition: transform .25s
 }
-
+ 
 .hnav a:hover,
 .hnav a:active {
   transform: scale(1.12);
   color: var(--teal);
   text-decoration: none
 }
-
+ 
 .hnav a:hover::after,
 .hnav a:active::after {
   transform: scaleX(1)
 }
-
+ 
 /* افکت روی محصول */
-
+ 
 .item .box,
 .item .frame,
 .item .art svg,
 .item h3 {
   transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s, background-color .35s, color .25s
 }
-
+ 
 .item:hover .box,
 .item:active .box {
   background: rgba(255, 255, 255, .7)
 }
-
+ 
 .item:hover .frame,
 .item:active .frame {
   transform: translateY(-8px) scale(1.06);
   box-shadow: inset 0 0 0 2px var(--wood2), 10px 20px 30px rgba(27, 37, 48, .38)
 }
-
+ 
 .item:active .frame {
   transform: translateY(-4px) scale(1.1)
 }
-
+ 
 .item:hover .art svg,
 .item:hover .art img {
   transform: scale(1.08)
 }
-
+ 
 .item:hover h3 {
   color: var(--teal)
 }
-
+ 
 @media (prefers-reduced-motion: reduce) {
   .hnav a,
   .hnav a::after,
@@ -677,105 +680,178 @@ a.card:hover span {
     transition: none
   }
 }
-
+ 
 /* ریسپانسیو */
-
+ 
 @media (max-width: 800px) {
   .hero {
     grid-template-columns: 1fr;
     padding-bottom: 30px
   }
-
+ 
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 26px 14px
   }
-
+ 
   .contact-grid {
     grid-template-columns: 1fr
   }
-
+ 
   .wall {
     height: 300px
   }
-
+ 
   section {
     padding: 36px 0
   }
-
+ 
   section h2 {
     font-size: 26px
   }
 }
-
+ 
 @media (max-width: 480px) {
   .wrap {
     padding: 0 16px
   }
-
+ 
   header {
     justify-content: center;
     text-align: center
   }
-
+ 
   .hnav {
     justify-content: center
   }
-
+ 
   .hero {
     text-align: center
   }
-
+ 
   .hero p {
     margin-inline: auto
   }
-
+ 
   .hero-btns {
     justify-content: center;
     gap: 12px;
     margin-top: 10px;
     width: 100%
   }
-
+ 
   .hero-btns .btn {
     flex: 1;
     min-width: 140px;
     text-align: center
   }
-
+ 
   .btn.alt {
     margin-inline-start: 0
   }
-
+ 
   .grid {
     gap: 22px 10px
   }
-
+ 
   .item h3 {
     font-size: 17px
   }
-
+ 
   .meta {
     font-size: 13px
   }
-
+ 
   .item .btn {
     width: 100%;
     text-align: center
   }
-
+ 
   .wall {
     height: 260px
   }
-
+ 
   .frame {
     border-width: 6px
   }
 }
-
+ 
 @media (max-width: 340px) {
   .grid {
     grid-template-columns: 1fr
+  }
+}
+ 
+/* بابِ نقاشِ پیکسلی */
+.painter {
+  position: absolute;
+  right: 4%;
+  bottom: 0;
+  width: 20%;
+  max-width: 84px;
+  height: auto
+}
+ 
+.painter .arm {
+  animation: painterStroke 1.2s steps(1, end) infinite
+}
+ 
+.painter .tree {
+  animation-duration: 9s;
+  animation-timing-function: steps(1, end);
+  animation-iteration-count: infinite
+}
+ 
+.painter .t1 {
+  animation-name: painterTree1
+}
+ 
+.painter .t2 {
+  animation-name: painterTree2
+}
+ 
+@keyframes painterStroke {
+  0%, 100% {
+    transform: translate(0, 0)
+  }
+ 
+  25% {
+    transform: translate(-1px, 0)
+  }
+ 
+  50% {
+    transform: translate(-1px, 1px)
+  }
+ 
+  75% {
+    transform: translate(0, 1px)
+  }
+}
+ 
+@keyframes painterTree1 {
+  0%, 19% {
+    opacity: 0
+  }
+ 
+  20%, 100% {
+    opacity: 1
+  }
+}
+ 
+@keyframes painterTree2 {
+  0%, 44% {
+    opacity: 0
+  }
+ 
+  45%, 100% {
+    opacity: 1
+  }
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+  .painter .arm,
+  .painter .tree {
+    animation: none
   }
 }
 </style>
@@ -795,7 +871,7 @@ a.card:hover span {
     <button class="cartbtn" id="openCart" type="button">سبد خرید<b id="count">۰</b></button>
   </div>
 </header>
-
+ 
 <div class="hero">
   <div>
     <h1>طرح دلخواهت - با سلیقه قابت - مخصوص دیوارت</h1>
@@ -809,15 +885,27 @@ a.card:hover span {
     <div class="frame f1"><div class="mat"><div class="art" data-art="r1"></div></div></div>
     <div class="frame f2"><div class="mat"><div class="art" data-art="t2"></div></div></div>
     <div class="frame f3"><div class="mat"><div class="art" data-art="r2"></div></div></div>
+    <svg class="painter" viewBox="0 0 46 35" shape-rendering="crispEdges" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <g><path fill="#9a6a35" d="M2 6h16v1h-16zM2 7h16v1h-16zM2 8h16v1h-16zM2 9h16v1h-16zM2 10h16v1h-16zM2 11h16v1h-16zM2 12h16v1h-16zM2 13h16v1h-16zM2 14h16v1h-16zM2 15h16v1h-16zM2 16h16v1h-16zM2 17h16v1h-16zM0 19h20v1h-20zM4 21h1v1h-1zM15 21h1v1h-1zM4 22h1v1h-1zM15 22h1v1h-1zM4 23h1v1h-1zM15 23h1v1h-1zM4 24h1v1h-1zM15 24h1v1h-1zM3 25h1v1h-1zM16 25h1v1h-1zM3 26h1v1h-1zM16 26h1v1h-1zM3 27h1v1h-1zM16 27h1v1h-1zM3 28h1v1h-1zM16 28h1v1h-1zM3 29h1v1h-1zM16 29h1v1h-1zM2 30h1v1h-1zM17 30h1v1h-1zM2 31h1v1h-1zM17 31h1v1h-1zM2 32h1v1h-1zM17 32h1v1h-1zM2 33h1v1h-1zM17 33h1v1h-1zM2 34h1v1h-1zM17 34h1v1h-1z"/><path fill="#6a4220" d="M9 3h2v1h-2zM9 4h2v1h-2zM1 5h18v1h-18zM1 6h1v1h-1zM18 6h1v1h-1zM1 7h1v1h-1zM18 7h1v1h-1zM1 8h1v1h-1zM18 8h1v1h-1zM1 9h1v1h-1zM18 9h1v1h-1zM1 10h1v1h-1zM18 10h1v1h-1zM1 11h1v1h-1zM18 11h1v1h-1zM1 12h1v1h-1zM18 12h1v1h-1zM1 13h1v1h-1zM18 13h1v1h-1zM1 14h1v1h-1zM18 14h1v1h-1zM1 15h1v1h-1zM18 15h1v1h-1zM1 16h1v1h-1zM18 16h1v1h-1zM1 17h1v1h-1zM18 17h1v1h-1zM1 18h18v1h-18zM0 20h20v1h-20zM10 21h1v1h-1zM10 22h1v1h-1zM10 23h1v1h-1zM10 24h1v1h-1zM10 25h1v1h-1zM10 26h1v1h-1zM10 27h1v1h-1zM10 28h1v1h-1zM10 29h1v1h-1zM10 30h1v1h-1zM10 31h1v1h-1zM10 32h1v1h-1zM10 33h1v1h-1z"/></g>
+      <g><path fill="#ffe58a" d="M12 8h3v1h-3zM12 9h3v1h-3zM12 10h3v1h-3z"/><path fill="#8fa6d8" d="M2 6h16v1h-16zM2 7h16v1h-16z"/><path fill="#f6d19a" d="M2 8h4v1h-4zM7 8h5v1h-5zM15 8h3v1h-3zM2 9h3v1h-3zM8 9h4v1h-4zM15 9h3v1h-3z"/><path fill="#f19a6b" d="M2 10h2v1h-2zM9 10h2v1h-2zM15 10h3v1h-3z"/><path fill="#9a7fb8" d="M4 10h5v1h-5zM3 11h7v1h-7zM2 12h7v1h-7z"/><path fill="#665590" d="M11 10h1v1h-1zM10 11h3v1h-3zM9 12h5v1h-5z"/><path fill="#4f8fb5" d="M2 13h2v1h-2zM6 13h3v1h-3zM10 13h3v1h-3zM14 13h4v1h-4zM2 14h8v1h-8zM12 14h6v1h-6z"/><path fill="#62b36f" d="M2 15h16v1h-16zM2 16h16v1h-16z"/><path fill="#ffffff" d="M6 8h1v1h-1zM5 9h3v1h-3z"/><path fill="#fbf6e9" d="M2 11h1v1h-1zM13 11h5v1h-5zM14 12h4v1h-4z"/><path fill="#3f9a5a" d="M2 17h16v1h-16z"/><path fill="#8cc3dd" d="M4 13h2v1h-2zM9 13h1v1h-1zM13 13h1v1h-1zM10 14h2v1h-2z"/></g>
+      <g class="tree t1"><path fill="#1f5a38" d="M5 11h1v1h-1zM4 12h3v1h-3zM4 13h3v1h-3zM3 14h5v1h-5zM3 15h5v1h-5z"/><path fill="#6a4220" d="M5 16h1v1h-1z"/></g>
+      <g class="tree t2"><path fill="#1f5a38" d="M14 12h1v1h-1zM13 13h3v1h-3zM13 14h3v1h-3zM12 15h5v1h-5zM12 16h5v1h-5z"/><path fill="#6a4220" d="M14 17h1v1h-1z"/></g>
+      <g><path fill="#5b8bc4" d="M26 16h2v1h-2zM35 16h2v1h-2zM25 18h13v1h-13zM25 19h6v1h-6zM32 19h6v1h-6zM25 20h6v1h-6zM32 20h6v1h-6zM25 21h6v1h-6zM32 21h6v1h-6zM25 22h6v1h-6zM32 22h6v1h-6zM25 23h6v1h-6zM32 23h6v1h-6zM25 24h6v1h-6zM32 24h6v1h-6zM25 25h6v1h-6zM32 25h6v1h-6z"/><path fill="#34457a" d="M26 27h5v1h-5zM32 27h5v1h-5zM26 28h5v1h-5zM32 28h5v1h-5zM26 29h5v1h-5zM32 29h5v1h-5zM26 30h5v1h-5zM32 30h5v1h-5zM26 31h5v1h-5zM32 31h5v1h-5zM26 32h5v1h-5zM32 32h5v1h-5z"/><path fill="#2b2420" d="M24 34h7v1h-7zM32 34h6v1h-6z"/><path fill="#eab48c" d="M29 15h5v1h-5z"/><path fill="#3f6aa0" d="M25 17h3v1h-3zM29 17h5v1h-5zM35 17h3v1h-3zM31 19h1v1h-1zM31 20h1v1h-1zM31 21h1v1h-1zM31 22h1v1h-1zM31 23h1v1h-1zM31 24h1v1h-1zM31 25h1v1h-1zM25 26h13v1h-13z"/><path fill="#9cc0e6" d="M28 16h7v1h-7zM28 17h1v1h-1zM34 17h1v1h-1z"/><path fill="#27355e" d="M31 27h1v1h-1zM31 28h1v1h-1zM31 29h1v1h-1zM31 30h1v1h-1zM31 31h1v1h-1zM31 32h1v1h-1zM26 33h11v1h-11z"/><path fill="#c98f68" d="M29 14h5v1h-5z"/></g>
+      <g><path fill="#5b8bc4" d="M22 17h4v1h-4zM22 18h4v1h-4z"/><path fill="#3f6aa0" d="M22 16h4v1h-4z"/></g>
+      <g><path fill="#5b8bc4" d="M37 18h2v1h-2zM37 19h2v1h-2zM37 20h2v1h-2zM37 21h3v1h-3zM37 22h4v1h-4z"/><path fill="#eab48c" d="M40 21h1v1h-1z"/><path fill="#3f6aa0" d="M37 17h2v1h-2z"/></g>
+      <g><path fill="#3f9a5a" d="M43 21h1v1h-1z"/><path fill="#e0a868" d="M41 18h2v1h-2zM39 19h5v1h-5zM38 20h3v1h-3zM42 20h1v1h-1zM38 21h2v1h-2zM41 21h2v1h-2zM40 22h1v1h-1z"/><path fill="#d94a3a" d="M41 20h1v1h-1z"/><path fill="#eab48c" d="M40 21h1v1h-1z"/><path fill="#3a78d1" d="M43 22h1v1h-1z"/><path fill="#f2c14e" d="M43 20h1v1h-1z"/><path fill="#ffffff" d="M41 22h1v1h-1z"/><path fill="#b57d40" d="M44 19h1v1h-1zM44 20h1v1h-1zM44 21h1v1h-1zM39 22h1v1h-1zM42 22h1v1h-1zM44 22h1v1h-1zM41 23h2v1h-2z"/></g>
+      <g><path fill="#4a2c17" d="M29 0h5v1h-5zM27 1h4v1h-4zM32 1h4v1h-4zM25 2h3v1h-3zM29 2h5v1h-5zM35 2h3v1h-3zM24 3h2v1h-2zM27 3h12v1h-12zM24 4h12v1h-12zM37 4h2v1h-2zM23 5h6v1h-6zM30 5h10v1h-10zM23 6h1v1h-1zM25 6h8v1h-8zM34 6h6v1h-6zM23 7h15v1h-15zM39 7h1v1h-1zM23 8h4v1h-4zM28 8h12v1h-12zM23 9h12v1h-12zM36 9h4v1h-4zM23 10h2v1h-2zM26 10h5v1h-5zM32 10h8v1h-8zM24 11h13v1h-13zM38 11h1v1h-1zM25 12h1v1h-1zM27 12h3v1h-3zM31 12h2v1h-2zM34 12h4v1h-4zM25 13h11v1h-11zM37 13h1v1h-1zM26 14h1v1h-1zM36 14h1v1h-1z"/><path fill="#70462a" d="M31 1h1v1h-1zM28 2h1v1h-1zM34 2h1v1h-1zM26 3h1v1h-1zM36 4h1v1h-1zM29 5h1v1h-1zM24 6h1v1h-1zM33 6h1v1h-1zM38 7h1v1h-1zM27 8h1v1h-1zM35 9h1v1h-1zM25 10h1v1h-1zM31 10h1v1h-1zM37 11h1v1h-1zM26 12h1v1h-1zM30 12h1v1h-1zM33 12h1v1h-1zM36 13h1v1h-1z"/></g>
+      <g class="arm"><path fill="#5b8bc4" d="M22 11h2v1h-2zM22 12h2v1h-2zM22 13h2v1h-2zM22 14h2v1h-2zM22 15h2v1h-2zM22 16h2v1h-2z"/><path fill="#d94a3a" d="M16 9h1v1h-1z"/><path fill="#eab48c" d="M20 9h4v1h-4zM21 10h3v1h-3z"/><path fill="#3f6aa0" d="M21 11h1v1h-1zM21 12h1v1h-1zM21 13h1v1h-1zM21 14h1v1h-1zM21 15h1v1h-1zM21 16h1v1h-1z"/><path fill="#b4bac4" d="M17 9h1v1h-1z"/><path fill="#b0782f" d="M18 9h2v1h-2z"/></g>
+    </svg>
   </div>
 </div>
 </div>
-
+ 
 <section id="products"><div class="wrap">
   <h2>تابلوهای آماده</h2>
   <div class="grid" id="grid"></div>
 </div></section>
-
+ 
 <section id="contact" class="contact"><div class="wrap">
   <h2>ارتباط با ما</h2>
   <p>برای سفارش تابلو، سفارش طرح دلخواه و هر سؤالی از این راه‌ها پیام بده.</p>
@@ -830,14 +918,14 @@ a.card:hover span {
     <a class="card" id="pgCard" target="_blank" rel="noopener"><b>پیج اینستاگرام</b><span id="pgText"></span></a>
   </div>
 </div></section>
-
+ 
 <section id="trust" class="trust"><div class="wrap">
   <h2>نماد اعتماد الکترونیکی</h2>
   <div class="slot">جای نماد اعتماد الکترونیکی (اینماد)</div>
 </div></section>
-
+ 
 <footer><div class="wrap">Pixie Gallery</div></footer>
-
+ 
 <div class="shade" id="shade"></div>
 <aside class="cart" id="cart" aria-label="سبد خرید">
   <h2>سبد خرید</h2>
@@ -846,13 +934,13 @@ a.card:hover span {
   <a class="btn" id="order" target="_blank" rel="noopener">ادامه خرید</a>
   <button class="btn alt" id="closeCart" type="button">بستن</button>
 </aside>
-
+ 
 <script>
 const TELEGRAM = "sskenzo0_0";
 const TELEGRAM2 = "LerZimboY";
 const CHANNEL = "PixieFrameGallery";
 const PAGE = "pixieframegallery";
-
+ 
 const V = 'viewBox="0 0 100 125" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"';
 const ART = {
   r1: `<svg ${V}><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2a3e"/><stop offset=".45" stop-color="#d1583a"/><stop offset="1" stop-color="#f2b45a"/></linearGradient></defs><rect width="100" height="125" fill="url(#g1)"/><circle cx="50" cy="72" r="20" fill="#ffd98a"/><path d="M0 88 L18 70 L34 70 L44 84 L58 78 L74 66 L92 66 L100 80 V125 H0Z" fill="#3a1d24"/><path d="M0 104 Q50 92 100 106 V125 H0Z" fill="#1d0f14"/><path d="M26 104 v-18 M26 96 h-6 v-6 M26 94 h6 v-8" stroke="#0e0709" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M62 104 q8-14 18 0 M56 104 h30" stroke="#0e0709" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
@@ -862,7 +950,7 @@ const ART = {
   t2: `<svg ${V}><rect width="100" height="125" fill="#0d1612"/><path d="M0 125 V84 L14 54 L24 84 L36 48 L48 86 L62 52 L74 86 L88 58 L100 86 V125Z" fill="#050a08"/><g fill="#f4d35e"><circle cx="22" cy="40" r="2.4"/><circle cx="46" cy="28" r="1.8"/><circle cx="70" cy="46" r="2.8"/><circle cx="82" cy="24" r="1.6"/><circle cx="34" cy="64" r="1.6"/><circle cx="58" cy="70" r="2.2"/><circle cx="14" cy="80" r="1.4"/><circle cx="88" cy="74" r="1.8"/></g><g fill="#f4d35e" opacity=".25"><circle cx="22" cy="40" r="7"/><circle cx="70" cy="46" r="8"/><circle cx="58" cy="70" r="6"/></g></svg>`,
   t3: `<svg ${V}><rect width="100" height="125" fill="#c7d4bd"/><path d="M0 70 H100 V125 H0Z" fill="#56734f"/><path d="M42 70 H58 L92 125 H8Z" fill="#3a3f45"/><path d="M50 78 V122" stroke="#d9d3b0" stroke-width="1.6" stroke-dasharray="5 5"/><path d="M0 70 L12 40 L22 70 L32 36 L42 70Z M58 70 L68 34 L80 70 L90 44 L100 70Z" fill="#2c4a33"/><path d="M0 125 L10 96 L22 125Z M78 125 L90 92 L100 125Z" fill="#2c4a33"/></svg>`
 };
-
+ 
 const items = [
   { n: "Red Dead Redemption 2 | غروب غرب وحشی", s: "۳۰×۴۰", p: 1200000, a: "r1" },
   { n: "Red Dead Redemption 2 | شب و ماه", s: "۳۰×۴۰", p: 1100000, a: "r2" },
@@ -871,7 +959,7 @@ const items = [
   { n: "The Last of Us | شب و کرم‌های شب‌تاب", s: "۴۰×۶۰", p: 1500000, a: "t2" },
   { n: "The Last of Us | جاده‌ی سبز", s: "۳۰×۴۰", p: 1150000, a: "t3" }
 ];
-
+ 
 const fa = n => Number(n).toLocaleString("fa-IR");
 const artHTML = i => i.img ? `<img src="${i.img}" alt="${i.n}" loading="lazy">` : ART[i.a];
 document.querySelectorAll("[data-art]").forEach(e => e.innerHTML = ART[e.dataset.art]);
@@ -883,11 +971,11 @@ document.getElementById("grid").innerHTML = items.map((i, k) => `
     <div class="price">${fa(i.p)} تومان</div>
     <button class="btn" type="button" data-add="${k}">افزودن به سبد خرید</button>
   </article>`).join("");
-
+ 
 /* سبد خرید */
 const cart = {};
 const $ = id => document.getElementById(id);
-
+ 
 function render() {
   const ids = Object.keys(cart);
   let total = 0, count = 0, msg = "سلام، می‌خوام این تابلوها رو سفارش بدم:\n";
@@ -906,9 +994,9 @@ function render() {
   $("order").href = ids.length ? "https://t.me/" + TELEGRAM + "?text=" + encodeURIComponent(msg) : "#";
   $("order").style.opacity = ids.length ? 1 : .5;
 }
-
+ 
 const toggle = o => document.body.classList.toggle("cart-open", o);
-
+ 
 document.addEventListener("click", e => {
   const a = e.target.closest("[data-add]");
   if (a) {
@@ -931,14 +1019,14 @@ document.addEventListener("click", e => {
     render()
   }
 });
-
+ 
 $("openCart").onclick = () => toggle(true);
 $("closeCart").onclick = $("shade").onclick = () => toggle(false);
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") toggle(false)
 });
 render();
-
+ 
 const set = (c, t, h, x) => {
   $(c).href = h;
   $(t).textContent = x
@@ -947,7 +1035,7 @@ set("tgCard", "tgText", "https://t.me/" + TELEGRAM, "@" + TELEGRAM);
 set("tg2Card", "tg2Text", "https://t.me/" + TELEGRAM2, "@" + TELEGRAM2);
 set("chCard", "chText", "https://t.me/" + CHANNEL, "@" + CHANNEL);
 set("pgCard", "pgText", "https://instagram.com/" + PAGE, "@" + PAGE);
-
+ 
 /* افکت‌ها */
 document.addEventListener("click", e => {
   const b = e.target.closest(".btn,.cartbtn,.qty button");
@@ -957,14 +1045,14 @@ document.addEventListener("click", e => {
     b.classList.add("pop")
   }
 });
-
+ 
 const rv = [...document.querySelectorAll(".hero>div,section h2,.contact p,.item,.card,.slot")];
 rv.forEach(el => {
   el.classList.add("rv");
   if (el.classList.contains("item") || el.classList.contains("card"))
     el.style.transitionDelay = (rv.filter(x => x.className.split(" ")[0] === el.className.split(" ")[0]).indexOf(el) % 3) * 90 + "ms"
 });
-
+ 
 if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(es => es.forEach(x => {
     if (x.isIntersecting) {
