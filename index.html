@@ -1268,6 +1268,62 @@ body.in-product #trust {
     gap: 22px
   }
 }
+
+/* ===== جستجوی هدر ===== */
+.sr { position: absolute; left: -9999px }
+.item[hidden] { display: none }
+.hsearch { margin: 0; display: inline-flex }
+.hsearch input {
+  width: 150px; max-width: 100%; padding: 2px 12px; font: inherit; font-size: 15px; color: var(--ink);
+  background: #fff; border: 1.5px solid var(--ink); border-radius: 4px; -webkit-appearance: none; appearance: none;
+  transition: width .25s
+}
+.hsearch input:focus { width: 210px }
+.hsearch input::placeholder { color: #6b7780 }
+.sres { margin: 0 0 18px; font-size: 14px; color: #4b5963 }
+.sres:empty { display: none }
+.sres a { color: var(--teal) }
+@media (max-width: 480px) {
+  .hsearch { flex: 1 1 100% }
+  .hsearch input, .hsearch input:focus { width: 100% }
+}
+@media (prefers-reduced-motion: reduce) { .hsearch input { transition: none } }
+
+/* ===== گزینه‌های سفارش (سایز / قاب / چاپ) ===== */
+.opts { display: grid; gap: 14px; margin: 6px 0 8px }
+.opt { border: 0; padding: 0; margin: 0; min-width: 0 }
+.opt legend { font-weight: 700; font-size: 16px; padding: 0; margin-bottom: 6px }
+.choices { display: flex; flex-wrap: wrap; gap: 8px }
+.choice { position: relative; display: block }
+.choice input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer }
+.choice span {
+  display: flex; flex-direction: column; align-items: center; gap: 0; min-width: 92px; padding: 5px 14px;
+  border: 1.5px solid var(--line); background: #fff; border-radius: 4px; text-align: center; line-height: 1.6;
+  transition: border-color .2s, box-shadow .2s, background-color .2s
+}
+.choice small { font-size: 12px; color: #4b5963 }
+.choice small.dl { color: var(--teal); direction: ltr }
+.choice:hover span { border-color: var(--ink) }
+.choice input:checked + span { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); background: var(--paper) }
+.choice input:focus-visible + span { outline: 3px solid var(--teal); outline-offset: 2px }
+.choice.fr span { flex-direction: row; gap: 8px; min-width: 0; padding: 5px 14px 5px 12px }
+.swatch { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid rgba(0, 0, 0, .35); display: block; flex: none }
+
+/* پیش‌نمایش زنده‌ی قاب */
+.pbox .frame {
+  width: calc(100% * var(--sz, 1)); max-width: calc(340px * var(--sz, 1));
+  transition: width .3s ease, max-width .3s ease, background-color .25s, border-color .25s
+}
+.pbox .frame[data-frame="white"] { --wood: #f3f3f0; --wood2: #c4cacd }
+.pbox .frame[data-frame="gray"] { --wood: #8b949a; --wood2: #5a6268 }
+.pbox .art { position: relative }
+.pbox.gloss .art::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(125deg, rgba(255, 255, 255, .34) 0%, rgba(255, 255, 255, 0) 42%)
+}
+@media (prefers-reduced-motion: reduce) {
+  .pbox .frame, .choice span { transition: none }
+}
 </style>
 </head>
 <body>
@@ -1280,6 +1336,10 @@ body.in-product #trust {
     </svg></a>
   <div class="hnav">
     <a href="#products">محصولات</a>
+    <form class="hsearch" id="hsearch" role="search">
+      <label class="sr" for="pgSearch">جستجوی تابلو</label>
+      <input type="search" id="pgSearch" placeholder="جستجوی طرح…" autocomplete="off">
+    </form>
     <a href="#contact">ارتباط با ما</a>
     <a href="#" id="accountBtn">پروفایل کاربری</a>
     <button class="cartbtn" id="openCart" type="button">سبد خرید<b id="count">۰</b></button>
@@ -1332,6 +1392,7 @@ body.in-product #trust {
 
 <section id="products"><div class="wrap">
   <h2>تابلوهای آماده</h2>
+  <p class="sres" id="pgSearchInfo" aria-live="polite"></p>
   <div class="grid" id="grid"></div>
 </div></section>
 
@@ -1429,16 +1490,30 @@ const items = [
 const fa = n => Number(n).toLocaleString("fa-IR");
 const artHTML = i => i.img ? `<img src="${i.img}" alt="${i.n}" loading="lazy">` : ART[i.a];
 document.querySelectorAll("[data-art]").forEach(e => e.innerHTML = ART[e.dataset.art]);
+/* گزینه‌های سفارش. قیمت هر تابلو = قیمت A4 (فیلد p در items) + مبلغ اضافه/کم زیر.
+   اعداد رو هر وقت خواستی عوض کن (تومان). */
+const PRICE = {
+  size:  { A3: 400000, A4: 0, A5: -300000 },
+  frame: { black: 0, white: 0, gray: 0 },
+  print: { normal: 0, photo: 150000 }
+};
+const SIZES  = { A3: { dim: "۲۹٫۷×۴۲", sz: 1 }, A4: { dim: "۲۱×۲۹٫۷", sz: .71 }, A5: { dim: "۱۴٫۸×۲۱", sz: .5 } };
+const FRAMES = { black: { label: "مشکی", color: "#111418" }, white: { label: "سفید", color: "#f3f3f0" }, gray: { label: "طوسی", color: "#8b949a" } };
+const PRINTS = { normal: { label: "کاغذ معمولی" }, photo: { label: "کاغذ عکاسی" } };
+const minOf = o => Math.min(...Object.values(o));
+const minPrice = p => Math.max(0, p + minOf(PRICE.size) + minOf(PRICE.frame) + minOf(PRICE.print));
+const dl = d => d > 0 ? "+" + fa(d) : d < 0 ? "−" + fa(-d) : "";
+
 document.getElementById("grid").innerHTML = items.map((i, k) => `
-  <article class="item">
+  <article class="item" data-k="${k}">
     <a class="plink" href="#product-${k}">
       <div class="box"><div class="frame"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div></div>
       <h3>${i.n}</h3>
-      <div class="meta">اندازه ${i.s} سانتی‌متر، همراه با قاب</div>
+      <div class="meta">سایز A3 تا A5، قاب مشکی، سفید یا طوسی</div>
       <div class="more">مشاهده مشخصات ←</div>
     </a>
-    <div class="price">${fa(i.p)} تومان</div>
-    <button class="btn" type="button" data-add="${k}">افزودن به سبد خرید</button>
+    <div class="price">از ${fa(minPrice(i.p))} تومان</div>
+    <a class="btn" href="#product-${k}">انتخاب سایز و قاب</a>
   </article>`).join("");
 
 /* سبد خرید */
@@ -1449,17 +1524,31 @@ function render() {
   const ids = Object.keys(cart);
   let total = 0, count = 0, msg = "سلام، می‌خوام این تابلوها رو سفارش بدم:\n";
   $("lines").innerHTML = ids.length
-    ? ids.map(k => {
-        const i = items[k], q = cart[k];
-        total += i.p * q;
-        count += q;
-        msg += `- ${i.n} (${i.s}) × ${q}\n`;
-        return `<div class="line"><div>${i.n}<small>${fa(i.p*q)} تومان</small></div><div class="qty"><button type="button" data-q="${k}:1" aria-label="افزایش">+</button><span>${fa(q)}</span><button type="button" data-q="${k}:-1" aria-label="کاهش">−</button></div></div>`
+    ? ids.map((k, n) => {
+        const i = cart[k];
+        total += i.p * i.q;
+        count += i.q;
+        msg += `\n${fa(n + 1)}) ${i.n}\n` +
+          `• سایز: ${i.z}\n` +
+          `• رنگ قاب: ${i.f}\n` +
+          `• نوع چاپ: ${i.t}\n` +
+          `• تعداد: ${fa(i.q)}\n` +
+          `• قیمت هر عدد: ${fa(i.p)} تومان\n` +
+          `• جمع این مورد: ${fa(i.p * i.q)} تومان\n`;
+        return `<div class="line"><div>${i.n}<small>${i.o}</small><small>${fa(i.p*i.q)} تومان</small></div><div class="qty"><button type="button" data-q="${k}:1" aria-label="افزایش">+</button><span>${fa(i.q)}</span><button type="button" data-q="${k}:-1" aria-label="کاهش">−</button></div></div>`
       }).join("")
     : '<div class="empty">سبد خرید خالی است.</div>';
   $("count").textContent = fa(count);
   $("total").textContent = fa(total) + " تومان";
-  msg += `جمع کل: ${fa(total)} تومان`;
+  msg += `\nجمع کل: ${fa(total)} تومان`;
+  /* اگه مشتری وارد حسابش شده، نام و شماره‌اش هم برای ادمین نوشته می‌شه */
+  try {
+    const u = users()[meKey];
+    if (u) {
+      const full = [u.first, u.last].filter(Boolean).join(" ");
+      msg += "\n\nمشخصات من:" + (full ? `\n• نام: ${full}` : "") + (u.phone ? `\n• شماره تماس: ${u.phone}` : "");
+    }
+  } catch (e) {}
   $("order").href = ids.length ? "https://t.me/" + TELEGRAM + "?text=" + encodeURIComponent(msg) : "#";
   $("order").style.opacity = ids.length ? 1 : .5;
 }
@@ -1467,25 +1556,14 @@ function render() {
 const toggle = o => document.body.classList.toggle("cart-open", o);
 
 document.addEventListener("click", e => {
-  const a = e.target.closest("[data-add]");
-  if (a) {
-    const k = a.dataset.add;
-    cart[k] = (cart[k] || 0) + 1;
-    render();
-    a.textContent = "اضافه شد ✓";
-    a.classList.add("added");
-    setTimeout(() => {
-      a.textContent = "افزودن به سبد خرید";
-      a.classList.remove("added")
-    }, 1200);
-    return
-  }
   const q = e.target.closest("[data-q]");
   if (q) {
     const [k, d] = q.dataset.q.split(":");
-    cart[k] += +d;
-    if (cart[k] <= 0) delete cart[k];
-    render()
+    if (cart[k]) {
+      cart[k].q += +d;
+      if (cart[k].q <= 0) delete cart[k];
+      render()
+    }
   }
 });
 
@@ -1560,33 +1638,47 @@ let lastY = 0;
 function showProduct(k) {
   const i = items[k];
   const [game, title] = i.n.split(" | ");
-  const [w, h] = en(i.s).split("×").map(Number);
-  const rows = [
-    ["بازی", game],
-    ["نام تابلو", title || i.n],
-    ["اندازه", i.s + " سانتی‌متر"],
-    ["قاب", "همراه با قاب"],
-    ["قیمت", fa(i.p) + " تومان"],
-    ...(extra[k] || [])
-  ];
   document.title = i.n + " | Pixie Gallery";
+  const choice = (name, val, inner, checked) =>
+    `<label class="choice${name === "frame" ? " fr" : ""}"><input type="radio" name="${name}" value="${val}" ${checked ? "checked" : ""}><span>${inner}</span></label>`;
+  const opt = (t, html) => `<fieldset class="opt"><legend>${t}</legend><div class="choices">${html}</div></fieldset>`;
+  const tag = d => dl(d) ? `<small class="dl">${dl(d)}</small>` : "";
+
+  const sizeHtml = Object.keys(SIZES).map(z =>
+    choice("size", z, `<b>${z}</b><small>${SIZES[z].dim} سانتی‌متر</small>${tag(PRICE.size[z])}`, z === "A4")).join("");
+  const frameHtml = Object.keys(FRAMES).map(f =>
+    choice("frame", f, `<i class="swatch" style="background:${FRAMES[f].color}"></i>${FRAMES[f].label}${tag(PRICE.frame[f])}`, f === "black")).join("");
+  const printHtml = Object.keys(PRINTS).map(p =>
+    choice("print", p, `<b>${PRINTS[p].label}</b>${tag(PRICE.print[p])}`, p === "normal")).join("");
+
   view.innerHTML = `
     <nav class="crumbs"><a href="#products">← بازگشت به تابلوها</a></nav>
     <div class="detail">
-      <div class="pbox">
-        <div class="frame" style="aspect-ratio:${w}/${h}"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div>
+      <div class="pbox" id="pgBox">
+        <div class="frame" id="pgFrame" data-frame="black" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div>
         <div class="pstrip" id="pstrip" aria-hidden="true"></div>
       </div>
       <div class="info">
         <span class="badge">${game}</span>
         <h1>${title || i.n}</h1>
-        <div class="pprice">${fa(i.p)} تومان</div>
+        <div class="pprice"><span id="pPrice"></span> تومان</div>
+        <div class="opts" id="pgOptions">
+          ${opt("سایز", sizeHtml)}
+          ${opt("رنگ قاب", frameHtml)}
+          ${opt("نوع چاپ", printHtml)}
+        </div>
         <h2 class="dh">توضیحات</h2>
         <p class="desc">${desc[k] || ""}</p>
-        <p class="desc">اگه قاب یا اندازه‌ی دلخواه می‌خوای، توی تلگرام بهمون پیام بده.</p>
+        <p class="desc">اگه اندازه یا طرح دلخواه دیگه‌ای می‌خوای، توی تلگرام بهمون پیام بده.</p>
         <h2 class="dh">مشخصات</h2>
         <dl class="specs">
-          ${rows.map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join("")}
+          <div><dt>بازی</dt><dd>${game}</dd></div>
+          <div><dt>نام تابلو</dt><dd>${title || i.n}</dd></div>
+          <div><dt>اندازه</dt><dd id="spSize"></dd></div>
+          <div><dt>رنگ قاب</dt><dd id="spFrame"></dd></div>
+          <div><dt>نوع چاپ</dt><dd id="spPrint"></dd></div>
+          <div><dt>قیمت</dt><dd><span id="spPrice"></span> تومان</dd></div>
+          ${(extra[k] || []).map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join("")}
         </dl>
         <div class="actions">
           <button class="btn" id="addOne" type="button">افزودن به سبد خرید</button>
@@ -1598,15 +1690,39 @@ function showProduct(k) {
       <div class="mrow">
         ${items.map((o, j) => j === k ? "" : `
         <a class="mi" href="#product-${j}">
-          <div class="box"><div class="frame" style="aspect-ratio:${ratio(o.s)}"><div class="mat"><div class="art" role="img" aria-label="${o.n}">${artHTML(o)}</div></div></div></div>
+          <div class="box"><div class="frame" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${o.n}">${artHTML(o)}</div></div></div></div>
           <h3>${o.n}</h3>
-          <div class="p">${fa(o.p)} تومان</div>
+          <div class="p">از ${fa(minPrice(o.p))} تومان</div>
         </a>`).join("")}
       </div>
     </div>`;
   document.querySelectorAll(".wall .painter, .wall .mini").forEach(n => $("pstrip").append(n.cloneNode(true)));
+
+  const opts = $("pgOptions"), box = $("pgBox"), fr = $("pgFrame");
+  const pick = n => opts.querySelector(`input[name="${n}"]:checked`).value;
+  const cur = () => {
+    const s = pick("size"), f = pick("frame"), p = pick("print");
+    return { s, f, p, price: Math.max(0, i.p + PRICE.size[s] + PRICE.frame[f] + PRICE.print[p]) };
+  };
+  const upd = () => {
+    const c = cur();
+    $("pPrice").textContent = $("spPrice").textContent = fa(c.price);
+    $("spSize").textContent = c.s + " (" + SIZES[c.s].dim + " سانتی‌متر)";
+    $("spFrame").textContent = FRAMES[c.f].label;
+    $("spPrint").textContent = PRINTS[c.p].label;
+    fr.dataset.frame = c.f;
+    fr.style.setProperty("--sz", SIZES[c.s].sz);
+    box.classList.toggle("gloss", c.p === "photo");
+  };
+  opts.addEventListener("change", upd);
+  upd();
+
   $("addOne").onclick = e => {
-    cart[k] = (cart[k] || 0) + 1;
+    const c = cur();
+    const key = `${k}|${c.s}|${c.f}|${c.p}`;
+    const o = [c.s, "قاب " + FRAMES[c.f].label, PRINTS[c.p].label].join("، ");
+    if (cart[key]) cart[key].q++;
+    else cart[key] = { n: i.n, o, p: c.price, q: 1, z: c.s + " (" + SIZES[c.s].dim + " سانتی‌متر)", f: FRAMES[c.f].label, t: PRINTS[c.p].label };
     render();
     e.target.textContent = "اضافه شد ✓";
     e.target.classList.add("added");
@@ -1663,6 +1779,7 @@ function paintAccount() {
   const u = users()[meKey];
   if (!u) meKey = "";
   accountBtn.textContent = u ? u.name : "پروفایل کاربری";
+  render();
 }
 
 function fillProfile(u) {
@@ -1756,6 +1873,55 @@ $("signupView").addEventListener("submit", async e => {
 });
 
 paintAccount();
+
+/* جستجوی هدر */
+(() => {
+  const form = $("hsearch"), input = $("pgSearch"), info = $("pgSearchInfo");
+  const cards = [...document.querySelectorAll("#grid .item")];
+  const norm = t => digits(String(t || "")).toLowerCase().replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/[\u200c\u200e\u200f]/g, " ").replace(/\s+/g, " ").trim();
+  cards.forEach(el => { const k = +el.dataset.k; el._h = norm(items[k].n + " " + (desc[k] || "")) });
+
+  const clearLink = () => {
+    const a = document.createElement("a");
+    a.href = "#products";
+    a.textContent = "نمایش همه";
+    a.onclick = e => { e.preventDefault(); input.value = ""; filter() };
+    return a;
+  };
+
+  const filter = () => {
+    const terms = norm(input.value).split(" ").filter(Boolean);
+    let shown = 0;
+    cards.forEach(el => {
+      const ok = terms.every(t => el._h.includes(t));
+      el.hidden = !ok;
+      if (ok) shown++;
+    });
+    info.textContent = "";
+    if (!terms.length) return;
+    if (shown) {
+      info.append(fa(shown) + " تابلو پیدا شد. ", clearLink());
+    } else {
+      const a = document.createElement("a");
+      a.href = "https://t.me/" + TELEGRAM;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = "توی تلگرام برامون بفرست";
+      info.append("طرحی با این اسم پیدا نشد. اگه طرح خاصی تو ذهنته، ", a, " تا برات کاستوم بسازیم. ", clearLink());
+    }
+  };
+
+  /* از هر جایی که تایپ کنه، می‌ره سراغ لیست تابلوها */
+  const goProducts = () => {
+    if (document.body.classList.contains("in-product")) { location.hash = "#products"; return }
+    const r = $("products").getBoundingClientRect();
+    if (r.top > innerHeight * .6 || r.bottom < 0) $("products").scrollIntoView({ behavior: "smooth" });
+  };
+
+  input.addEventListener("input", () => { filter(); if (input.value.trim()) goProducts() });
+  input.addEventListener("search", filter);
+  form.addEventListener("submit", e => { e.preventDefault(); filter(); goProducts(); input.blur() });
+})();
 </script>
 </body>
 </html>
