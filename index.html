@@ -2,6 +2,8 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-EFlUU73f1eq/6tUgf49EYxlspiZs81PMNrmeYiXFf2M='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
+<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixie Gallery | تابلوهای طرح‌دار قاب‌شده</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1092,38 +1094,6 @@ body.in-product #trust {
   padding: 7%
 }
 
-.pstrip {
-  direction: ltr;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  width: 100%
-}
-
-.pstrip .mini,
-.pstrip .painter {
-  position: static;
-  flex: none;
-  height: auto
-}
-
-.pstrip .painter {
-  width: 84px;
-  max-width: none
-}
-
-.pstrip .mini.cat {
-  width: 30px
-}
-
-.pstrip .mini.cowboy {
-  width: 34px
-}
-
-.pstrip .mini.hiker {
-  width: 54px
-}
-
 .pbox .frame {
   position: relative;
   width: 100%;
@@ -1270,7 +1240,7 @@ body.in-product #trust {
 }
 
 /* ===== جستجوی هدر ===== */
-.sr { position: absolute; left: -9999px }
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap }
 .item[hidden] { display: none }
 .hsearch { margin: 0; display: inline-flex }
 .hsearch input {
@@ -1284,7 +1254,14 @@ body.in-product #trust {
 .sres:empty { display: none }
 .sres a { color: var(--teal) }
 @media (max-width: 480px) {
-  .hsearch { flex: 1 1 100% }
+  /* ردیف ۱: لوگو + سبد خرید، ردیف ۲: لینک‌ها، ردیف ۳: جستجو */
+  .hnav { display: contents }
+  header::after { content: ""; flex: 1 0 100%; height: 0; order: 2 }
+  .cartbtn { order: 1 }
+  .hnav a { font-size: 14px; order: 3 }
+  .cartbtn { padding: 2px 10px; font-size: 14px }
+  .cartbtn b { min-width: 20px; margin-inline-start: 4px }
+  .hsearch { flex: 1 1 100%; order: 9 }
   .hsearch input, .hsearch input:focus { width: 100% }
 }
 @media (prefers-reduced-motion: reduce) { .hsearch input { transition: none } }
@@ -1309,10 +1286,21 @@ body.in-product #trust {
 .choice.fr span { flex-direction: row; gap: 8px; min-width: 0; padding: 5px 14px 5px 12px }
 .swatch { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid rgba(0, 0, 0, .35); display: block; flex: none }
 
-/* پیش‌نمایش زنده‌ی قاب */
+/* پیش‌نمایش زنده‌ی قاب (جاگیری دقیق داخل پنل) */
+.pbox { gap: 0; padding: clamp(14px, 3vw, 26px); position: sticky; top: 14px }
+.pbox .stage {
+  width: min(100%, 380px, calc((100vh - 150px) * .707));
+  width: min(100%, 380px, calc((100svh - 150px) * .707));
+  aspect-ratio: 210 / 297; display: grid; place-items: center
+}
 .pbox .frame {
-  width: calc(100% * var(--sz, 1)); max-width: calc(340px * var(--sz, 1));
-  transition: width .3s ease, max-width .3s ease, background-color .25s, border-color .25s
+  width: calc(100% * var(--sz, 1)); max-width: none;
+  border-width: calc(4px + 6px * var(--sz, 1));
+  transition: width .3s ease, border-width .3s ease, background-color .25s, border-color .25s
+}
+@media (max-width: 800px) {
+  .pbox { position: static }
+  .pbox .stage { width: min(84%, 320px, calc((100svh - 260px) * .707)) }
 }
 .pbox .frame[data-frame="white"] { --wood: #f3f3f0; --wood2: #c4cacd }
 .pbox .frame[data-frame="gray"] { --wood: #8b949a; --wood2: #5a6268 }
@@ -1323,6 +1311,47 @@ body.in-product #trust {
 }
 @media (prefers-reduced-motion: reduce) {
   .pbox .frame, .choice span { transition: none }
+}
+/* ===== کاراکترهای دور صفحه (فقط صفحه‌ی تابلو؛ ثابت و بدون حرکت) ===== */
+.scene { position: fixed; inset: 0; pointer-events: none; z-index: 30; --u: clamp(60px, calc((100vw - 1040px) / 2 - 20px), 130px) }
+.scene .sc { position: absolute }
+.scene .sc svg { display: block; width: 100%; height: auto }
+.scene .sc .painter, .scene .sc .mini { position: static; left: auto; right: auto; bottom: auto; width: 100%; max-width: none; height: auto }
+.scene .sc svg, .scene .sc svg * { animation: none !important; transition: none !important }
+
+/* دسکتاپ پهن: دور تا دور صفحه، توی حاشیه‌های کنار محتوا */
+@media (min-width: 1200px) {
+  .scene .sc-painter { right: 14px; bottom: 0; width: var(--u) }
+  .scene .sc-hiker { left: 14px; bottom: 0; width: calc(var(--u) * .66) }
+  .scene .sc-cowboy { left: 22px; top: 42%; width: calc(var(--u) * .5) }
+  .scene .sc-cat { right: 26px; top: 26%; width: calc(var(--u) * .42) }
+  .scene.rdr .sc-cowboy { width: calc(var(--u) * .66) }
+  .scene.tlou .sc-hiker { width: calc(var(--u) * .86) }
+  .scene .shelf::after {
+    content: ""; position: absolute; bottom: -8px; height: 7px;
+    background: #8a6238; border-top: 2px solid #b78a52; box-shadow: 0 2px 0 #4a3018
+  }
+  .scene .sc-cowboy.shelf::after { left: -22px; right: -18px }
+  .scene .sc-cat.shelf::after { left: -14px; right: -26px }
+}
+
+/* تبلت و موبایل: کاراکترها روی یک «کف» باریک پایین صفحه می‌ایستن */
+@media (max-width: 1199px) {
+  body.in-product { --k: 1; padding-bottom: calc(52px * var(--k) + 14px) }
+  .scene::before {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: calc(52px * var(--k));
+    background: #c3ccd1; border-top: 3px solid var(--ink)
+  }
+  .scene .sc { bottom: calc(5px * var(--k)) }
+  .scene .sc-hiker { left: 4%; width: calc(38px * var(--k)) }
+  .scene .sc-cowboy { left: 25%; width: calc(28px * var(--k)) }
+  .scene .sc-cat { left: 52%; width: calc(26px * var(--k)) }
+  .scene .sc-painter { right: 4%; width: calc(58px * var(--k)) }
+  .scene.rdr .sc-cowboy { width: calc(34px * var(--k)) }
+  .scene.tlou .sc-hiker { width: calc(46px * var(--k)) }
+}
+@media (min-width: 700px) and (max-width: 1199px) {
+  body.in-product { --k: 1.3 }
 }
 </style>
 </head>
@@ -1401,11 +1430,11 @@ body.in-product #trust {
   <p>برای سفارش تابلو، سفارش طرح دلخواه و هر سؤالی از این راه‌ها پیام بده.</p>
   <div class="contact-grid">
     <div class="card"><b>تلگرام</b>
-      <a id="tgCard" target="_blank" rel="noopener"><span id="tgText"></span></a>
-      <a id="tg2Card" target="_blank" rel="noopener"><span id="tg2Text"></span></a>
+      <a id="tgCard" target="_blank" rel="noopener noreferrer"><span id="tgText"></span></a>
+      <a id="tg2Card" target="_blank" rel="noopener noreferrer"><span id="tg2Text"></span></a>
     </div>
-    <a class="card" id="chCard" target="_blank" rel="noopener"><b>کانال تلگرام</b><span id="chText"></span></a>
-    <a class="card" id="pgCard" target="_blank" rel="noopener"><b>پیج اینستاگرام</b><span id="pgText"></span></a>
+    <a class="card" id="chCard" target="_blank" rel="noopener noreferrer"><b>کانال تلگرام</b><span id="chText"></span></a>
+    <a class="card" id="pgCard" target="_blank" rel="noopener noreferrer"><b>پیج اینستاگرام</b><span id="pgText"></span></a>
   </div>
 </div></section>
 
@@ -1458,11 +1487,14 @@ body.in-product #trust {
   <h2>سبد خرید</h2>
   <div class="lines" id="lines"></div>
   <div class="total"><span>جمع کل</span><span id="total">۰ تومان</span></div>
-  <a class="btn" id="order" target="_blank" rel="noopener">ادامه خرید</a>
+  <a class="btn" id="order" target="_blank" rel="noopener noreferrer">ادامه خرید</a>
   <button class="btn alt" id="closeCart" type="button">بستن</button>
 </aside>
 
 <script>
+/* امنیت: اگه صفحه داخل iframe سایت دیگه‌ای باز شد، نمایش داده نمی‌شه (clickjacking) */
+try { if (window.top !== window.self) document.documentElement.hidden = true } catch (e) { document.documentElement.hidden = true }
+
 const TELEGRAM = "sskenzo0_0";
 const TELEGRAM2 = "LerZimboY";
 const CHANNEL = "PixieFrameGallery";
@@ -1478,6 +1510,13 @@ const ART = {
   t3: `<svg ${V}><rect width="100" height="125" fill="#c7d4bd"/><path d="M0 70 H100 V125 H0Z" fill="#56734f"/><path d="M42 70 H58 L92 125 H8Z" fill="#3a3f45"/><path d="M50 78 V122" stroke="#d9d3b0" stroke-width="1.6" stroke-dasharray="5 5"/><path d="M0 70 L12 40 L22 70 L32 36 L42 70Z M58 70 L68 34 L80 70 L90 44 L100 70Z" fill="#2c4a33"/><path d="M0 125 L10 96 L22 125Z M78 125 L90 92 L100 125Z" fill="#2c4a33"/></svg>`
 };
 
+/* ===== اضافه کردن تابلو =====
+   هر خط یک تابلوئه:
+     n: "اسم بازی | اسم تابلو"     p: قیمت سایز A4 (تومان)     a: طرح پیکسلی (r1 r2 r3 t1 t2 t3)
+   اختیاری:
+     img: آدرس عکس خودت (https://... یا data:image/...)    p3: قیمت A3    p5: قیمت A5
+   (اگه p3/p5 ننویسی، از قیمت A4 به‌اضافه‌ی PRICE.size پایین‌تر حساب می‌شه)
+   بعدش توضیحات همون تابلو رو توی desc و مشخصات اضافه رو توی extra، به همین ترتیب بنویس. */
 const items = [
   { n: "Red Dead Redemption 2 | غروب غرب وحشی", s: "۳۰×۴۰", p: 1200000, a: "r1" },
   { n: "Red Dead Redemption 2 | شب و ماه", s: "۳۰×۴۰", p: 1100000, a: "r2" },
@@ -1488,7 +1527,10 @@ const items = [
 ];
 
 const fa = n => Number(n).toLocaleString("fa-IR");
-const artHTML = i => i.img ? `<img src="${i.img}" alt="${i.n}" loading="lazy">` : ART[i.a];
+/* امنیت: هر متنی که وارد HTML می‌شه از h() رد می‌شه */
+const h = t => String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const safeSrc = u => /^(https:\/\/|data:image\/(png|jpe?g|webp|gif|svg\+xml)[;,]|[\w\-./%]+$)/i.test(String(u)) ? String(u) : "";
+const artHTML = i => { const src = i.img && safeSrc(i.img); return src ? `<img src="${h(src)}" alt="${h(i.n)}" loading="lazy">` : (ART[i.a] || "") };
 document.querySelectorAll("[data-art]").forEach(e => e.innerHTML = ART[e.dataset.art]);
 /* گزینه‌های سفارش. قیمت هر تابلو = قیمت A4 (فیلد p در items) + مبلغ اضافه/کم زیر.
    اعداد رو هر وقت خواستی عوض کن (تومان). */
@@ -1501,18 +1543,20 @@ const SIZES  = { A3: { dim: "۲۹٫۷×۴۲", sz: 1 }, A4: { dim: "۲۱×۲۹٫�
 const FRAMES = { black: { label: "مشکی", color: "#111418" }, white: { label: "سفید", color: "#f3f3f0" }, gray: { label: "طوسی", color: "#8b949a" } };
 const PRINTS = { normal: { label: "کاغذ معمولی" }, photo: { label: "کاغذ عکاسی" } };
 const minOf = o => Math.min(...Object.values(o));
-const minPrice = p => Math.max(0, p + minOf(PRICE.size) + minOf(PRICE.frame) + minOf(PRICE.print));
+/* قیمت هر سایز یک تابلو: p3 / p5 اگه توی items باشه همون، وگرنه A4 + PRICE.size */
+const sizePrice = (i, z) => z === "A4" ? i.p : Math.max(0, z === "A3" ? (i.p3 ?? i.p + PRICE.size.A3) : (i.p5 ?? i.p + PRICE.size.A5));
+const minPrice = i => Math.max(0, Math.min(...Object.keys(SIZES).map(z => sizePrice(i, z))) + minOf(PRICE.frame) + minOf(PRICE.print));
 const dl = d => d > 0 ? "+" + fa(d) : d < 0 ? "−" + fa(-d) : "";
 
 document.getElementById("grid").innerHTML = items.map((i, k) => `
   <article class="item" data-k="${k}">
     <a class="plink" href="#product-${k}">
-      <div class="box"><div class="frame"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div></div>
-      <h3>${i.n}</h3>
+      <div class="box"><div class="frame"><div class="mat"><div class="art" role="img" aria-label="${h(i.n)}">${artHTML(i)}</div></div></div></div>
+      <h3>${h(i.n)}</h3>
       <div class="meta">سایز A3 تا A5، قاب مشکی، سفید یا طوسی</div>
       <div class="more">مشاهده مشخصات ←</div>
     </a>
-    <div class="price">از ${fa(minPrice(i.p))} تومان</div>
+    <div class="price">از ${fa(minPrice(i))} تومان</div>
     <a class="btn" href="#product-${k}">انتخاب سایز و قاب</a>
   </article>`).join("");
 
@@ -1535,7 +1579,7 @@ function render() {
           `• تعداد: ${fa(i.q)}\n` +
           `• قیمت هر عدد: ${fa(i.p)} تومان\n` +
           `• جمع این مورد: ${fa(i.p * i.q)} تومان\n`;
-        return `<div class="line"><div>${i.n}<small>${i.o}</small><small>${fa(i.p*i.q)} تومان</small></div><div class="qty"><button type="button" data-q="${k}:1" aria-label="افزایش">+</button><span>${fa(i.q)}</span><button type="button" data-q="${k}:-1" aria-label="کاهش">−</button></div></div>`
+        return `<div class="line"><div>${h(i.n)}<small>${h(i.o)}</small><small>${fa(i.p*i.q)} تومان</small></div><div class="qty"><button type="button" data-q="${k}:1" aria-label="افزایش">+</button><span>${fa(i.q)}</span><button type="button" data-q="${k}:-1" aria-label="کاهش">−</button></div></div>`
       }).join("")
     : '<div class="empty">سبد خرید خالی است.</div>';
   $("count").textContent = fa(count);
@@ -1543,7 +1587,7 @@ function render() {
   msg += `\nجمع کل: ${fa(total)} تومان`;
   /* اگه مشتری وارد حسابش شده، نام و شماره‌اش هم برای ادمین نوشته می‌شه */
   try {
-    const u = users()[meKey];
+    const u = own(users(), meKey);
     if (u) {
       const full = [u.first, u.last].filter(Boolean).join(" ");
       msg += "\n\nمشخصات من:" + (full ? `\n• نام: ${full}` : "") + (u.phone ? `\n• شماره تماس: ${u.phone}` : "");
@@ -1645,7 +1689,7 @@ function showProduct(k) {
   const tag = d => dl(d) ? `<small class="dl">${dl(d)}</small>` : "";
 
   const sizeHtml = Object.keys(SIZES).map(z =>
-    choice("size", z, `<b>${z}</b><small>${SIZES[z].dim} سانتی‌متر</small>${tag(PRICE.size[z])}`, z === "A4")).join("");
+    choice("size", z, `<b>${z}</b><small>${SIZES[z].dim} سانتی‌متر</small>${tag(sizePrice(i, z) - i.p)}`, z === "A4")).join("");
   const frameHtml = Object.keys(FRAMES).map(f =>
     choice("frame", f, `<i class="swatch" style="background:${FRAMES[f].color}"></i>${FRAMES[f].label}${tag(PRICE.frame[f])}`, f === "black")).join("");
   const printHtml = Object.keys(PRINTS).map(p =>
@@ -1655,12 +1699,11 @@ function showProduct(k) {
     <nav class="crumbs"><a href="#products">← بازگشت به تابلوها</a></nav>
     <div class="detail">
       <div class="pbox" id="pgBox">
-        <div class="frame" id="pgFrame" data-frame="black" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${i.n}">${artHTML(i)}</div></div></div>
-        <div class="pstrip" id="pstrip" aria-hidden="true"></div>
+        <div class="stage"><div class="frame" id="pgFrame" data-frame="black" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${h(i.n)}">${artHTML(i)}</div></div></div></div>
       </div>
       <div class="info">
-        <span class="badge">${game}</span>
-        <h1>${title || i.n}</h1>
+        <span class="badge">${h(game)}</span>
+        <h1>${h(title || i.n)}</h1>
         <div class="pprice"><span id="pPrice"></span> تومان</div>
         <div class="opts" id="pgOptions">
           ${opt("سایز", sizeHtml)}
@@ -1668,17 +1711,17 @@ function showProduct(k) {
           ${opt("نوع چاپ", printHtml)}
         </div>
         <h2 class="dh">توضیحات</h2>
-        <p class="desc">${desc[k] || ""}</p>
+        <p class="desc">${h(desc[k] || "")}</p>
         <p class="desc">اگه اندازه یا طرح دلخواه دیگه‌ای می‌خوای، توی تلگرام بهمون پیام بده.</p>
         <h2 class="dh">مشخصات</h2>
         <dl class="specs">
-          <div><dt>بازی</dt><dd>${game}</dd></div>
-          <div><dt>نام تابلو</dt><dd>${title || i.n}</dd></div>
+          <div><dt>بازی</dt><dd>${h(game)}</dd></div>
+          <div><dt>نام تابلو</dt><dd>${h(title || i.n)}</dd></div>
           <div><dt>اندازه</dt><dd id="spSize"></dd></div>
           <div><dt>رنگ قاب</dt><dd id="spFrame"></dd></div>
           <div><dt>نوع چاپ</dt><dd id="spPrint"></dd></div>
           <div><dt>قیمت</dt><dd><span id="spPrice"></span> تومان</dd></div>
-          ${(extra[k] || []).map(r => `<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join("")}
+          ${(extra[k] || []).map(r => `<div><dt>${h(r[0])}</dt><dd>${h(r[1])}</dd></div>`).join("")}
         </dl>
         <div class="actions">
           <button class="btn" id="addOne" type="button">افزودن به سبد خرید</button>
@@ -1690,19 +1733,30 @@ function showProduct(k) {
       <div class="mrow">
         ${items.map((o, j) => j === k ? "" : `
         <a class="mi" href="#product-${j}">
-          <div class="box"><div class="frame" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${o.n}">${artHTML(o)}</div></div></div></div>
-          <h3>${o.n}</h3>
-          <div class="p">از ${fa(minPrice(o.p))} تومان</div>
+          <div class="box"><div class="frame" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${h(o.n)}">${artHTML(o)}</div></div></div></div>
+          <h3>${h(o.n)}</h3>
+          <div class="p">از ${fa(minPrice(o))} تومان</div>
         </a>`).join("")}
       </div>
-    </div>`;
-  document.querySelectorAll(".wall .painter, .wall .mini").forEach(n => $("pstrip").append(n.cloneNode(true)));
+    </div>
+    <div class="scene ${/red dead/i.test(game) ? "rdr" : /last of us/i.test(game) ? "tlou" : ""}" id="pgScene" aria-hidden="true"></div>`;
+
+  /* کاراکترها از تابلو بیرون میان و دور صفحه می‌ایستن */
+  [["hiker", "mini.hiker", ""], ["cowboy", "mini.cowboy", "shelf"],
+   ["painter", "painter", ""], ["cat", "mini.cat", "shelf"]].forEach(([k, sel, cls]) => {
+    const src = document.querySelector(".wall svg." + sel);
+    if (!src) return;
+    const d = document.createElement("div");
+    d.className = "sc sc-" + k + " " + cls;
+    d.append(src.cloneNode(true));
+    $("pgScene").append(d);
+  });
 
   const opts = $("pgOptions"), box = $("pgBox"), fr = $("pgFrame");
   const pick = n => opts.querySelector(`input[name="${n}"]:checked`).value;
   const cur = () => {
     const s = pick("size"), f = pick("frame"), p = pick("print");
-    return { s, f, p, price: Math.max(0, i.p + PRICE.size[s] + PRICE.frame[f] + PRICE.print[p]) };
+    return { s, f, p, price: Math.max(0, sizePrice(i, s) + PRICE.frame[f] + PRICE.print[p]) };
   };
   const upd = () => {
     const c = cur();
@@ -1761,8 +1815,14 @@ const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
 const fromB64 = t => Uint8Array.from(atob(t), c => c.charCodeAt(0));
 const norm = t => t.trim().toLowerCase();
 const users = () => {
-  try { return JSON.parse(localStorage.getItem("pixieUsers")) || {} } catch (e) { return {} }
+  try {
+    const v = JSON.parse(localStorage.getItem("pixieUsers"));
+    return v && typeof v === "object" && !Array.isArray(v) ? v : {};
+  } catch (e) { return {} }
 };
+/* فقط کلیدهای خود شیء (جلوگیری از __proto__ / constructor) */
+const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k) ? o[k] : undefined;
+const RESERVED = ["__proto__", "constructor", "prototype", "hasownproperty", "tostring"];
 let meKey = (() => {
   try { return localStorage.getItem("pixieSession") || "" } catch (e) { return "" }
 })();
@@ -1776,7 +1836,7 @@ const accountBtn = $("accountBtn");
 const setErr = (id, t) => $(id).textContent = t;
 
 function paintAccount() {
-  const u = users()[meKey];
+  const u = own(users(), meKey);
   if (!u) meKey = "";
   accountBtn.textContent = u ? u.name : "پروفایل کاربری";
   render();
@@ -1805,7 +1865,7 @@ function openAccount() {
   paintAccount();
   $("amodal").hidden = false;
   if (meKey) {
-    fillProfile(users()[meKey]);
+    fillProfile(own(users(), meKey));
     aView("profileView");
     $("logout").focus();
   } else {
@@ -1838,9 +1898,9 @@ $("loginView").addEventListener("submit", async e => {
   if (!id || !pw) return setErr("lErr", "نام کاربری یا ایمیل و رمز عبور رو وارد کن.");
   if (!canHash()) return setErr("lErr", "این مرورگر از ورود امن پشتیبانی نمی‌کنه.");
   const all = users();
-  const k = id.includes("@") ? Object.keys(all).find(x => (all[x].email || "") === id) : id;
-  const u = all[k];
-  if (!u || await hashPw(pw, fromB64(u.salt)) !== u.hash) return setErr("lErr", "نام کاربری / ایمیل یا رمز عبور اشتباهه.");
+  const k = id.includes("@") ? Object.keys(all).find(x => (own(all, x) || {}).email === id) : id;
+  const u = own(all, k);
+  if (!u || typeof u.salt !== "string" || await hashPw(pw, fromB64(u.salt)) !== u.hash) return setErr("lErr", "نام کاربری / ایمیل یا رمز عبور اشتباهه.");
   setSession(k);
   $("lPass").value = "";
   closeAccount();
@@ -1858,11 +1918,11 @@ $("signupView").addEventListener("submit", async e => {
   if (!/^\+?\d{10,15}$/.test(phone)) return setErr("sErr", "شماره تماس معتبر وارد کن.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return setErr("sErr", "ایمیل معتبر وارد کن.");
   if (!/^[\w.\u0600-\u06FF-]{3,20}$/.test(name)) return setErr("sErr", "نام کاربری ۳ تا ۲۰ حرف باشه و فاصله نداشته باشه.");
-  if (pw.length < 6) return setErr("sErr", "رمز عبور حداقل ۶ کاراکتر باشه.");
+  if (pw.length < 8) return setErr("sErr", "رمز عبور حداقل ۸ کاراکتر باشه.");
   if (pw !== $("sPass2").value) return setErr("sErr", "تکرار رمز عبور با رمز یکی نیست.");
   if (!canHash()) return setErr("sErr", "این مرورگر از ساخت حساب امن پشتیبانی نمی‌کنه.");
   const all = users();
-  if (all[k]) return setErr("sErr", "این نام کاربری قبلاً گرفته شده.");
+  if (RESERVED.includes(k) || own(all, k)) return setErr("sErr", "این نام کاربری قبلاً گرفته شده.");
   if (Object.values(all).some(u => u.email === email)) return setErr("sErr", "با این ایمیل قبلاً حساب ساخته شده.");
   const salt = crypto.getRandomValues(new Uint8Array(16));
   all[k] = { name, first, last, phone, email, salt: toB64(salt), hash: await hashPw(pw, salt) };
@@ -1905,7 +1965,7 @@ paintAccount();
       const a = document.createElement("a");
       a.href = "https://t.me/" + TELEGRAM;
       a.target = "_blank";
-      a.rel = "noopener";
+      a.rel = "noopener noreferrer";
       a.textContent = "توی تلگرام برامون بفرست";
       info.append("طرحی با این اسم پیدا نشد. اگه طرح خاصی تو ذهنته، ", a, " تا برات کاستوم بسازیم. ", clearLink());
     }
