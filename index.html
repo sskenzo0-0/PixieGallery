@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-AElcKJR729ai5RHRU76idBeMvI3AZdkwGarPjmGGnik='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-G8qCHRAgzRyeeoXw7FNuiYLK6p4dCoVJ7OrSniNSsAA='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixie Gallery | تابلوهای طرح‌دار قاب‌شده</title>
@@ -1324,6 +1324,20 @@ img, svg { max-width: 100% }
   .btn:hover, .cartbtn:hover, .qty button:hover, .card:hover, .hnav a:hover { transform: none; box-shadow: none }
   .item:hover .frame, .item:hover .art svg, .item:hover .art img { transform: none }
 }
+
+/* ردیف دسته‌ها و طرح دلخواه */
+.ch{font-size:22px;margin:38px 0 16px}
+.csec:first-child .ch{margin-top:0}
+.item .frame.h{width:84%;height:auto;aspect-ratio:297/210}
+.mi .frame.h{width:84%}
+.pbox.hz .stage{aspect-ratio:297/210;width:min(100%,460px)}
+.opt.cust input[type=file]{display:block;width:100%;margin-bottom:10px;font:inherit;font-size:14px}
+.note{font-size:13px;color:#4b5963;margin-top:8px}
+.cdemo{font-size:13px;background:#fff3c4;border:1px dashed #b8893b;border-radius:4px;padding:6px 10px;margin:0 0 10px;overflow-wrap:anywhere}
+.cdemo:empty{display:none}
+.aview .rl input{display:inline-block;width:auto;margin:0 0 0 6px}
+.vl{font-size:14px;margin-bottom:4px}
+.aview p.sub{font-size:14px;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -1393,7 +1407,7 @@ img, svg { max-width: 100% }
 <section id="products"><div class="wrap">
   <h2>تابلوهای آماده</h2>
   <p class="sres" id="pgSearchInfo" aria-live="polite"></p>
-  <div class="grid" id="grid"></div>
+    <div id="grid"></div>
 </div></section>
 
 <section id="contact" class="contact"><div class="wrap">
@@ -1426,6 +1440,7 @@ img, svg { max-width: 100% }
       <label>رمز عبور<input id="lPass" type="password" autocomplete="current-password"></label>
       <p class="aerr" id="lErr" role="alert"></p>
       <button class="btn" type="submit">ورود</button>
+      <p class="aalt"><button class="btn alt" id="toOtp" type="button">ورود با کد تأیید</button> <button class="btn alt" id="toForgot" type="button">فراموشی رمز</button></p>
       <p class="aalt">حساب نداری؟ <button class="btn alt" id="toSignup" type="button">ثبت‌نام</button></p>
     </form>
 
@@ -1440,9 +1455,46 @@ img, svg { max-width: 100% }
       <label>نام کاربری<input id="sUser" autocomplete="username"></label>
       <label>رمز عبور<input id="sPass" type="password" autocomplete="new-password"></label>
       <label>تکرار رمز عبور<input id="sPass2" type="password" autocomplete="new-password"></label>
+      <p class="vl">کد تأیید به کجا فرستاده بشه؟</p><div class="arow"><label class="rl"><input type="radio" name="sVia" value="phone" checked>شماره تماس</label><label class="rl"><input type="radio" name="sVia" value="email">ایمیل</label></div>
       <p class="aerr" id="sErr" role="alert"></p>
-      <button class="btn" type="submit">ساخت حساب</button>
+      <button class="btn" type="submit">ادامه و دریافت کد</button>
       <p class="aalt">حساب داری؟ <button class="btn alt" id="toLogin" type="button">ورود</button></p>
+    </form>
+
+    <form class="aview" id="otpLoginView" novalidate hidden>
+      <h2>ورود با کد تأیید</h2>
+      <p class="sub">شماره موبایل یا ایمیل حسابت رو بنویس تا کد برات بفرستیم.</p>
+      <label>شماره موبایل / ایمیل<input id="oId" dir="ltr" autocomplete="username"></label>
+      <p class="aerr" id="oErr" role="alert"></p>
+      <button class="btn" type="submit">ارسال کد</button>
+      <p class="aalt"><button class="btn alt toLoginBtn" type="button">ورود با رمز عبور</button></p>
+    </form>
+
+    <form class="aview" id="forgotView" novalidate hidden>
+      <h2>فراموشی رمز عبور</h2>
+      <p class="sub">شماره موبایل یا ایمیل ثبت‌شده‌ت رو بنویس تا کد تأیید برات بفرستیم.</p>
+      <label>شماره موبایل / ایمیل<input id="fId" dir="ltr" autocomplete="username"></label>
+      <p class="aerr" id="fErr" role="alert"></p>
+      <button class="btn" type="submit">ارسال کد</button>
+      <p class="aalt"><button class="btn alt toLoginBtn" type="button">بازگشت به ورود</button></p>
+    </form>
+
+    <form class="aview" id="codeView" novalidate hidden>
+      <h2>کد تأیید</h2>
+      <p class="sub" id="cMsg"></p>
+      <p class="cdemo" id="cDemo"></p>
+      <label>کد ۶ رقمی<input id="cIn" dir="ltr" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></label>
+      <p class="aerr" id="cErr" role="alert"></p>
+      <button class="btn" type="submit">تأیید</button>
+      <p class="aalt"><button class="btn alt" id="cResend" type="button">ارسال دوباره</button> <button class="btn alt" id="cBack" type="button">بازگشت</button></p>
+    </form>
+
+    <form class="aview" id="resetView" novalidate hidden>
+      <h2>رمز عبور جدید</h2>
+      <label>رمز عبور جدید<input id="rPass" type="password" autocomplete="new-password"></label>
+      <label>تکرار رمز عبور<input id="rPass2" type="password" autocomplete="new-password"></label>
+      <p class="aerr" id="rErr" role="alert"></p>
+      <button class="btn" type="submit">ثبت رمز جدید</button>
     </form>
 
     <div class="aview" id="profileView" hidden>
@@ -1480,6 +1532,18 @@ const ART = {
   t2: `<svg ${V}><rect width="100" height="125" fill="#0d1612"/><path d="M0 125 V84 L14 54 L24 84 L36 48 L48 86 L62 52 L74 86 L88 58 L100 86 V125Z" fill="#050a08"/><g fill="#f4d35e"><circle cx="22" cy="40" r="2.4"/><circle cx="46" cy="28" r="1.8"/><circle cx="70" cy="46" r="2.8"/><circle cx="82" cy="24" r="1.6"/><circle cx="34" cy="64" r="1.6"/><circle cx="58" cy="70" r="2.2"/><circle cx="14" cy="80" r="1.4"/><circle cx="88" cy="74" r="1.8"/></g><g fill="#f4d35e" opacity=".25"><circle cx="22" cy="40" r="7"/><circle cx="70" cy="46" r="8"/><circle cx="58" cy="70" r="6"/></g></svg>`,
   t3: `<svg ${V}><rect width="100" height="125" fill="#c7d4bd"/><path d="M0 70 H100 V125 H0Z" fill="#56734f"/><path d="M42 70 H58 L92 125 H8Z" fill="#3a3f45"/><path d="M50 78 V122" stroke="#d9d3b0" stroke-width="1.6" stroke-dasharray="5 5"/><path d="M0 70 L12 40 L22 70 L32 36 L42 70Z M58 70 L68 34 L80 70 L90 44 L100 70Z" fill="#2c4a33"/><path d="M0 125 L10 96 L22 125Z M78 125 L90 92 L100 125Z" fill="#2c4a33"/></svg>`
 };
+const SV = (w, h, b) => `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${b}</svg>`;
+const GR = (id, a, b) => `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs>`;
+const CU = (w, h) => SV(w, h, `<rect width="${w}" height="${h}" fill="#eef1f2"/><rect x="8" y="8" width="${w - 16}" height="${h - 16}" fill="none" stroke="#8b949a" stroke-width="1.4" stroke-dasharray="5 4"/><circle cx="${w / 2}" cy="${h / 2 - 6}" r="14" fill="none" stroke="#8b949a" stroke-width="2"/><path d="M${w / 2} ${h / 2 - 13}v14M${w / 2 - 7} ${h / 2 - 6}h14" stroke="#8b949a" stroke-width="2"/><text x="${w / 2}" y="${h / 2 + 24}" text-anchor="middle" font-size="9" fill="#4b5963">عکس تو اینجا</text>`);
+Object.assign(ART, {
+  gp: SV(100, 125, GR("gp1", "#2a1458", "#0e0a24") + `<rect width="100" height="125" fill="url(#gp1)"/><rect x="5" y="5" width="90" height="115" fill="none" stroke="#ff4fa3" stroke-width="1.5"/><text x="50" y="30" text-anchor="middle" font-family="monospace" font-weight="700" font-size="13" fill="#ffe14f">PLAYER 1</text><rect x="22" y="56" width="56" height="30" rx="14" fill="#e8e8f2"/><rect x="31" y="66" width="12" height="4" fill="#2a1458"/><rect x="35" y="62" width="4" height="12" fill="#2a1458"/><circle cx="62" cy="68" r="3.4" fill="#ff4fa3"/><circle cx="70" cy="63" r="3.4" fill="#4fd1ff"/><text x="50" y="106" text-anchor="middle" font-family="monospace" font-size="8" fill="#4fd1ff">PRESS START</text>`),
+  mv: SV(125, 100, GR("mv1", "#1c1740", "#e8794a") + `<rect width="125" height="100" fill="url(#mv1)"/><circle cx="92" cy="38" r="12" fill="#ffe3a8"/><path d="M0 100V70h10V54h12v22h8V46h14v30h10V60h12v16h8V50h16v26h10V64h10v36Z" fill="#0b0b1a"/><g fill="#ffd36a"><rect x="14" y="62" width="3" height="3"/><rect x="36" y="56" width="3" height="3"/><rect x="62" y="68" width="3" height="3"/><rect x="88" y="58" width="3" height="3"/></g><rect width="125" height="8" fill="#0b0b1a"/><rect y="92" width="125" height="8" fill="#0b0b1a"/><path d="M4 3h5v2H4zM18 3h5v2h-5zM32 3h5v2h-5zM46 3h5v2h-5zM60 3h5v2h-5zM74 3h5v2h-5zM88 3h5v2h-5zM102 3h5v2h-5zM116 3h5v2h-5zM4 95h5v2H4zM18 95h5v2h-5zM32 95h5v2h-5zM46 95h5v2h-5zM60 95h5v2h-5zM74 95h5v2h-5zM88 95h5v2h-5zM102 95h5v2h-5zM116 95h5v2h-5z" fill="#c3ccd1"/>`),
+  an: SV(100, 125, GR("an1", "#ffb6c9", "#ff8a5c") + `<rect width="100" height="125" fill="url(#an1)"/><circle cx="50" cy="62" r="24" fill="#fff2d6"/><path d="M0 100L26 72L44 92L66 66L100 98V125H0Z" fill="#7a3b5e"/><path d="M0 112L30 90L56 108L80 88L100 106V125H0Z" fill="#4a1f3d"/><g fill="#a8323f"><rect x="30" y="52" width="40" height="4"/><rect x="34" y="58" width="32" height="2.5"/><rect x="36" y="56" width="4" height="40"/><rect x="60" y="56" width="4" height="40"/></g><g fill="#ffe0ea"><circle cx="14" cy="20" r="2"/><circle cx="80" cy="14" r="2.4"/><circle cx="70" cy="34" r="1.8"/><circle cx="24" cy="44" r="2.2"/><circle cx="90" cy="48" r="1.8"/><circle cx="8" cy="64" r="1.8"/></g>`),
+  car: SV(125, 100, GR("c1", "#12062e", "#ff4f9a") + `<rect width="125" height="100" fill="url(#c1)"/><circle cx="62" cy="50" r="22" fill="#ffd24f"/><path d="M0 62H125V100H0Z" fill="#0a0420"/><path d="M52 62H72L112 100H12Z" fill="#1c1040"/><path d="M62 66V98" stroke="#4fd1ff" stroke-width="1.4" stroke-dasharray="5 4"/><path d="M34 84q4-12 18-13h20q10 0 16 9l8 2v7H34Z" fill="#06020f" stroke="#4fd1ff" stroke-width=".8"/><circle cx="48" cy="92" r="5" fill="#06020f" stroke="#4fd1ff"/><circle cx="82" cy="92" r="5" fill="#06020f" stroke="#4fd1ff"/><path d="M0 62H125" stroke="#4fd1ff" stroke-width=".8"/>`),
+  fa: SV(100, 125, GR("f1", "#0e1240", "#6b3fa0") + `<rect width="100" height="125" fill="url(#f1)"/><circle cx="70" cy="30" r="14" fill="#f3efd6"/><g fill="#fff"><circle cx="16" cy="18" r="1"/><circle cx="36" cy="30" r="1.2"/><circle cx="88" cy="12" r="1"/><circle cx="24" cy="50" r="1"/></g><path d="M0 125V96l10-8 10 8V84h8V70l5-8 5 8v14h6V76h10V60l6-8 6 8v16h10V84h8v12l10-8 6 8V125Z" fill="#120a2a"/><path d="M0 108q25-12 50 0t50 0V125H0Z" fill="#07041a"/>`),
+  pt: SV(100, 125, GR("p1", "#f0c9a0", "#c9784f") + `<rect width="100" height="125" fill="url(#p1)"/><circle cx="50" cy="48" r="20" fill="#3b2418"/><rect x="44" y="64" width="12" height="16" fill="#3b2418"/><path d="M14 125q0-40 36-40t36 40Z" fill="#3b2418"/>`),
+  cu: CU(100, 125), cuh: CU(125, 100)
+});
 
 /* ===== اضافه کردن تابلو =====
    هر خط یک تابلوئه:
@@ -1489,13 +1553,21 @@ const ART = {
    (اگه p3/p5 ننویسی، از قیمت A4 به‌اضافه‌ی PRICE.size پایین‌تر حساب می‌شه)
    بعدش توضیحات همون تابلو رو توی desc و مشخصات اضافه رو توی extra، به همین ترتیب بنویس. */
 const items = [
-  { n: "Red Dead Redemption 2 | غروب غرب وحشی", s: "۳۰×۴۰", p: 1200000, a: "r1" },
-  { n: "Red Dead Redemption 2 | شب و ماه", s: "۳۰×۴۰", p: 1100000, a: "r2" },
-  { n: "Red Dead Redemption 2 | تابلوی تحت تعقیب", s: "۴۰×۶۰", p: 1600000, a: "r3" },
-  { n: "The Last of Us | شهر رهاشده", s: "۲۰×۳۰", p: 750000, a: "t1" },
-  { n: "The Last of Us | شب و کرم‌های شب‌تاب", s: "۴۰×۶۰", p: 1500000, a: "t2" },
-  { n: "The Last of Us | جاده‌ی سبز", s: "۳۰×۴۰", p: 1150000, a: "t3" }
+  { n: "Red Dead Redemption 2 | غروب غرب وحشی", s: "۳۰×۴۰", p: 1200000, a: "r1", c: "game", o: "v" },
+  { n: "Red Dead Redemption 2 | شب و ماه", s: "۳۰×۴۰", p: 1100000, a: "r2", c: "game", o: "v" },
+  { n: "Red Dead Redemption 2 | تابلوی تحت تعقیب", s: "۴۰×۶۰", p: 1600000, a: "r3", c: "game", o: "v" },
+  { n: "The Last of Us | شهر رهاشده", s: "۲۰×۳۰", p: 750000, a: "t1", c: "game", o: "v" },
+  { n: "The Last of Us | شب و کرم‌های شب‌تاب", s: "۴۰×۶۰", p: 1500000, a: "t2", c: "game", o: "v" },
+  { n: "The Last of Us | جاده‌ی سبز", s: "۳۰×۴۰", p: 1150000, a: "t3", c: "game", o: "v" },
+  { n: "Game Poster | پوستر آرکید پیکسلی", s: "۳۰×۴۰", p: 950000, a: "gp", c: "gposter", o: "v" },
+  { n: "Movie Night | شب سینمایی شهر", s: "۴۰×۳۰", p: 1200000, a: "mv", c: "movie", o: "h" },
+  { n: "Anime | غروب ساکورا", s: "۳۰×۴۰", p: 1100000, a: "an", c: "anime", o: "v" },
+  { n: "Car | جاده‌ی نئونی", s: "۴۰×۳۰", p: 1250000, a: "car", c: "car", o: "h" },
+  { n: "Fantasy | قلعه‌ی ماه", s: "۳۰×۴۰", p: 1150000, a: "fa", c: "fantasy", o: "v" },
+  { n: "Portrait | سیلوئت گرم", s: "۳۰×۴۰", p: 1000000, a: "pt", c: "portrait", o: "v" },
+  { n: "Custom | طرح دلخواه تو", s: "۳۰×۴۰", p: 1300000, a: "cu", c: "custom", o: "v", custom: true }
 ];
+const CATS = { game: "گیم", gposter: "پوستر گیم", movie: "فیلم و سریال", anime: "انیمه", car: "ماشین", fantasy: "فانتزی", portrait: "پورتره", custom: "طرح دلخواه" };
 
 const fa = n => Number(n).toLocaleString("fa-IR");
 /* امنیت: هر متنی که وارد HTML می‌شه از h() رد می‌شه */
@@ -1517,19 +1589,25 @@ const minOf = o => Math.min(...Object.values(o));
 /* قیمت هر سایز یک تابلو: p3 / p5 اگه توی items باشه همون، وگرنه A4 + PRICE.size */
 const sizePrice = (i, z) => z === "A4" ? i.p : Math.max(0, z === "A3" ? (i.p3 ?? i.p + PRICE.size.A3) : (i.p5 ?? i.p + PRICE.size.A5));
 const minPrice = i => Math.max(0, Math.min(...Object.keys(SIZES).map(z => sizePrice(i, z))) + minOf(PRICE.frame) + minOf(PRICE.print));
+const OR = o => o === "h" ? "افقی" : "عمودی";
+const dimOf = (z, o) => o === "h" ? SIZES[z].dim.split("×").reverse().join("×") : SIZES[z].dim;
 const dl = d => d > 0 ? "+" + fa(d) : d < 0 ? "−" + fa(-d) : "";
 
-document.getElementById("grid").innerHTML = items.map((i, k) => `
+const card = (i, k) => `
   <article class="item" data-k="${k}">
     <a class="plink" href="#product-${k}">
-      <div class="box"><div class="frame"><div class="mat"><div class="art" role="img" aria-label="${h(i.n)}">${artHTML(i)}</div></div></div></div>
+      <div class="box"><div class="frame${i.o === "h" ? " h" : ""}"><div class="mat"><div class="art" role="img" aria-label="${h(i.n)}">${artHTML(i)}</div></div></div></div>
       <h3>${h(i.n)}</h3>
-      <div class="meta">سایز A3 تا A5، قاب مشکی، سفید یا طوسی</div>
+      <div class="meta">${i.custom ? "عکس خودت رو بذار توی قاب و نمونه رو ببین" : "سایز A3 تا A5، قاب مشکی، سفید یا طوسی"} · ${i.o === "h" ? "افقی" : "عمودی"}</div>
       <div class="more">مشاهده مشخصات ←</div>
     </a>
     <div class="price">از ${fa(minPrice(i))} تومان</div>
     <a class="btn" href="#product-${k}">انتخاب سایز و قاب</a>
-  </article>`).join("");
+  </article>`;
+/* پرفروش‌ها: شماره‌ی تابلوها (به ترتیب items، از ۰) رو اینجا بنویس */
+const BEST = [0, 8, 9];
+const secs = [["پرفروش‌ترین‌ها", BEST.filter(k => items[k])]].concat(Object.keys(CATS).map(c => [CATS[c], items.map((_, k) => k).filter(k => items[k].c === c)])).filter(x => x[1].length);
+document.getElementById("grid").innerHTML = secs.map(([t, ks]) => `<div class="csec"><h3 class="ch">${t}</h3><div class="grid">${ks.map(k => card(items[k], k)).join("")}</div></div>`).join("");
 
 /* سبد خرید */
 const cart = {};
@@ -1545,6 +1623,7 @@ function render() {
         count += i.q;
         msg += `\n${fa(n + 1)}) ${i.n}\n` +
           `• سایز: ${i.z}\n` +
+          `• جهت آویز: ${i.d}\n` +
           `• رنگ قاب: ${i.f}\n` +
           `• نوع چاپ: ${i.t}\n` +
           `• تعداد: ${fa(i.q)}\n` +
@@ -1641,7 +1720,14 @@ const desc = [
   "طرحی با حال‌وهوای تحت تعقیب بودن توی دنیای غرب وحشی، با الهام از فضای بازی Red Dead Redemption 2.",
   "طرح پیکسلی از یه شهر رهاشده، با الهام از فضای بازی The Last of Us.",
   "طرح پیکسلی از شب و کرم‌های شب‌تاب، با الهام از فضای بازی The Last of Us.",
-  "طرح پیکسلی از یه جاده‌ی سبز و آروم، با الهام از فضای بازی The Last of Us."
+  "طرح پیکسلی از یه جاده‌ی سبز و آروم، با الهام از فضای بازی The Last of Us.",
+  "پوستر پیکسلی با فضای آرکید و کنسول‌های قدیمی؛ مخصوص اتاق گیمرها.",
+  "طرح شب شهر با حال‌وهوای سینما و نوار فیلم؛ برای عاشق‌های فیلم و سریال.",
+  "طرح غروب با ساکورا و دروازه‌ی توری، با حال‌وهوای انیمه‌های ژاپنی.",
+  "جاده‌ی نئونی و ماشین اسپرت توی غروب سینت‌ویو؛ مخصوص عاشق‌های ماشین.",
+  "قلعه‌ای زیر نور ماه، با حال‌وهوای دنیای فانتزی.",
+  "سیلوئت گرم و مینیمال برای تابلوی پورتره؛ می‌تونی طرح پورتره‌ی اختصاصی خودت رو هم سفارش بدی.",
+  "عکس خودت رو انتخاب کن و همون لحظه توی قاب ببین چه شکلی می‌شه. بعد از ثبت سفارش، فایل اصلی عکس رو توی تلگرام برامون بفرست."
 ];
 
 const en = s => s.replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
@@ -1660,12 +1746,13 @@ function showProduct(k) {
   const tag = d => dl(d) ? `<small class="dl">${dl(d)}</small>` : "";
 
   const sizeHtml = Object.keys(SIZES).map(z =>
-    choice("size", z, `<b>${z}</b><small>${SIZES[z].dim} سانتی‌متر</small>${tag(sizePrice(i, z) - i.p)}`, z === "A4")).join("");
+    choice("size", z, `<b>${z}</b><small class="sd" data-z="${z}">${dimOf(z, i.o)} سانتی‌متر</small>${tag(sizePrice(i, z) - i.p)}`, z === "A4")).join("");
   const frameHtml = Object.keys(FRAMES).map(f =>
     choice("frame", f, `<i class="swatch" style="background:${FRAMES[f].color}"></i>${FRAMES[f].label}${tag(PRICE.frame[f])}`, f === "black")).join("");
   const printHtml = Object.keys(PRINTS).map(p =>
     choice("print", p, `<b>${PRINTS[p].label}</b>${tag(PRICE.print[p])}`, p === "normal")).join("");
 
+  const custHtml = `<fieldset class="opt cust"><legend>عکس تو</legend><input type="file" id="upl" accept="image/png,image/jpeg,image/webp"><div class="choices">${choice("ori", "v", "<b>عمودی</b>", true)}${choice("ori", "h", "<b>افقی</b>", false)}</div><p class="note">عکس فقط توی مرورگر خودت نمایش داده می‌شه و جایی آپلود نمی‌شه. بعد از ثبت سفارش، فایل اصلی رو توی تلگرام برامون بفرست. عکس متناسب با قاب برش می‌خوره.</p><p class="aerr" id="uErr"></p></fieldset>`;
   view.innerHTML = `
     <nav class="crumbs"><a href="#products">← بازگشت به تابلوها</a></nav>
     <div class="detail">
@@ -1677,18 +1764,21 @@ function showProduct(k) {
         <h1>${h(title || i.n)}</h1>
         <div class="pprice"><span id="pPrice"></span> تومان</div>
         <div class="opts" id="pgOptions">
+          ${i.custom ? custHtml : ""}
           ${opt("سایز", sizeHtml)}
           ${opt("رنگ قاب", frameHtml)}
           ${opt("نوع چاپ", printHtml)}
         </div>
         <h2 class="dh">توضیحات</h2>
         <p class="desc">${h(desc[k] || "")}</p>
+        <p class="desc" id="oriNote"></p>
         <p class="desc">اگه اندازه یا طرح دلخواه دیگه‌ای می‌خوای، توی تلگرام بهمون پیام بده.</p>
         <h2 class="dh">مشخصات</h2>
         <dl class="specs">
-          <div><dt>بازی</dt><dd>${h(game)}</dd></div>
+          <div><dt>دسته</dt><dd>${h(CATS[i.c] || game)}</dd></div>
           <div><dt>نام تابلو</dt><dd>${h(title || i.n)}</dd></div>
           <div><dt>اندازه</dt><dd id="spSize"></dd></div>
+          <div><dt>جهت آویز</dt><dd id="spOri"></dd></div>
           <div><dt>رنگ قاب</dt><dd id="spFrame"></dd></div>
           <div><dt>نوع چاپ</dt><dd id="spPrint"></dd></div>
           <div><dt>قیمت</dt><dd><span id="spPrice"></span> تومان</dd></div>
@@ -1704,7 +1794,7 @@ function showProduct(k) {
       <div class="mrow">
         ${items.map((o, j) => j === k ? "" : `
         <a class="mi" href="#product-${j}">
-          <div class="box"><div class="frame" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${h(o.n)}">${artHTML(o)}</div></div></div></div>
+          <div class="box"><div class="frame${o.o === "h" ? " h" : ""}" style="aspect-ratio:${o.o === "h" ? "297/210" : "210/297"}"><div class="mat"><div class="art" role="img" aria-label="${h(o.n)}">${artHTML(o)}</div></div></div></div>
           <h3>${h(o.n)}</h3>
           <div class="p">از ${fa(minPrice(o))} تومان</div>
         </a>`).join("")}
@@ -1712,6 +1802,8 @@ function showProduct(k) {
     </div>`;
 
   const opts = $("pgOptions"), box = $("pgBox"), fr = $("pgFrame");
+  let userImg = null;
+  const getOri = () => i.custom ? opts.querySelector('input[name="ori"]:checked').value : (i.o || "v");
   const pick = n => opts.querySelector(`input[name="${n}"]:checked`).value;
   const cur = () => {
     const s = pick("size"), f = pick("frame"), p = pick("print");
@@ -1720,7 +1812,14 @@ function showProduct(k) {
   const upd = () => {
     const c = cur();
     $("pPrice").textContent = $("spPrice").textContent = fa(c.price);
-    $("spSize").textContent = c.s + " (" + SIZES[c.s].dim + " سانتی‌متر)";
+    const o = getOri();
+    $("spSize").textContent = c.s + " (" + dimOf(c.s, o) + " سانتی‌متر)";
+    $("spOri").textContent = OR(o);
+    $("oriNote").textContent = "آویز تابلو این طرح به صورت " + OR(o) + " خواهد بود.";
+    opts.querySelectorAll(".sd").forEach(e => e.textContent = dimOf(e.dataset.z, o) + " سانتی‌متر");
+    fr.style.aspectRatio = o === "h" ? "297/210" : "210/297";
+    box.classList.toggle("hz", o === "h");
+    if (i.custom && !userImg) fr.querySelector(".art").innerHTML = ART[o === "h" ? "cuh" : "cu"];
     $("spFrame").textContent = FRAMES[c.f].label;
     $("spPrint").textContent = PRINTS[c.p].label;
     fr.dataset.frame = c.f;
@@ -1729,13 +1828,25 @@ function showProduct(k) {
   };
   opts.addEventListener("change", upd);
   upd();
+  const up = $("upl");
+  if (up) up.addEventListener("change", () => {
+    const f = up.files[0];
+    $("uErr").textContent = "";
+    if (!f) return;
+    if (!/^image\/(png|jpe?g|webp)$/.test(f.type)) return $("uErr").textContent = "فقط عکس PNG، JPG یا WEBP.";
+    if (f.size > 10 * 1024 * 1024) return $("uErr").textContent = "حجم عکس بیشتر از ۱۰ مگابایته.";
+    const r = new FileReader();
+    r.onload = () => { userImg = r.result; const im = new Image(); im.alt = "عکس دلخواه"; im.src = userImg; fr.querySelector(".art").replaceChildren(im) };
+    r.readAsDataURL(f);
+  });
 
   $("addOne").onclick = e => {
     const c = cur();
-    const key = `${k}|${c.s}|${c.f}|${c.p}`;
-    const o = [c.s, "قاب " + FRAMES[c.f].label, PRINTS[c.p].label].join("، ");
+    const oo = getOri();
+    const key = `${k}|${c.s}|${c.f}|${c.p}|${oo}`;
+    const o = [c.s, OR(oo), "قاب " + FRAMES[c.f].label, PRINTS[c.p].label].join("، ");
     if (cart[key]) cart[key].q++;
-    else cart[key] = { n: i.n, o, p: c.price, q: 1, z: c.s + " (" + SIZES[c.s].dim + " سانتی‌متر)", f: FRAMES[c.f].label, t: PRINTS[c.p].label };
+    else cart[key] = { d: OR(oo), n: i.custom ? "طرح دلخواه — عکس رو توی همین چت می‌فرستم" : i.n, o, p: c.price, q: 1, z: c.s + " (" + dimOf(c.s, oo) + " سانتی‌متر)", f: FRAMES[c.f].label, t: PRINTS[c.p].label };
     render();
     e.target.textContent = "اضافه شد ✓";
     e.target.classList.add("added");
@@ -1815,9 +1926,8 @@ function fillProfile(u) {
 }
 
 function aView(name) {
-  ["loginView", "signupView", "profileView"].forEach(v => $(v).hidden = v !== name);
-  setErr("lErr", "");
-  setErr("sErr", "");
+  ["loginView", "signupView", "profileView", "otpLoginView", "forgotView", "codeView", "resetView"].forEach(v => $(v).hidden = v !== name);
+  document.querySelectorAll(".aerr").forEach(e => e.textContent = "");
 }
 
 function openAccount() {
@@ -1833,7 +1943,7 @@ function openAccount() {
   }
 }
 
-const closeAccount = () => $("amodal").hidden = true;
+const closeAccount = () => { $("amodal").hidden = true; if (cb) cb(false) };
 
 function setSession(k) {
   meKey = k;
@@ -1866,6 +1976,7 @@ $("loginView").addEventListener("submit", async e => {
 });
 
 const digits = t => t.replace(/[۰-۹٠-٩]/g, d => "۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩".indexOf(d) % 10);
+const pn = t => digits(String(t)).replace(/\D/g, "").slice(-10);
 
 $("signupView").addEventListener("submit", async e => {
   e.preventDefault();
@@ -1883,6 +1994,10 @@ $("signupView").addEventListener("submit", async e => {
   const all = users();
   if (RESERVED.includes(k) || own(all, k)) return setErr("sErr", "این نام کاربری قبلاً گرفته شده.");
   if (Object.values(all).some(u => u.email === email)) return setErr("sErr", "با این ایمیل قبلاً حساب ساخته شده.");
+  if (Object.values(all).some(u => pn(u.phone || "") === pn(phone))) return setErr("sErr", "با این شماره قبلاً حساب ساخته شده.");
+  const via = document.querySelector('input[name="sVia"]:checked').value;
+  if (!(await askCode(via === "email" ? email : phone, via, "signupView"))) return;
+  aView("signupView");
   const salt = crypto.getRandomValues(new Uint8Array(16));
   all[k] = { name, first, last, phone, email, salt: toB64(salt), hash: await hashPw(pw, salt) };
   try { localStorage.setItem("pixieUsers", JSON.stringify(all)) } catch (err) { return setErr("sErr", "ذخیره‌سازی مرورگر در دسترس نیست.") }
@@ -1893,12 +2008,118 @@ $("signupView").addEventListener("submit", async e => {
 
 paintAccount();
 
+/* ===== کد تأیید (پیامک / ایمیل) =====
+   API خالی = حالت نمایشی: کد روی صفحه نشون داده می‌شه (امن نیست و فقط برای تست UI).
+   برای ارسال واقعی: آدرس سرور خودت رو بذار و connect-src توی CSP بالای فایل رو هم به همون آدرس باز کن.
+   سرور دو مسیر می‌خواد: POST /send-code {target, via}  و  POST /verify-code {target, via, code} که {ok:true} برگردونه.
+   via می‌شه "phone" یا "email". ارسال پیامک با سرویس ایرانی (کاوه‌نگار، ملی‌پیامک و...) و ایمیل با SMTP از سمت سرور انجام می‌شه. */
+const API = "";
+const OTP_TTL = 120000, OTP_TRIES = 5, RESEND = 60;
+let otp = null, cb = null, codeBack = "loginView", tick = null, cTarget = "", cVia = "", resetKey = "";
+const mask = (t, via) => via === "email" ? t.replace(/^(.).*(@.*)$/, "$1•••$2") : t.slice(0, 4) + "•••" + t.slice(-2);
+const post = (p, b) => fetch(API + p, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) });
+async function sendCode(target, via) {
+  if (API) {
+    const r = await post("/send-code", { target, via });
+    if (!r.ok) throw 0;
+    otp = { target, via, exp: Date.now() + OTP_TTL, tries: 0 };
+    return "";
+  }
+  const code = String(100000 + crypto.getRandomValues(new Uint32Array(1))[0] % 900000);
+  otp = { target, via, code, exp: Date.now() + OTP_TTL, tries: 0 };
+  return code;
+}
+async function checkCode(c) {
+  if (!otp || Date.now() > otp.exp) return "expired";
+  if (++otp.tries > OTP_TRIES) { otp = null; return "locked" }
+  if (API) {
+    try { const r = await post("/verify-code", { target: otp.target, via: otp.via, code: c }); const j = await r.json(); return r.ok && j.ok === true }
+    catch (e) { return "net" }
+  }
+  return c === otp.code;
+}
+function startTimer() {
+  clearInterval(tick);
+  let s = RESEND;
+  const b = $("cResend");
+  const t = () => { b.disabled = s > 0; b.textContent = s > 0 ? "ارسال دوباره (" + fa(s) + ")" : "ارسال دوباره"; s-- };
+  t();
+  tick = setInterval(() => { if (s < 0) { clearInterval(tick); return } t() }, 1000);
+}
+async function deliver() {
+  setErr("cErr", "");
+  $("cDemo").textContent = "";
+  try {
+    const demo = await sendCode(cTarget, cVia);
+    if (demo) $("cDemo").textContent = "حالت نمایشی: سرور پیامک/ایمیل وصل نیست. کد تأیید: " + demo;
+    startTimer();
+  } catch (e) { setErr("cErr", "ارسال کد انجام نشد. دوباره تلاش کن.") }
+}
+function askCode(target, via, back) {
+  if (cb) cb(false);
+  return new Promise(res => {
+    cb = ok => { clearInterval(tick); cb = null; otp = null; res(ok) };
+    cTarget = target; cVia = via; codeBack = back;
+    aView("codeView");
+    $("cIn").value = "";
+    $("cMsg").textContent = "کد ۶ رقمی به " + (via === "email" ? "ایمیل " : "شماره ") + mask(target, via) + " فرستاده می‌شه.";
+    deliver();
+    $("cIn").focus();
+  });
+}
+$("cResend").onclick = deliver;
+$("cBack").onclick = () => { const f = cb; aView(codeBack); if (f) f(false) };
+$("codeView").addEventListener("submit", async e => {
+  e.preventDefault();
+  const r = await checkCode(digits($("cIn").value).replace(/\D/g, ""));
+  if (r === true) { if (cb) cb(true); return }
+  setErr("cErr", r === "expired" ? "کد منقضی شده. کد جدید بگیر." : r === "locked" ? "تعداد تلاش بیش از حد مجازه. کد جدید بگیر." : r === "net" ? "ارتباط با سرور برقرار نشد." : "کد اشتباهه.");
+});
+
+const findBy = id => {
+  const all = users();
+  if (id.includes("@")) return Object.keys(all).find(x => (own(all, x) || {}).email === norm(id));
+  const p = pn(id);
+  return p.length >= 10 ? Object.keys(all).find(x => pn((own(all, x) || {}).phone || "") === p) : undefined;
+};
+const viaOf = id => id.includes("@") ? "email" : "phone";
+$("toOtp").onclick = () => { aView("otpLoginView"); $("oId").focus() };
+$("toForgot").onclick = () => { aView("forgotView"); $("fId").focus() };
+document.querySelectorAll(".toLoginBtn").forEach(b => b.onclick = () => { aView("loginView"); $("lUser").focus() });
+
+async function viaCodeFlow(inputId, errId, back, then) {
+  const id = $(inputId).value.trim(), k = id && findBy(id);
+  if (!id) return setErr(errId, "شماره موبایل یا ایمیل رو وارد کن.");
+  if (!k) return setErr(errId, "حسابی با این شماره یا ایمیل پیدا نشد.");
+  const u = own(users(), k), via = viaOf(id);
+  if (await askCode(via === "email" ? u.email : u.phone, via, back)) then(k);
+}
+$("otpLoginView").addEventListener("submit", e => { e.preventDefault(); viaCodeFlow("oId", "oErr", "otpLoginView", k => { setSession(k); closeAccount() }) });
+$("forgotView").addEventListener("submit", e => { e.preventDefault(); viaCodeFlow("fId", "fErr", "forgotView", k => { resetKey = k; aView("resetView"); $("rPass").focus() }) });
+$("resetView").addEventListener("submit", async e => {
+  e.preventDefault();
+  const pw = $("rPass").value;
+  if (pw.length < 8) return setErr("rErr", "رمز عبور حداقل ۸ کاراکتر باشه.");
+  if (pw !== $("rPass2").value) return setErr("rErr", "تکرار رمز عبور با رمز یکی نیست.");
+  const all = users(), u = own(all, resetKey);
+  if (!u || !canHash()) return setErr("rErr", "مشکلی پیش اومد، از اول امتحان کن.");
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  u.salt = toB64(salt);
+  u.hash = await hashPw(pw, salt);
+  try { localStorage.setItem("pixieUsers", JSON.stringify(all)) } catch (err) { return setErr("rErr", "ذخیره‌سازی مرورگر در دسترس نیست.") }
+  const k = resetKey;
+  resetKey = "";
+  $("rPass").value = $("rPass2").value = "";
+  setSession(k);
+  closeAccount();
+});
+
 /* جستجوی هدر */
 (() => {
   const form = $("hsearch"), input = $("pgSearch"), info = $("pgSearchInfo");
   const cards = [...document.querySelectorAll("#grid .item")];
   const norm = t => digits(String(t || "")).toLowerCase().replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/[\u200c\u200e\u200f]/g, " ").replace(/\s+/g, " ").trim();
-  cards.forEach(el => { const k = +el.dataset.k; el._h = norm(items[k].n + " " + (desc[k] || "")) });
+  cards.forEach(el => { const k = +el.dataset.k; el._h = norm(items[k].n + " " + (desc[k] || "") + " " + CATS[items[k].c]) });
 
   const clearLink = () => {
     const a = document.createElement("a");
@@ -1910,12 +2131,13 @@ paintAccount();
 
   const filter = () => {
     const terms = norm(input.value).split(" ").filter(Boolean);
-    let shown = 0;
+    let shown = 0; const seen = new Set();
     cards.forEach(el => {
       const ok = terms.every(t => el._h.includes(t));
       el.hidden = !ok;
-      if (ok) shown++;
+      if (ok && !seen.has(el.dataset.k)) { seen.add(el.dataset.k); shown++ }
     });
+    document.querySelectorAll(".csec").forEach(c => c.hidden = !c.querySelector(".item:not([hidden])"));
     info.textContent = "";
     if (!terms.length) return;
     if (shown) {
@@ -1943,4 +2165,4 @@ paintAccount();
 })();
 </script>
 </body>
-</html>
+</html> 
