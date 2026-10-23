@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-EFlUU73f1eq/6tUgf49EYxlspiZs81PMNrmeYiXFf2M='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-AElcKJR729ai5RHRU76idBeMvI3AZdkwGarPjmGGnik='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixie Gallery | تابلوهای طرح‌دار قاب‌شده</title>
@@ -1312,46 +1312,17 @@ body.in-product #trust {
 @media (prefers-reduced-motion: reduce) {
   .pbox .frame, .choice span { transition: none }
 }
-/* ===== کاراکترهای دور صفحه (فقط صفحه‌ی تابلو؛ ثابت و بدون حرکت) ===== */
-.scene { position: fixed; inset: 0; pointer-events: none; z-index: 30; --u: clamp(60px, calc((100vw - 1040px) / 2 - 20px), 130px) }
-.scene .sc { position: absolute }
-.scene .sc svg { display: block; width: 100%; height: auto }
-.scene .sc .painter, .scene .sc .mini { position: static; left: auto; right: auto; bottom: auto; width: 100%; max-width: none; height: auto }
-.scene .sc svg, .scene .sc svg * { animation: none !important; transition: none !important }
 
-/* دسکتاپ پهن: دور تا دور صفحه، توی حاشیه‌های کنار محتوا */
-@media (min-width: 1200px) {
-  .scene .sc-painter { right: 14px; bottom: 0; width: var(--u) }
-  .scene .sc-hiker { left: 14px; bottom: 0; width: calc(var(--u) * .66) }
-  .scene .sc-cowboy { left: 22px; top: 42%; width: calc(var(--u) * .5) }
-  .scene .sc-cat { right: 26px; top: 26%; width: calc(var(--u) * .42) }
-  .scene.rdr .sc-cowboy { width: calc(var(--u) * .66) }
-  .scene.tlou .sc-hiker { width: calc(var(--u) * .86) }
-  .scene .shelf::after {
-    content: ""; position: absolute; bottom: -8px; height: 7px;
-    background: #8a6238; border-top: 2px solid #b78a52; box-shadow: 0 2px 0 #4a3018
-  }
-  .scene .sc-cowboy.shelf::after { left: -22px; right: -18px }
-  .scene .sc-cat.shelf::after { left: -14px; right: -26px }
-}
-
-/* تبلت و موبایل: کاراکترها روی یک «کف» باریک پایین صفحه می‌ایستن */
-@media (max-width: 1199px) {
-  body.in-product { --k: 1; padding-bottom: calc(52px * var(--k) + 14px) }
-  .scene::before {
-    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: calc(52px * var(--k));
-    background: #c3ccd1; border-top: 3px solid var(--ink)
-  }
-  .scene .sc { bottom: calc(5px * var(--k)) }
-  .scene .sc-hiker { left: 4%; width: calc(38px * var(--k)) }
-  .scene .sc-cowboy { left: 25%; width: calc(28px * var(--k)) }
-  .scene .sc-cat { left: 52%; width: calc(26px * var(--k)) }
-  .scene .sc-painter { right: 4%; width: calc(58px * var(--k)) }
-  .scene.rdr .sc-cowboy { width: calc(34px * var(--k)) }
-  .scene.tlou .sc-hiker { width: calc(46px * var(--k)) }
-}
-@media (min-width: 700px) and (max-width: 1199px) {
-  body.in-product { --k: 1.3 }
+/* ===== اصلاحات سازگاری موبایل ===== */
+.hsearch input, .aview input { font-size: 16px } /* جلوگیری از زوم خودکار iOS Safari */
+.abox { max-height: 92vh; max-height: 92dvh }
+.cart { visibility: hidden; transition: transform .25s, visibility 0s .25s }
+body.cart-open .cart { visibility: visible; transition-delay: 0s }
+html { -webkit-tap-highlight-color: transparent }
+img, svg { max-width: 100% }
+@media (hover: none) {
+  .btn:hover, .cartbtn:hover, .qty button:hover, .card:hover, .hnav a:hover { transform: none; box-shadow: none }
+  .item:hover .frame, .item:hover .art svg, .item:hover .art img { transform: none }
 }
 </style>
 </head>
@@ -1529,7 +1500,7 @@ const items = [
 const fa = n => Number(n).toLocaleString("fa-IR");
 /* امنیت: هر متنی که وارد HTML می‌شه از h() رد می‌شه */
 const h = t => String(t).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const safeSrc = u => /^(https:\/\/|data:image\/(png|jpe?g|webp|gif|svg\+xml)[;,]|[\w\-./%]+$)/i.test(String(u)) ? String(u) : "";
+const safeSrc = u => /^(https:\/\/|data:image\/(png|jpe?g|webp|gif|svg\+xml)[;,]|(?!\/)[\w\-./%]+$)/i.test(String(u)) ? String(u) : "";
 const artHTML = i => { const src = i.img && safeSrc(i.img); return src ? `<img src="${h(src)}" alt="${h(i.n)}" loading="lazy">` : (ART[i.a] || "") };
 document.querySelectorAll("[data-art]").forEach(e => e.innerHTML = ART[e.dataset.art]);
 /* گزینه‌های سفارش. قیمت هر تابلو = قیمت A4 (فیلد p در items) + مبلغ اضافه/کم زیر.
@@ -1738,19 +1709,7 @@ function showProduct(k) {
           <div class="p">از ${fa(minPrice(o))} تومان</div>
         </a>`).join("")}
       </div>
-    </div>
-    <div class="scene ${/red dead/i.test(game) ? "rdr" : /last of us/i.test(game) ? "tlou" : ""}" id="pgScene" aria-hidden="true"></div>`;
-
-  /* کاراکترها از تابلو بیرون میان و دور صفحه می‌ایستن */
-  [["hiker", "mini.hiker", ""], ["cowboy", "mini.cowboy", "shelf"],
-   ["painter", "painter", ""], ["cat", "mini.cat", "shelf"]].forEach(([k, sel, cls]) => {
-    const src = document.querySelector(".wall svg." + sel);
-    if (!src) return;
-    const d = document.createElement("div");
-    d.className = "sc sc-" + k + " " + cls;
-    d.append(src.cloneNode(true));
-    $("pgScene").append(d);
-  });
+    </div>`;
 
   const opts = $("pgOptions"), box = $("pgBox"), fr = $("pgFrame");
   const pick = n => opts.querySelector(`input[name="${n}"]:checked`).value;
