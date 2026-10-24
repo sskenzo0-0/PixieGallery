@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-G8qCHRAgzRyeeoXw7FNuiYLK6p4dCoVJ7OrSniNSsAA='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZAphhGxhKmg4VKJFP/1mH3fp9oBYC6n3DBq1FR6tKGc='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixie Gallery | تابلوهای طرح‌دار قاب‌شده</title>
@@ -1331,13 +1331,61 @@ img, svg { max-width: 100% }
 .item .frame.h{width:84%;height:auto;aspect-ratio:297/210}
 .mi .frame.h{width:84%}
 .pbox.hz .stage{aspect-ratio:297/210;width:min(100%,460px)}
-.opt.cust input[type=file]{display:block;width:100%;margin-bottom:10px;font:inherit;font-size:14px}
+.opt.cust{position:relative}
 .note{font-size:13px;color:#4b5963;margin-top:8px}
 .cdemo{font-size:13px;background:#fff3c4;border:1px dashed #b8893b;border-radius:4px;padding:6px 10px;margin:0 0 10px;overflow-wrap:anywhere}
 .cdemo:empty{display:none}
 .aview .rl input{display:inline-block;width:auto;margin:0 0 0 6px}
 .vl{font-size:14px;margin-bottom:4px}
 .aview p.sub{font-size:14px;margin-bottom:10px}
+
+/* ===== ردیف‌ها: فلش به صفحه‌ی دسته ===== */
+.chead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:38px 0 16px}
+.csec:first-child .chead{margin-top:0}
+.chead .ch{margin:0}
+.all{flex:none;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:15px;font-weight:600;color:var(--teal);padding:10px 4px}
+.all span{display:inline-block;transition:transform .2s}
+.all:hover span,.all:focus-visible span{transform:translateX(-5px)}
+.all:hover{text-decoration:underline}
+body:not(.searching) .csec .item:nth-child(n+4){display:none}
+@media (max-width:800px){
+  body:not(.searching) .csec .item:nth-child(n+4){display:flex}
+  body:not(.searching) .csec .item:nth-child(n+5){display:none}
+}
+.cath{font-size:clamp(24px,4vw,32px);margin:0 0 20px}
+.cath small{font-size:15px;color:#4b5963;font-weight:400}
+.catp{padding-bottom:50px}
+@media (prefers-reduced-motion:reduce){.all span{transition:none}}
+
+/* ===== طرح دلخواه: آپلود، اندازه‌ی عکس، رنگ کاغذ ===== */
+.drop{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;padding:20px 14px;border:2px dashed var(--ink);border-radius:6px;background:#fff;cursor:pointer;transition:background-color .2s,border-color .2s}
+.drop b{font-size:18px}
+.drop small{font-size:13px;color:#4b5963;overflow-wrap:anywhere}
+.drop:hover,.drop.over{background:var(--paper);border-color:var(--teal)}
+.opt.cust input.sr:focus-visible + .drop{outline:3px solid var(--teal);outline-offset:3px}
+.opt.cust .choices{margin-top:10px}
+.adj{display:grid;gap:12px;margin-top:12px}
+.adj[hidden]{display:none}
+.rng{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:14px}
+.rng input{width:100%;min-height:32px;accent-color:var(--teal)}
+.rng output{min-width:3.4em;text-align:end}
+.pcols{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.pc{position:relative;display:block}
+.pc input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.pc i{display:block;width:36px;height:36px;border-radius:50%;border:2px solid rgba(0,0,0,.3)}
+.pc input:checked + i{box-shadow:0 0 0 3px var(--paper),0 0 0 5px var(--ink)}
+.pc input:focus-visible + i{outline:3px solid var(--teal);outline-offset:4px}
+.pcust{display:inline-flex;align-items:center;gap:6px;font-size:14px;margin:0}
+.pcust input{display:inline-block;width:44px;height:36px;padding:0;margin:0;border:1.5px solid var(--ink);border-radius:4px;background:#fff}
+.art.uart{position:relative;overflow:hidden;touch-action:none;cursor:grab}
+.art.uart:active{cursor:grabbing}
+.art.uart img.uimg{position:absolute;left:50%;top:50%;width:100%;height:100%;max-width:none;object-fit:var(--fit,contain);transform:translate(-50%,-50%) translate(var(--tx,0%),var(--ty,0%)) scale(var(--z,1));transform-origin:center;user-select:none;-webkit-user-select:none;-webkit-user-drag:none;pointer-events:none;transition:none}
+#pgFrame.cp .mat,#pgFrame.cp .art{background:var(--pc)}
+#pgFrame.cp .mat{padding:0}
+.btn.sm{padding:6px 16px;font-size:14px}
+.adj .btn{justify-self:start}
+.warn{font-size:13px;color:#7a4e00;background:#fff3c4;border-radius:4px;padding:4px 10px}
+.warn[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1436,8 +1484,8 @@ img, svg { max-width: 100% }
 
     <form class="aview" id="loginView" novalidate>
       <h2>ورود به حساب</h2>
-      <label>نام کاربری / ایمیل<input id="lUser" autocomplete="username"></label>
-      <label>رمز عبور<input id="lPass" type="password" autocomplete="current-password"></label>
+      <label>نام کاربری / ایمیل<input id="lUser" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
+      <label>رمز عبور<input id="lPass" name="password" type="password" autocomplete="current-password" enterkeyhint="go"></label>
       <p class="aerr" id="lErr" role="alert"></p>
       <button class="btn" type="submit">ورود</button>
       <p class="aalt"><button class="btn alt" id="toOtp" type="button">ورود با کد تأیید</button> <button class="btn alt" id="toForgot" type="button">فراموشی رمز</button></p>
@@ -1447,14 +1495,14 @@ img, svg { max-width: 100% }
     <form class="aview" id="signupView" novalidate hidden>
       <h2>ساخت حساب جدید</h2>
       <div class="arow">
-        <label>نام<input id="sFirst" autocomplete="given-name"></label>
-        <label>نام خانوادگی<input id="sLast" autocomplete="family-name"></label>
+        <label>نام<input id="sFirst" name="given-name" type="text" autocomplete="given-name" enterkeyhint="next"></label>
+        <label>نام خانوادگی<input id="sLast" name="family-name" type="text" autocomplete="family-name" enterkeyhint="next"></label>
       </div>
-      <label>شماره تماس<input id="sPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr"></label>
-      <label>ایمیل<input id="sEmail" type="email" autocomplete="email" dir="ltr"></label>
-      <label>نام کاربری<input id="sUser" autocomplete="username"></label>
-      <label>رمز عبور<input id="sPass" type="password" autocomplete="new-password"></label>
-      <label>تکرار رمز عبور<input id="sPass2" type="password" autocomplete="new-password"></label>
+      <label>شماره تماس<input id="sPhone" name="tel" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" enterkeyhint="next"></label>
+      <label>ایمیل<input id="sEmail" name="email" type="email" inputmode="email" autocomplete="email" dir="ltr" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
+      <label>نام کاربری<input id="sUser" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next"></label>
+      <label>رمز عبور<input id="sPass" name="new-password" type="password" autocomplete="new-password" enterkeyhint="next"></label>
+      <label>تکرار رمز عبور<input id="sPass2" name="confirm-password" type="password" autocomplete="new-password" enterkeyhint="done"></label>
       <p class="vl">کد تأیید به کجا فرستاده بشه؟</p><div class="arow"><label class="rl"><input type="radio" name="sVia" value="phone" checked>شماره تماس</label><label class="rl"><input type="radio" name="sVia" value="email">ایمیل</label></div>
       <p class="aerr" id="sErr" role="alert"></p>
       <button class="btn" type="submit">ادامه و دریافت کد</button>
@@ -1464,7 +1512,7 @@ img, svg { max-width: 100% }
     <form class="aview" id="otpLoginView" novalidate hidden>
       <h2>ورود با کد تأیید</h2>
       <p class="sub">شماره موبایل یا ایمیل حسابت رو بنویس تا کد برات بفرستیم.</p>
-      <label>شماره موبایل / ایمیل<input id="oId" dir="ltr" autocomplete="username"></label>
+      <label>شماره موبایل / ایمیل<input id="oId" name="username" type="text" dir="ltr" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="send"></label>
       <p class="aerr" id="oErr" role="alert"></p>
       <button class="btn" type="submit">ارسال کد</button>
       <p class="aalt"><button class="btn alt toLoginBtn" type="button">ورود با رمز عبور</button></p>
@@ -1473,7 +1521,7 @@ img, svg { max-width: 100% }
     <form class="aview" id="forgotView" novalidate hidden>
       <h2>فراموشی رمز عبور</h2>
       <p class="sub">شماره موبایل یا ایمیل ثبت‌شده‌ت رو بنویس تا کد تأیید برات بفرستیم.</p>
-      <label>شماره موبایل / ایمیل<input id="fId" dir="ltr" autocomplete="username"></label>
+      <label>شماره موبایل / ایمیل<input id="fId" name="username" type="text" dir="ltr" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="send"></label>
       <p class="aerr" id="fErr" role="alert"></p>
       <button class="btn" type="submit">ارسال کد</button>
       <p class="aalt"><button class="btn alt toLoginBtn" type="button">بازگشت به ورود</button></p>
@@ -1483,7 +1531,7 @@ img, svg { max-width: 100% }
       <h2>کد تأیید</h2>
       <p class="sub" id="cMsg"></p>
       <p class="cdemo" id="cDemo"></p>
-      <label>کد ۶ رقمی<input id="cIn" dir="ltr" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></label>
+      <label>کد ۶ رقمی<input id="cIn" name="otp" type="text" dir="ltr" inputmode="numeric" maxlength="6" autocomplete="one-time-code" enterkeyhint="done"></label>
       <p class="aerr" id="cErr" role="alert"></p>
       <button class="btn" type="submit">تأیید</button>
       <p class="aalt"><button class="btn alt" id="cResend" type="button">ارسال دوباره</button> <button class="btn alt" id="cBack" type="button">بازگشت</button></p>
@@ -1491,8 +1539,8 @@ img, svg { max-width: 100% }
 
     <form class="aview" id="resetView" novalidate hidden>
       <h2>رمز عبور جدید</h2>
-      <label>رمز عبور جدید<input id="rPass" type="password" autocomplete="new-password"></label>
-      <label>تکرار رمز عبور<input id="rPass2" type="password" autocomplete="new-password"></label>
+      <label>رمز عبور جدید<input id="rPass" name="new-password" type="password" autocomplete="new-password" enterkeyhint="next"></label>
+      <label>تکرار رمز عبور<input id="rPass2" name="confirm-password" type="password" autocomplete="new-password" enterkeyhint="done"></label>
       <p class="aerr" id="rErr" role="alert"></p>
       <button class="btn" type="submit">ثبت رمز جدید</button>
     </form>
@@ -1606,8 +1654,9 @@ const card = (i, k) => `
   </article>`;
 /* پرفروش‌ها: شماره‌ی تابلوها (به ترتیب items، از ۰) رو اینجا بنویس */
 const BEST = [0, 8, 9];
-const secs = [["پرفروش‌ترین‌ها", BEST.filter(k => items[k])]].concat(Object.keys(CATS).map(c => [CATS[c], items.map((_, k) => k).filter(k => items[k].c === c)])).filter(x => x[1].length);
-document.getElementById("grid").innerHTML = secs.map(([t, ks]) => `<div class="csec"><h3 class="ch">${t}</h3><div class="grid">${ks.map(k => card(items[k], k)).join("")}</div></div>`).join("");
+const secs = [["best", "پرفروش‌ترین‌ها", BEST.filter(k => items[k])]].concat(Object.keys(CATS).map(c => [c, CATS[c], items.map((_, k) => k).filter(k => items[k].c === c)])).filter(x => x[2].length);
+const secOf = key => secs.find(x => x[0] === key);
+document.getElementById("grid").innerHTML = secs.map(([key, t, ks]) => `<div class="csec"><div class="chead"><h3 class="ch">${t}</h3><a class="all" href="#cat-${key}" aria-label="مشاهده‌ی همه‌ی طرح‌های ${h(t)}">همه‌ی طرح‌ها (${fa(ks.length)}) <span aria-hidden="true">←</span></a></div><div class="grid">${ks.map(k => card(items[k], k)).join("")}</div></div>`).join("");
 
 /* سبد خرید */
 const cart = {};
@@ -1626,10 +1675,11 @@ function render() {
           `• جهت آویز: ${i.d}\n` +
           `• رنگ قاب: ${i.f}\n` +
           `• نوع چاپ: ${i.t}\n` +
+          (i.u ? `• تنظیمات عکس: ${i.u}\n` : "") +
           `• تعداد: ${fa(i.q)}\n` +
           `• قیمت هر عدد: ${fa(i.p)} تومان\n` +
           `• جمع این مورد: ${fa(i.p * i.q)} تومان\n`;
-        return `<div class="line"><div>${h(i.n)}<small>${h(i.o)}</small><small>${fa(i.p*i.q)} تومان</small></div><div class="qty"><button type="button" data-q="${k}:1" aria-label="افزایش">+</button><span>${fa(i.q)}</span><button type="button" data-q="${k}:-1" aria-label="کاهش">−</button></div></div>`
+        return `<div class="line"><div>${h(i.n)}<small>${h(i.o)}</small>${i.u ? `<small>${h(i.u)}</small>` : ""}<small>${fa(i.p*i.q)} تومان</small></div><div class="qty"><button type="button" data-q="${k}:1" aria-label="افزایش">+</button><span>${fa(i.q)}</span><button type="button" data-q="${k}:-1" aria-label="کاهش">−</button></div></div>`
       }).join("")
     : '<div class="empty">سبد خرید خالی است.</div>';
   $("count").textContent = fa(count);
@@ -1734,7 +1784,11 @@ const en = s => s.replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
 const ratio = s => en(s).split("×").join("/");
 const view = $("view");
 const homeTitle = document.title;
-let lastY = 0;
+let lastY = 0, lastCat = "";
+
+const PAPERS = [["#ffffff", "سفید"], ["#f3ead7", "کرم"], ["#d9dde0", "طوسی"], ["#111418", "مشکی"], ["#f6d9de", "صورتی"], ["#cfe0f1", "آبی"], ["#d4e6d2", "سبز"]];
+/* جلوگیری از باز شدن عکس وقتی بیرون از کادر آپلود رها می‌شه */
+["dragover", "drop"].forEach(ev => addEventListener(ev, e => { if (document.getElementById("drop")) e.preventDefault() }));
 
 function showProduct(k) {
   const i = items[k];
@@ -1752,9 +1806,22 @@ function showProduct(k) {
   const printHtml = Object.keys(PRINTS).map(p =>
     choice("print", p, `<b>${PRINTS[p].label}</b>${tag(PRICE.print[p])}`, p === "normal")).join("");
 
-  const custHtml = `<fieldset class="opt cust"><legend>عکس تو</legend><input type="file" id="upl" accept="image/png,image/jpeg,image/webp"><div class="choices">${choice("ori", "v", "<b>عمودی</b>", true)}${choice("ori", "h", "<b>افقی</b>", false)}</div><p class="note">عکس فقط توی مرورگر خودت نمایش داده می‌شه و جایی آپلود نمی‌شه. بعد از ثبت سفارش، فایل اصلی رو توی تلگرام برامون بفرست. عکس متناسب با قاب برش می‌خوره.</p><p class="aerr" id="uErr"></p></fieldset>`;
+  const custHtml = `<fieldset class="opt cust"><legend>عکس تو</legend>
+    <input type="file" id="upl" class="sr" accept="image/png,image/jpeg,image/webp">
+    <label class="drop" id="drop" for="upl"><b id="dropT">فایلت رو اینجا آپلود کن</b><small id="dropS">بکش و رها کن، یا بزن تا انتخاب کنی · PNG، JPG، WEBP تا ۱۰ مگابایت</small></label>
+    <p class="aerr" id="uErr" role="alert"></p>
+    <div class="choices">${choice("ori", "v", "<b>عمودی</b>", true)}${choice("ori", "h", "<b>افقی</b>", false)}</div>
+    <div class="adj" id="adj" hidden>
+      <div class="choices">${choice("fit", "contain", "<b>کامل داخل کاغذ</b>", true)}${choice("fit", "cover", "<b>پر کردن کاغذ</b>", false)}</div>
+      <label class="rng"><span>اندازه‌ی عکس</span><input type="range" id="zoom" min="30" max="300" step="1" value="100"><output id="zv" dir="ltr">۱۰۰٪</output></label>
+      <div><div class="vl">رنگ کاغذ</div><div class="pcols">${PAPERS.map(([c, l], n) => `<label class="pc" title="${l}"><input type="radio" name="pcol" value="${c}" aria-label="${l}"${n === 0 ? " checked" : ""}><i style="background:${c}"></i></label>`).join("")}<label class="pcust">رنگ دلخواه <input type="color" id="pcustom" value="#ffffff"></label></div></div>
+      <p class="note">عکس رو روی قاب بکش تا جابه‌جا بشه؛ با نوار بالا کوچیک و بزرگش کن.</p>
+      <p class="warn" id="qWarn" hidden>عکس کم‌کیفیته و ممکنه چاپ تار بشه. اگه نسخه‌ی بزرگ‌تر داری همون رو بفرست.</p>
+      <button class="btn alt sm" id="adjReset" type="button">برگردوندن به حالت اول</button>
+    </div>
+    <p class="note">عکس فقط توی مرورگر خودت نمایش داده می‌شه و جایی آپلود نمی‌شه. بعد از ثبت سفارش، فایل اصلی رو توی تلگرام برامون بفرست.</p></fieldset>`;
   view.innerHTML = `
-    <nav class="crumbs"><a href="#products">← بازگشت به تابلوها</a></nav>
+    <nav class="crumbs"><a href="${lastCat && secOf(lastCat) ? "#cat-" + lastCat : "#products"}">← بازگشت به ${lastCat && secOf(lastCat) ? h(secOf(lastCat)[1]) : "تابلوها"}</a></nav>
     <div class="detail">
       <div class="pbox" id="pgBox">
         <div class="stage"><div class="frame" id="pgFrame" data-frame="black" style="aspect-ratio:210/297"><div class="mat"><div class="art" role="img" aria-label="${h(i.n)}">${artHTML(i)}</div></div></div></div>
@@ -1828,25 +1895,105 @@ function showProduct(k) {
   };
   opts.addEventListener("change", upd);
   upd();
-  const up = $("upl");
-  if (up) up.addEventListener("change", () => {
-    const f = up.files[0];
-    $("uErr").textContent = "";
-    if (!f) return;
-    if (!/^image\/(png|jpe?g|webp)$/.test(f.type)) return $("uErr").textContent = "فقط عکس PNG، JPG یا WEBP.";
-    if (f.size > 10 * 1024 * 1024) return $("uErr").textContent = "حجم عکس بیشتر از ۱۰ مگابایته.";
-    const r = new FileReader();
-    r.onload = () => { userImg = r.result; const im = new Image(); im.alt = "عکس دلخواه"; im.src = userImg; fr.querySelector(".art").replaceChildren(im) };
-    r.readAsDataURL(f);
-  });
+  const st = { z: 100, tx: 0, ty: 0, fit: "contain", col: "#ffffff" };
+  const colName = c => { const p = PAPERS.find(x => x[0] === c); return p ? p[1] : "رنگ دلخواه " + c };
+  const clamp = v => Math.max(-100, Math.min(100, v));
+  const custKey = () => i.custom ? [st.col.slice(1), (st.fit === "cover" ? "fill" : "fit"), st.z, Math.round(st.tx), Math.round(st.ty)].join("-") : "";
+  const custTxt = () => !i.custom ? "" : !userImg ? "عکس هنوز انتخاب نشده" :
+    "رنگ کاغذ: " + colName(st.col) + " · جای‌گذاری: " + (st.fit === "cover" ? "پر کردن کاغذ" : "کامل داخل کاغذ") + " · اندازه‌ی عکس: " + fa(st.z) + "٪ · جابه‌جایی: " + fa(Math.round(st.tx)) + "٪ و " + fa(Math.round(st.ty)) + "٪";
+  if (i.custom) {
+    const artEl = () => fr.querySelector(".art");
+    const applyImg = () => {
+      const a = artEl();
+      a.style.setProperty("--z", st.z / 100);
+      a.style.setProperty("--tx", st.tx + "%");
+      a.style.setProperty("--ty", st.ty + "%");
+      a.style.setProperty("--fit", st.fit);
+      fr.style.setProperty("--pc", st.col);
+      $("zv").textContent = fa(st.z) + "٪";
+      $("zoom").value = st.z;
+    };
+    const reset = () => {
+      Object.assign(st, { z: 100, tx: 0, ty: 0, fit: "contain", col: "#ffffff" });
+      opts.querySelector('input[name="fit"][value="contain"]').checked = true;
+      opts.querySelector('input[name="pcol"]').checked = true;
+      $("pcustom").value = "#ffffff";
+      applyImg();
+    };
+    const loadFile = f => {
+      const er = $("uErr");
+      er.textContent = "";
+      if (!f) return;
+      if (!/^image\/(png|jpe?g|webp)$/.test(f.type)) return er.textContent = "فقط عکس PNG، JPG یا WEBP.";
+      if (f.size > 10 * 1024 * 1024) return er.textContent = "حجم عکس بیشتر از ۱۰ مگابایته.";
+      const r = new FileReader();
+      r.onerror = () => er.textContent = "خوندن عکس ممکن نشد؛ یه عکس دیگه امتحان کن.";
+      r.onload = () => {
+        const im = new Image();
+        im.className = "uimg"; im.alt = "عکس دلخواه"; im.draggable = false;
+        im.onerror = () => er.textContent = "این فایل عکس معتبری نیست.";
+        im.onload = () => {
+          userImg = r.result;
+          const a = artEl();
+          a.classList.add("uart");
+          a.tabIndex = 0;
+          a.setAttribute("aria-label", "عکس تو؛ با کشیدن یا کلیدهای جهت‌دار جابه‌جاش کن");
+          a.replaceChildren(im);
+          fr.classList.add("cp");
+          $("adj").hidden = false;
+          $("dropT").textContent = "عکس آپلود شد ✓";
+          $("dropS").textContent = f.name.slice(0, 60) + " · برای عوض کردن، عکس تازه رو اینجا بنداز یا بزن";
+          $("qWarn").hidden = Math.min(im.naturalWidth, im.naturalHeight) >= 1000;
+          reset();
+        };
+        im.src = r.result;
+      };
+      r.readAsDataURL(f);
+    };
+    const up = $("upl"), dz = $("drop");
+    up.addEventListener("change", () => loadFile(up.files[0]));
+    ["dragenter", "dragover"].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add("over") }));
+    ["dragleave", "drop"].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove("over") }));
+    dz.addEventListener("drop", e => loadFile(e.dataTransfer && e.dataTransfer.files[0]));
+    opts.addEventListener("input", e => {
+      if (e.target.id === "zoom") { st.z = +e.target.value; applyImg() }
+      else if (e.target.id === "pcustom") { st.col = e.target.value; opts.querySelectorAll('input[name="pcol"]').forEach(r => r.checked = false); applyImg() }
+    });
+    opts.addEventListener("change", e => {
+      if (e.target.name === "fit") { st.fit = e.target.value; applyImg() }
+      else if (e.target.name === "pcol") { st.col = e.target.value; $("pcustom").value = e.target.value; applyImg() }
+    });
+    $("adjReset").onclick = reset;
+    let drag = null;
+    fr.addEventListener("pointerdown", e => {
+      const a = artEl();
+      if (!userImg || !a.contains(e.target)) return;
+      drag = { x: e.clientX, y: e.clientY, tx: st.tx, ty: st.ty, w: a.clientWidth || 1, h: a.clientHeight || 1 };
+      try { fr.setPointerCapture(e.pointerId) } catch (er) {}
+    });
+    fr.addEventListener("pointermove", e => {
+      if (!drag) return;
+      st.tx = clamp(drag.tx + (e.clientX - drag.x) / drag.w * 100);
+      st.ty = clamp(drag.ty + (e.clientY - drag.y) / drag.h * 100);
+      applyImg();
+    });
+    ["pointerup", "pointercancel"].forEach(ev => fr.addEventListener(ev, () => { drag = null }));
+    fr.addEventListener("keydown", e => {
+      const d = { ArrowLeft: [-2, 0], ArrowRight: [2, 0], ArrowUp: [0, -2], ArrowDown: [0, 2] }[e.key];
+      if (!userImg || !d || !e.target.classList.contains("uart")) return;
+      e.preventDefault();
+      st.tx = clamp(st.tx + d[0]); st.ty = clamp(st.ty + d[1]);
+      applyImg();
+    });
+  }
 
   $("addOne").onclick = e => {
     const c = cur();
     const oo = getOri();
-    const key = `${k}|${c.s}|${c.f}|${c.p}|${oo}`;
+    const key = `${k}|${c.s}|${c.f}|${c.p}|${oo}|${custKey()}`;
     const o = [c.s, OR(oo), "قاب " + FRAMES[c.f].label, PRINTS[c.p].label].join("، ");
     if (cart[key]) cart[key].q++;
-    else cart[key] = { d: OR(oo), n: i.custom ? "طرح دلخواه — عکس رو توی همین چت می‌فرستم" : i.n, o, p: c.price, q: 1, z: c.s + " (" + dimOf(c.s, oo) + " سانتی‌متر)", f: FRAMES[c.f].label, t: PRINTS[c.p].label };
+    else cart[key] = { u: custTxt(), d: OR(oo), n: i.custom ? "طرح دلخواه — عکس رو توی همین چت می‌فرستم" : i.n, o, p: c.price, q: 1, z: c.s + " (" + dimOf(c.s, oo) + " سانتی‌متر)", f: FRAMES[c.f].label, t: PRINTS[c.p].label };
     render();
     e.target.textContent = "اضافه شد ✓";
     e.target.classList.add("added");
@@ -1860,14 +2007,30 @@ function showProduct(k) {
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 }
 
+function showCat(key) {
+  const sc = secOf(key);
+  lastCat = key;
+  document.title = sc[1] + " | Pixie Gallery";
+  view.innerHTML = `<nav class="crumbs"><a href="#products">← بازگشت به تابلوها</a></nav><h1 class="cath">${h(sc[1])} <small>(${fa(sc[2].length)} طرح)</small></h1><div class="grid catp">${sc[2].map(k => card(items[k], k)).join("")}</div>`;
+  view.hidden = false;
+  document.body.classList.add("in-product");
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+}
+
 function route() {
-  const m = /^#product-(\d+)$/.exec(location.hash);
+  const m = /^#product-(\d+)$/.exec(location.hash), cm = /^#cat-([a-z]+)$/.exec(location.hash);
   const was = document.body.classList.contains("in-product");
   if (m && items[+m[1]]) {
     if (!was) lastY = window.scrollY;
     showProduct(+m[1]);
     return;
   }
+  if (cm && secOf(cm[1])) {
+    if (!was) lastY = window.scrollY;
+    showCat(cm[1]);
+    return;
+  }
+  lastCat = "";
   document.body.classList.remove("in-product");
   view.hidden = true;
   document.title = homeTitle;
@@ -1943,7 +2106,28 @@ function openAccount() {
   }
 }
 
-const closeAccount = () => { $("amodal").hidden = true; if (cb) cb(false) };
+/* با بستن پنجره، همه‌ی فیلدها، خطاها و مرحله‌ی کد تأیید پاک می‌شن */
+function resetAccountForms() {
+  document.querySelectorAll("#amodal form").forEach(f => f.reset());
+  document.querySelectorAll("#amodal .aerr").forEach(e => e.textContent = "");
+  $("cMsg").textContent = "";
+  $("cDemo").textContent = "";
+  clearInterval(tick);
+  resetKey = ""; cTarget = ""; cVia = ""; codeBack = "loginView";
+}
+const closeAccount = () => {
+  if ($("amodal").hidden) return;
+  $("amodal").hidden = true;
+  if (cb) cb(false);
+  resetAccountForms();
+};
+/* ذخیره‌ی نام کاربری و رمز در Google Password Manager (فقط مرورگرهایی که پشتیبانی می‌کنن) */
+const storeCred = (id, pw, name) => {
+  try {
+    if (window.PasswordCredential && navigator.credentials && navigator.credentials.store)
+      navigator.credentials.store(new PasswordCredential({ id, password: pw, name })).catch(() => {});
+  } catch (e) {}
+};
 
 function setSession(k) {
   meKey = k;
@@ -1970,6 +2154,7 @@ $("loginView").addEventListener("submit", async e => {
   const k = id.includes("@") ? Object.keys(all).find(x => (own(all, x) || {}).email === id) : id;
   const u = own(all, k);
   if (!u || typeof u.salt !== "string" || await hashPw(pw, fromB64(u.salt)) !== u.hash) return setErr("lErr", "نام کاربری / ایمیل یا رمز عبور اشتباهه.");
+  storeCred(id, pw, u.name || id);
   setSession(k);
   $("lPass").value = "";
   closeAccount();
@@ -1981,7 +2166,7 @@ const pn = t => digits(String(t)).replace(/\D/g, "").slice(-10);
 $("signupView").addEventListener("submit", async e => {
   e.preventDefault();
   const first = $("sFirst").value.trim(), last = $("sLast").value.trim();
-  const phone = digits($("sPhone").value).replace(/[\s-]/g, "");
+  const phone = digits($("sPhone").value).replace(/[\s\-()]/g, "");
   const email = norm($("sEmail").value);
   const name = $("sUser").value.trim(), k = norm(name), pw = $("sPass").value;
   if (!first || !last) return setErr("sErr", "نام و نام خانوادگی رو وارد کن.");
@@ -2001,6 +2186,7 @@ $("signupView").addEventListener("submit", async e => {
   const salt = crypto.getRandomValues(new Uint8Array(16));
   all[k] = { name, first, last, phone, email, salt: toB64(salt), hash: await hashPw(pw, salt) };
   try { localStorage.setItem("pixieUsers", JSON.stringify(all)) } catch (err) { return setErr("sErr", "ذخیره‌سازی مرورگر در دسترس نیست.") }
+  storeCred(name, pw, name);
   setSession(k);
   $("sPass").value = $("sPass2").value = "";
   closeAccount();
@@ -2109,6 +2295,7 @@ $("resetView").addEventListener("submit", async e => {
   try { localStorage.setItem("pixieUsers", JSON.stringify(all)) } catch (err) { return setErr("rErr", "ذخیره‌سازی مرورگر در دسترس نیست.") }
   const k = resetKey;
   resetKey = "";
+  storeCred(u.name || k, pw, u.name || k);
   $("rPass").value = $("rPass2").value = "";
   setSession(k);
   closeAccount();
@@ -2131,6 +2318,7 @@ $("resetView").addEventListener("submit", async e => {
 
   const filter = () => {
     const terms = norm(input.value).split(" ").filter(Boolean);
+    document.body.classList.toggle("searching", terms.length > 0);
     let shown = 0; const seen = new Set();
     cards.forEach(el => {
       const ok = terms.every(t => el._h.includes(t));
@@ -2165,4 +2353,4 @@ $("resetView").addEventListener("submit", async e => {
 })();
 </script>
 </body>
-</html> 
+</html>
