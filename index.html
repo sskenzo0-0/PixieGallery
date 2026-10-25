@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
 <meta name="referrer" content="no-referrer">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pixie Gallery | تابلوهای طرح‌دار قاب‌شده</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;600;700&family=Lalezar&display=swap" rel="stylesheet">
@@ -1395,6 +1395,16 @@ body:not(.searching) .csec .item:nth-child(n+4){display:none}
 .total.post[hidden], .onote[hidden], .otext[hidden] { display: none }
 .cart .onote { margin: 10px 0 0; font-size: .85rem; line-height: 1.8; opacity: .85 }
 .cart .otext { width: 100%; margin-top: 8px; padding: 8px; font: inherit; font-size: .8rem; border: 1px solid #8b949a; border-radius: 6px; background: transparent; color: inherit; resize: vertical; box-sizing: border-box }
+
+/* پایدارسازی نمایش روی گوشی */
+html { overflow-x: clip }
+body { overflow-x: clip; min-width: 0 }
+img, svg, video { max-width: 100% }
+@media (hover: none) and (pointer: coarse) {
+  .btn, .cartbtn, .choice, .qty button { min-height: 44px }
+  .qty button { min-width: 44px }
+}
+@media (max-width: 480px) { .wrap { padding-inline: 14px } }
 </style>
 </head>
 <body>
