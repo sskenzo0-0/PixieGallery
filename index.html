@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-FIa18HNtXMPdYjf3hPUYvZ30AZdDAKmK5tztHsOajDs='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'; frame-src 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pixie Gallery | تابلوهای طرح‌دار قاب‌شده</title>
@@ -1389,6 +1389,12 @@ body:not(.searching) .csec .item:nth-child(n+4){display:none}
 
 /* کارت محصول: نسبت قاب هم‌اندازه‌ی صفحه‌ی محصول (A-سایز) تا پوسترها بریده نشن */
 .item .frame{height:auto;aspect-ratio:210/297}
+
+/* هزینه پست و متن سفارش */
+.total.post { font-weight: 400; padding: 8px 0 0; opacity: .85 }
+.total.post[hidden], .onote[hidden], .otext[hidden] { display: none }
+.cart .onote { margin: 10px 0 0; font-size: .85rem; line-height: 1.8; opacity: .85 }
+.cart .otext { width: 100%; margin-top: 8px; padding: 8px; font: inherit; font-size: .8rem; border: 1px solid #8b949a; border-radius: 6px; background: transparent; color: inherit; resize: vertical; box-sizing: border-box }
 </style>
 </head>
 <body>
@@ -1560,8 +1566,11 @@ body:not(.searching) .csec .item:nth-child(n+4){display:none}
 <aside class="cart" id="cart" aria-label="سبد خرید">
   <h2>سبد خرید</h2>
   <div class="lines" id="lines"></div>
+  <div class="total post" id="postRow" hidden><span>هزینه پست</span><span id="postFee">۵۰٬۰۰۰ تومان</span></div>
   <div class="total"><span>جمع کل</span><span id="total">۰ تومان</span></div>
-  <a class="btn" id="order" target="_blank" rel="noopener noreferrer">ادامه خرید</a>
+  <a class="btn" id="order" href="#" target="_blank" rel="noopener noreferrer">ادامه خرید</a>
+  <p class="onote" id="orderNote" role="status" hidden></p>
+  <textarea class="otext" id="orderText" readonly rows="6" hidden aria-label="متن سفارش"></textarea>
   <button class="btn alt" id="closeCart" type="button">بستن</button>
 </aside>
 
@@ -1682,6 +1691,8 @@ document.getElementById("grid").innerHTML = secs.map(([key, t, ks]) => `<div cla
 const cart = {};
 const $ = id => document.getElementById(id);
 
+const POST_FEE = 50000; /* هزینه پست (تومان) - برای تغییر فقط این عدد رو عوض کن */
+let orderMsg = "", orderUrl = "https://t.me/" + TELEGRAM;
 function render() {
   const ids = Object.keys(cart);
   let total = 0, count = 0, msg = "سلام، می‌خوام این تابلوها رو سفارش بدم:\n";
@@ -1703,7 +1714,12 @@ function render() {
       }).join("")
     : '<div class="empty">سبد خرید خالی است.</div>';
   $("count").textContent = fa(count);
+  const fee = ids.length ? POST_FEE : 0;
+  total += fee;
+  $("postRow").hidden = !ids.length;
+  $("postFee").textContent = fa(fee) + " تومان";
   $("total").textContent = fa(total) + " تومان";
+  if (ids.length) msg += `\n\nهزینه پست: ${fa(fee)} تومان`;
   msg += `\nجمع کل: ${fa(total)} تومان`;
   /* اگه مشتری وارد حسابش شده، نام و شماره‌اش هم برای ادمین نوشته می‌شه */
   try {
@@ -1713,9 +1729,36 @@ function render() {
       msg += "\n\nمشخصات من:" + (full ? `\n• نام: ${full}` : "") + (u.phone ? `\n• شماره تماس: ${u.phone}` : "");
     }
   } catch (e) {}
-  $("order").href = ids.length ? "https://t.me/" + TELEGRAM + "?text=" + encodeURIComponent(msg) : "#";
+  /* متن فارسی توی لینک تلگرام خیلی بلند می‌شه و لینک کار نمی‌کنه؛ پس چت رو باز می‌کنیم و متن رو کپی می‌کنیم */
+  orderMsg = ids.length ? msg : "";
+  $("order").href = ids.length ? orderUrl : "#";
   $("order").style.opacity = ids.length ? 1 : .5;
+  $("orderNote").hidden = true;
+  $("orderText").hidden = true;
 }
+const copyText = t => {
+  try { if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(t).catch(() => {}); return true } } catch (e) {}
+  try {
+    const ta = $("orderText");
+    ta.hidden = false; ta.value = t; ta.focus(); ta.select(); ta.setSelectionRange(0, t.length);
+    const ok = document.execCommand("copy");
+    ta.hidden = true;
+    return ok;
+  } catch (e) { return false }
+};
+$("order").addEventListener("click", e => {
+  e.preventDefault();
+  if (!orderMsg) return;
+  const ok = copyText(orderMsg);
+  $("orderNote").hidden = false;
+  $("orderNote").textContent = ok
+    ? "متن سفارش کپی شد. توی چت تلگرام Paste کن و بفرست. اگه تلگرام باز نشد، دوباره دکمه رو بزن."
+    : "متن سفارش رو از کادر پایین کپی کن و توی چت تلگرام بفرست.";
+  $("orderText").value = orderMsg;
+  $("orderText").hidden = false;
+  const w = window.open(orderUrl, "_blank");
+  if (w) { try { w.opener = null } catch (er) {} } else location.href = orderUrl;
+});
 
 const toggle = o => document.body.classList.toggle("cart-open", o);
 
