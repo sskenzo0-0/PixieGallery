@@ -1693,14 +1693,24 @@ const $ = id => document.getElementById(id);
 
 const POST_FEE = 50000; /* هزینه پست (تومان) - برای تغییر فقط این عدد رو عوض کن */
 let orderMsg = "", orderUrl = "https://t.me/" + TELEGRAM;
+/* لینک تلگرام با متن آماده: اول متن کامل، اگه لینک خیلی بلند شد متن کوتاه‌تر، و در نهایت یه جمله‌ی کوتاه.
+   (متن کامل همیشه کپی هم می‌شه) */
+function setOrderUrl(has, full, brief, count, total, fee) {
+  const base = "https://t.me/" + TELEGRAM, tg = base + "?text=";
+  const tiers = [full, brief + `\n\nهزینه پست: ${fa(fee)} تومان\nجمع کل: ${fa(total)} تومان`, `سلام، ${fa(count)} تابلو سفارش دادم. جمع کل: ${fa(total)} تومان`];
+  const pick = tiers.find(t => (tg + encodeURIComponent(t)).length <= 1500);
+  orderUrl = pick ? tg + encodeURIComponent(pick) : base;
+  $("order").href = has ? orderUrl : "#";
+}
 function render() {
   const ids = Object.keys(cart);
-  let total = 0, count = 0, msg = "سلام، می‌خوام این تابلوها رو سفارش بدم:\n";
+  let total = 0, count = 0, msg = "سلام، می‌خوام این تابلوها رو سفارش بدم:\n", brief = "سلام، سفارش من:";
   $("lines").innerHTML = ids.length
     ? ids.map((k, n) => {
         const i = cart[k];
         total += i.p * i.q;
         count += i.q;
+        brief += `\n${fa(n + 1)}) ${i.n} | ${String(i.z).split(" ")[0]}، ${i.d}، قاب ${i.f}، ${i.t} × ${fa(i.q)}`;
         msg += `\n${fa(n + 1)}) ${i.n}\n` +
           `• سایز: ${i.z}\n` +
           `• جهت آویز: ${i.d}\n` +
@@ -1731,7 +1741,7 @@ function render() {
   } catch (e) {}
   /* متن فارسی توی لینک تلگرام خیلی بلند می‌شه و لینک کار نمی‌کنه؛ پس چت رو باز می‌کنیم و متن رو کپی می‌کنیم */
   orderMsg = ids.length ? msg : "";
-  $("order").href = ids.length ? orderUrl : "#";
+  setOrderUrl(ids.length, msg, brief, count, total, fee);
   $("order").style.opacity = ids.length ? 1 : .5;
   $("orderNote").hidden = true;
   $("orderText").hidden = true;
@@ -1752,7 +1762,7 @@ $("order").addEventListener("click", e => {
   const ok = copyText(orderMsg);
   $("orderNote").hidden = false;
   $("orderNote").textContent = ok
-    ? "متن سفارش کپی شد. توی چت تلگرام Paste کن و بفرست. اگه تلگرام باز نشد، دوباره دکمه رو بزن."
+    ? "متن سفارش توی چت تلگرام آماده شده؛ فقط ارسال رو بزن. اگه متن نیومد، توی چت Paste کن (متن کامل کپی شده)."
     : "متن سفارش رو از کادر پایین کپی کن و توی چت تلگرام بفرست.";
   $("orderText").value = orderMsg;
   $("orderText").hidden = false;
